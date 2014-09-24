@@ -47,7 +47,7 @@ uint32_t solvingBee;                        // LitecoinCash: Hive: Mining optimi
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// BitcoinMiner
+// MazacoinMiner
 //
 
 //

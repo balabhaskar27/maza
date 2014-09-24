@@ -5,9 +5,9 @@ dnl file COPYING or http://www.opensource.org/licenses/mit-license.php.
 dnl Helper for cases where a qt dependency is not met.
 dnl Output: If qt version is auto, set bitcoin_enable_qt to false. Else, exit.
 AC_DEFUN([BITCOIN_QT_FAIL],[
-  if test "x$bitcoin_qt_want_version" = xauto && test "x$bitcoin_qt_force" != xyes; then
-    if test "x$bitcoin_enable_qt" != xno; then
-      AC_MSG_WARN([$1; litecoincash-qt frontend will not be built])
+  if test "x$bitcoin_qt_want_version" = "xauto" && test x$bitcoin_qt_force != xyes; then
+    if test x$bitcoin_enable_qt != xno; then
+      AC_MSG_WARN([$1; mazacoin-qt frontend will not be built])
     fi
     bitcoin_enable_qt=no
     bitcoin_enable_qt_test=no

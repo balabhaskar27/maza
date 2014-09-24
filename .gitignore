@@ -1,13 +1,12 @@
 *.tar.gz
 
 *.exe
-src/litecoincash
-src/litecoincashd
-src/litecoincash-cli
-src/litecoincash-tx
-src/test/test_litecoincash
-src/test/test_litecoincash_fuzzy
-src/qt/test/test_litecoincash-qt
+src/mazacoin
+src/mazacoind
+src/mazacoin-cli
+src/mazacoin-tx
+src/test/test_mazacoin
+src/qt/test/test_mazacoin-qt
 
 # autoreconf
 Makefile.in
@@ -62,6 +61,7 @@ src/qt/bitcoin-qt.includes
 *.o
 *.o-*
 *.patch
+.mazacoin
 *.a
 *.pb.cc
 *.pb.h
@@ -80,13 +80,12 @@ src/qt/bitcoin-qt.includes
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-litecoincash-qt
-litecoincash-Qt.app
-background.tiff*
+mazacoin-qt
+Bitcoin-Qt.app
 
 # Unit-tests
 Makefile.test
-litecoincash-qt_test
+mazacoin-qt_test
 
 # Resources cpp
 qrc_*.cpp
@@ -98,7 +97,7 @@ build
 *.gcno
 *.gcda
 /*.info
-test_litecoincash.coverage/
+test_mazacoin.coverage/
 total.coverage/
 coverage_percent.txt
 
@@ -106,8 +105,8 @@ coverage_percent.txt
 linux-coverage-build
 linux-build
 win32-build
-test/config.ini
-test/cache/*
+qa/pull-tester/run-mazacoind-for-test.sh
+qa/pull-tester/build-tests.sh
 
 !src/leveldb*/Makefile
 

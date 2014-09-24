@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Core developers
+// Copyright (c) 2014 The Mazacoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -424,10 +425,10 @@ public:
         consensus.defaultAssumeValid = uint256S("0x00");
 
         pchMessageStart[0] = 0xfa;
-        pchMessageStart[1] = 0xbf;
-        pchMessageStart[2] = 0xb5;
-        pchMessageStart[3] = 0xda;
-        nDefaultPort = 19444;
+        pchMessageStart[1] = 0x0f;
+        pchMessageStart[2] = 0xa5;
+        pchMessageStart[3] = 0x5a;
+        nDefaultPort = 11444;
         nPruneAfterHeight = 1000;
 
         genesis = CreateGenesisBlock(1296688602, 0, 0x207fffff, 1, 50 * COIN * COIN_SCALE);

@@ -40,9 +40,9 @@ QString BitcoinUnits::longName(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("LCC");                // LitecoinCash: Updated names
-    case mBTC: return QString("mLCC");
-    case uBTC: return QString::fromUtf8("μLCC");
+    case BTC: return QString("mzc");
+    case mBTC: return QString("mmzc");
+    case uBTC: return QString("umzc");
     default: return QString("???");
     }
 }
@@ -60,9 +60,9 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("LCC");                // LitecoinCash: Updated descriptions
-    case mBTC: return QString("Milli-LCC (1 / 1" THIN_SP_UTF8 "000)");
-    case uBTC: return QString("Micro-LCC (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case BTC: return QString("Mazacoins");
+    case mBTC: return QString("Milli-Mazacoins (1 / 1" THIN_SP_UTF8 "000)");
+    case uBTC: return QString("Micro-Mazacoins (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }

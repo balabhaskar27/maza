@@ -56,8 +56,8 @@ static int AppInitRawTx(int argc, char* argv[])
         // First part of help message is specific to this utility
         std::string strUsage = strprintf(_("%s litecoincash-tx utility version"), _(PACKAGE_NAME)) + " " + FormatFullVersion() + "\n\n" +
             _("Usage:") + "\n" +
-              "  litecoincash-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded litecoincash transaction") + "\n" +
-              "  litecoincash-tx [options] -create [commands]   " + _("Create hex-encoded litecoincash transaction") + "\n" +
+              "  mazacoin-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded mazacoin transaction") + "\n" +
+              "  mazacoin-tx [options] -create [commands]   " + _("Create hex-encoded mazacoin transaction") + "\n" +
               "\n";
 
         fprintf(stdout, "%s", strUsage.c_str());

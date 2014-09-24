@@ -560,7 +560,7 @@ static std::string FormatException(const std::exception* pex, const char* pszThr
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(nullptr, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "litecoincash";
+    const char* pszModule = "mazacoin";
 #endif
     if (pex)
         return strprintf(
@@ -585,7 +585,7 @@ fs::path GetDefaultDataDir()
     // Unix: ~/.bitcoin
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "LitecoinCash";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Mazacoin";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -598,7 +598,7 @@ fs::path GetDefaultDataDir()
     return pathRet / "Library/Application Support/LitecoinCash";
 #else
     // Unix
-    return pathRet / ".litecoincash";
+    return pathRet / ".mazacoin";
 #endif
 #endif
 }
@@ -660,7 +660,7 @@ void ArgsManager::ReadConfigFile(const std::string& confPath)
 {
     fs::ifstream streamConfig(GetConfigFile(confPath));
     if (!streamConfig.good())
-        return; // No bitcoin.conf file is OK
+        return; // No mazacoin.conf file is OK
 
     {
         LOCK(cs_args);

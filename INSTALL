@@ -1,0 +1,5 @@
+Building Mazacoin
+
+See doc/build-*.md for instructions on building mazacoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of Mazacoin.

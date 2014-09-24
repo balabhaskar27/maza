@@ -34,6 +34,8 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     int paddingTop              = 50;
     int titleVersionVSpace      = 17;
     int titleCopyrightVSpace    = 40;
+    int titleCopyrightVSpace2   = 53;
+    int titleCopyrightVSpace3   = 66;
 
     float fontFactor            = 1.0;
     float devicePixelRatio      = 1.0;
@@ -42,7 +44,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
 #endif
 
     // define text to place
-    QString titleText       = tr("Litecoin Cash");  // LitecoinCash: Show the pretty name, not package name
+    QString titleText       = tr("Mazacoin Core");
     QString versionText     = QString("Version %1").arg(QString::fromStdString(FormatFullVersion()));
     QString copyrightText   = QString::fromUtf8(CopyrightHolders(strprintf("\xc2\xA9 %u-%u ", 2011, COPYRIGHT_YEAR)).c_str());
     QString titleAddText    = networkStyle->getTitleAddText();

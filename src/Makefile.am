@@ -65,15 +65,15 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += litecoincashd
+  bin_PROGRAMS += mazacoind
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += litecoincash-cli litecoincash-tx
+  bin_PROGRAMS += mazacoin-cli mazacoin-tx
 endif
 
+# mazacoin core #
 .PHONY: FORCE check-symbols check-security
-# bitcoin core #
 BITCOIN_CORE_H = \
   addrdb.h \
   addrman.h \
@@ -438,7 +438,7 @@ libbitcoin_cli_a_SOURCES = \
   rpc/client.cpp \
   $(BITCOIN_CORE_H)
 
-nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libmazacoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #

@@ -21,16 +21,8 @@ BITCOIN_QT_BIN=$(top_builddir)/src/qt/$(BITCOIN_GUI_NAME)$(EXEEXT)
 BITCOIN_CLI_BIN=$(top_builddir)/src/$(BITCOIN_CLI_NAME)$(EXEEXT)
 BITCOIN_WIN_INSTALLER=$(PACKAGE)-$(PACKAGE_VERSION)-win$(WINDOWS_BITS)-setup$(EXEEXT)
 
-empty :=
-space := $(empty) $(empty)
-
-OSX_APP=LitecoinCash-Qt.app
-OSX_VOLNAME = $(subst $(space),-,$(PACKAGE_NAME))
-OSX_DMG = $(OSX_VOLNAME).dmg
-OSX_BACKGROUND_SVG=background.svg
-OSX_BACKGROUND_IMAGE=background.tiff
-OSX_BACKGROUND_IMAGE_DPIS=36 72
-OSX_DSSTORE_GEN=$(top_srcdir)/contrib/macdeploy/custom_dsstore.py
+OSX_APP=Mazacoin-Qt.app
+OSX_DMG=Mazacoin-Qt.dmg
 OSX_DEPLOY_SCRIPT=$(top_srcdir)/contrib/macdeploy/macdeployqtplus
 OSX_FANCY_PLIST=$(top_srcdir)/contrib/macdeploy/fancy.plist
 OSX_INSTALLER_ICONS=$(top_srcdir)/src/qt/res/icons/bitcoin.icns
@@ -95,7 +87,7 @@ $(OSX_APP)/Contents/Resources/bitcoin.icns: $(OSX_INSTALLER_ICONS)
 	$(MKDIR_P) $(@D)
 	$(INSTALL_DATA) $< $@
 
-$(OSX_APP)/Contents/MacOS/LitecoinCash-Qt: $(BITCOIN_QT_BIN)
+$(OSX_APP)/Contents/MacOS/Mazacoin-Qt: $(BITCOIN_QT_BIN)
 	$(MKDIR_P) $(@D)
 	STRIPPROG="$(STRIP)" $(INSTALL_STRIP_PROGRAM)  $< $@
 
