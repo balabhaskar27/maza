@@ -382,6 +382,10 @@
         <translation>&amp;Receber</translation>
     </message>
     <message>
+        <source>Show information about Bitcoin Core</source>
+        <translation>Mostrar informação sobre Bitcoin Core</translation>
+    </message>
+    <message>
         <source>&amp;Show / Hide</source>
         <translation>Mo&amp;strar / Ocultar</translation>
     </message>
