@@ -3430,6 +3430,10 @@
         <translation>Fout bij openen blokkendatabase</translation>
     </message>
     <message>
+        <source>Error: A fatal internal error occured, see debug.log for details</source>
+        <translation>Fout: Een fatale interne fout is opgetreden, zie debug.log voor details</translation>
+    </message>
+    <message>
         <source>Error: Disk space is low!</source>
         <translation>Fout: Weinig vrije diskruimte!</translation>
     </message>
@@ -3728,6 +3732,10 @@
     <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation>Verzend trace/debug-info naar de console in plaats van het debug.log-bestand</translation>
+    </message>
+    <message>
+        <source>Send transactions as zero-fee transactions if possible (default: %u)</source>
+        <translation>Verstuur transacties zonder verzendkosten indien mogelijk (standaard: %u)</translation>
     </message>
     <message>
         <source>Show all debugging options (usage: --help -help-debug)</source>

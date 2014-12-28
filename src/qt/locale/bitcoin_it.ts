@@ -2134,6 +2134,10 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
         <translation>(Commissione intelligente non ancora inizializzata. Normalmente richiede un'attesa di alcuni blocchi...)</translation>
     </message>
     <message>
+        <source>(confirmation may take longer)</source>
+        <translation>(la conferma potrebbe richiedere più tempo)</translation>
+    </message>
+    <message>
         <source>Send to multiple recipients at once</source>
         <translation>Invia simultaneamente a più beneficiari</translation>
     </message>
@@ -3605,6 +3609,10 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
     <message>
         <source>Discover own IP addresses (default: 1 when listening and no -externalip or -proxy)</source>
         <translation>Scopre i propri indirizzi IP (predefinito: 1 se in ascolto ed -externalip o -proxy non sono specificati)</translation>
+    </message>
+    <message>
+        <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
+        <translation>Crea nuovi file con i permessi di default del sistema invece dell'umask 077 (effettiva solo con la funzionalità del wallet disabilitata)</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
