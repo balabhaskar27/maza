@@ -4630,6 +4630,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+3"/>
+        <source>Maximum total fees to use in a single wallet transaction, setting too low may abort large transactions (default: %s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+7"/>
         <source>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</source>
         <translation type="unfinished"></translation>
@@ -4851,6 +4856,11 @@
     </message>
     <message>
         <location line="+5"/>
+        <source>Transaction too large for fee policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Transaction too large for fee policy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5255,7 +5265,7 @@
         <translation>Insufficient funds</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+14"/>
         <source>Loading block index...</source>
         <translation>Loading block index...</translation>
     </message>
