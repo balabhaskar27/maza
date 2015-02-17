@@ -82,9 +82,7 @@ typedef int32_t ssize_t;
 #endif
 #endif
 
-#if HAVE_DECL_STRNLEN == 0
-size_t strnlen( const char *start, size_t max_len);
-#endif // HAVE_DECL_STRNLEN
+size_t strnlen_int( const char *start, size_t max_len);
 
 bool static inline IsSelectableSocket(const SOCKET& s) {
 #ifdef WIN32
