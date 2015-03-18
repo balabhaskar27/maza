@@ -487,6 +487,11 @@ public:
         nKey.SetNull();
     }
 
+    CAddrMan()
+    {
+        Clear();
+    }
+
     ~CAddrMan()
     {
         nKey = uint256(0);
