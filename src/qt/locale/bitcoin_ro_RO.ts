@@ -382,6 +382,10 @@
         <translation>P&amp;rimeşte</translation>
     </message>
     <message>
+        <source>Show information about Bitcoin Core</source>
+        <translation>Arată informații despre Bitcoin Core</translation>
+    </message>
+    <message>
         <source>&amp;Show / Hide</source>
         <translation>Arată/Ascunde</translation>
     </message>
@@ -480,6 +484,10 @@
     <message>
         <source>Up to date</source>
         <translation>Actualizat</translation>
+    </message>
+    <message numerus="yes">
+        <source>Processed %n blocks of transaction history.</source>
+        <translation><numerusform>S-a procesat %n bloc din istoricul tranzacțiilor.</numerusform><numerusform>S-au procesat %n blocuri din istoricul tranzacțiilor.</numerusform><numerusform>S-au procesat %n blocuri din istoricul tranzacțiilor.</numerusform></translation>
     </message>
     <message>
         <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>

@@ -1132,6 +1132,10 @@ Ví của bạn chưa được mã hóa.</translation>
     </context>
 <context>
     <name>SplashScreen</name>
+    <message>
+        <source>Bitcoin Core</source>
+        <translation>Bitcoin Core</translation>
+    </message>
     </context>
 <context>
     <name>TrafficGraphWidget</name>

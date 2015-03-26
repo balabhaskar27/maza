@@ -7,7 +7,7 @@
     </message>
     <message>
         <source>Create a new address</source>
-        <translation>Criar um novo endereço</translation>
+        <translation>Criar novo endereço</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -1680,6 +1680,14 @@ Esta sincronização inicial é muito exigente e pode expor problemas de hardwar
     <message>
         <source>Services</source>
         <translation>Serviços</translation>
+    </message>
+    <message>
+        <source>Starting Height</source>
+        <translation>Altura inicial</translation>
+    </message>
+    <message>
+        <source>Sync Height</source>
+        <translation>Altura sincronizada</translation>
     </message>
     <message>
         <source>Ban Score</source>
@@ -3721,6 +3729,10 @@ Esta sincronização inicial é muito exigente e pode expor problemas de hardwar
     <message>
         <source>Transaction amount too small</source>
         <translation>Quantidade da transação muito pequena.</translation>
+    </message>
+    <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>Transação muito grande para enviar sem taxa</translation>
     </message>
     <message>
         <source>Transaction too large for fee policy</source>

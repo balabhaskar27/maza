@@ -675,6 +675,10 @@
         <translation>Copiar poeira</translation>
     </message>
     <message>
+        <source>Copy dust</source>
+        <translation>Copiar lixo</translation>
+    </message>
+    <message>
         <source>Copy change</source>
         <translation>Copiar troco</translation>
     </message>
@@ -994,6 +998,14 @@
     <message>
         <source>Number of script &amp;verification threads</source>
         <translation>Número de processos de &amp;verificação de scripts</translation>
+    </message>
+    <message>
+        <source>Accept connections from outside</source>
+        <translation>Aceitar conceções externas</translation>
+    </message>
+    <message>
+        <source>Allow incoming connections</source>
+        <translation>Permitir conexão</translation>
     </message>
     <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>

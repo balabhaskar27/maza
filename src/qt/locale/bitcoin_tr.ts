@@ -1374,6 +1374,14 @@
         <translation>%1 ödeme talebi çok büyük (%2 bayt, üst sınır %3 bayt).</translation>
     </message>
     <message>
+        <source>Payment request %2 is too large (%3 bytes, allowed %4 bytes).</source>
+        <translation>%2 ödeme talebi çok büyüktür (%3 bayt, müsaade edilen %4 bayt).</translation>
+    </message>
+    <message>
+        <source>Payment request DoS protection</source>
+        <translation>Ödeme talebi DoS koruması</translation>
+    </message>
+    <message>
         <source>Error communicating with %1: %2</source>
         <translation>%1 ile iletişimde hata: %2</translation>
     </message>
@@ -3676,6 +3684,10 @@
     <message>
         <source>Transaction too large for fee policy</source>
         <translation>Ücret politikası için işlem çok büyük</translation>
+    </message>
+    <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>Ücret politikası için çok büyük muamele</translation>
     </message>
     <message>
         <source>Transaction too large</source>

@@ -3770,6 +3770,10 @@
         <translation>Transaktion for stor til gebyrretningslinjer</translation>
     </message>
     <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>Transaktion for stor til gebyrretningslinjer</translation>
+    </message>
+    <message>
         <source>Transaction too large</source>
         <translation>Transaktionen er for stor</translation>
     </message>

@@ -481,6 +481,10 @@
         <source>Up to date</source>
         <translation>Auf aktuellem Stand</translation>
     </message>
+    <message numerus="yes">
+        <source>Processed %n blocks of transaction history.</source>
+        <translation><numerusform>%n Block des Transaktionsverlaufs verarbeitet.</numerusform><numerusform>%n Blöcke des Transaktionsverlaufs verarbeitet.</numerusform></translation>
+    </message>
     <message>
         <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>
         <translation>Zeige den "%1"-Hilfetext, um eine Liste mit möglichen Kommandozeilenoptionen zu erhalten</translation>
@@ -829,7 +833,7 @@
     </message>
     <message>
         <source>Set SSL root certificates for payment request (default: -system-)</source>
-        <translation>SSL-Wurzelzertifikate für Zahlungsanforderungen festlegen (Standard: Systemstandard)</translation>
+        <translation>SSL-Wurzelzertifikate für Zahlungsanforderungen festlegen (Standard: -system-)</translation>
     </message>
     <message>
         <source>Show splash screen on startup (default: %u)</source>
@@ -3768,6 +3772,10 @@
     <message>
         <source>Transaction amount too small</source>
         <translation>Transaktionsbetrag zu niedrig</translation>
+    </message>
+    <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>Transaktion ist für die Gebührenrichtlinie zu groß</translation>
     </message>
     <message>
         <source>Transaction too large for fee policy</source>

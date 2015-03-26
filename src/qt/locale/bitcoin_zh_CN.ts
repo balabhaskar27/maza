@@ -469,6 +469,10 @@
         <source>Up to date</source>
         <translation>已是最新</translation>
     </message>
+    <message numerus="yes">
+        <source>Processed %n blocks of transaction history.</source>
+        <translation><numerusform>已处理 %n 个交易历史数据块。</numerusform></translation>
+    </message>
     <message>
         <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>
         <translation>显示 %1 帮助信息，获取可用命令行选项列表</translation>
@@ -886,7 +890,15 @@
         <source>Error</source>
         <translation>错误</translation>
     </message>
-    </context>
+    <message numerus="yes">
+        <source>%n GB of free space available</source>
+        <translation><numerusform>有 %n GB 空闲空间</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>(of %n GB needed)</source>
+        <translation><numerusform>(需要%n GB空间)</numerusform></translation>
+    </message>
+</context>
 <context>
     <name>ModalOverlay</name>
     <message>
@@ -2486,6 +2498,10 @@
         <source>Status</source>
         <translation>状态</translation>
     </message>
+    <message numerus="yes">
+        <source>, broadcast through %n node(s)</source>
+        <translation><numerusform>, 通过 %n 个节点广播 </numerusform></translation>
+    </message>
     <message>
         <source>, has not been successfully broadcast yet</source>
         <translation>，未被成功广播</translation>
@@ -2529,6 +2545,10 @@
     <message>
         <source>Credit</source>
         <translation>收入</translation>
+    </message>
+    <message numerus="yes">
+        <source>matures in %n more block(s)</source>
+        <translation><numerusform>%n 个数据块后成熟(mature) </numerusform></translation>
     </message>
     <message>
         <source>not accepted</source>
@@ -3236,6 +3256,10 @@
         <translation>导入数据块数据库出错</translation>
     </message>
     <message>
+        <source>Error: A fatal internal error occured, see debug.log for details</source>
+        <translation>错误：发生了致命的内部错误，请打开debug.log查看详细信息 </translation>
+    </message>
+    <message>
         <source>Error: Disk space is low!</source>
         <translation>错误：磁盘剩余空间低!</translation>
     </message>
@@ -3504,6 +3528,10 @@
         <translation>跟踪/调试信息输出到控制台，不输出到 debug.log 文件</translation>
     </message>
     <message>
+        <source>Send transactions as zero-fee transactions if possible (default: %u)</source>
+        <translation>发送时尽可能 不支付交易费用 (默认: %u) </translation>
+    </message>
+    <message>
         <source>Show all debugging options (usage: --help -help-debug)</source>
         <translation>显示所有调试选项 (用法: --帮助 -帮助调试)</translation>
     </message>
@@ -3534,6 +3562,10 @@
     <message>
         <source>Transaction amount too small</source>
         <translation>交易量太小</translation>
+    </message>
+    <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>费用策略的交易太大</translation>
     </message>
     <message>
         <source>Transaction too large for fee policy</source>

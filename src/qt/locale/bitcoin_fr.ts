@@ -3766,6 +3766,10 @@
         <translation>La transaction est trop grosse pour la politique de frais</translation>
     </message>
     <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>La transaction est trop grosse pour la politique de frais</translation>
+    </message>
+    <message>
         <source>Transaction too large</source>
         <translation>La transaction est trop grosse</translation>
     </message>

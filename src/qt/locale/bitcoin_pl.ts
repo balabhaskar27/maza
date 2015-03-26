@@ -477,6 +477,10 @@
         <source>Up to date</source>
         <translation>Aktualny</translation>
     </message>
+    <message numerus="yes">
+        <source>Processed %n blocks of transaction history.</source>
+        <translation><numerusform>Przetworzono %n blok historii transakcji.</numerusform><numerusform>Przetworzono %n bloki historii transakcji.</numerusform><numerusform>Przetworzono %n bloków historii transakcji.</numerusform></translation>
+    </message>
     <message>
         <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>
         <translation>Pokaż pomoc %1 aby zobaczyć listę wszystkich opcji lnii poleceń.</translation>
@@ -667,6 +671,10 @@
         <translation>Kopiuj pył</translation>
     </message>
     <message>
+        <source>Copy dust</source>
+        <translation>Kopiuj pył</translation>
+    </message>
+    <message>
         <source>Copy change</source>
         <translation>Skopiuj resztę</translation>
     </message>
@@ -727,7 +735,7 @@
     </message>
     <message>
         <source>New receiving address</source>
-        <translation>Nowy adres odbiorczy</translation>
+        <translation>Nowy adres otrzymywania</translation>
     </message>
     <message>
         <source>New sending address</source>
@@ -2930,7 +2938,7 @@ Zwróć uwagę, że poprawnie zweryfikowana wiadomość potwierdza to, że nadaw
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Wyślij płatność</translation>
+        <translation>Wyślij monety</translation>
     </message>
     <message>
         <source>Fee bump error</source>
@@ -3221,6 +3229,10 @@ Zwróć uwagę, że poprawnie zweryfikowana wiadomość potwierdza to, że nadaw
     <message>
         <source>Error opening block database</source>
         <translation>Błąd otwierania bazy bloków</translation>
+    </message>
+    <message>
+        <source>Error: A fatal internal error occured, see debug.log for details</source>
+        <translation>Błąd: Wystąpił krytyczny błąd wewnętrzny, sprawdź w debug.log</translation>
     </message>
     <message>
         <source>Error: Disk space is low!</source>

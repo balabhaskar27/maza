@@ -656,6 +656,10 @@
         <translation>versioon</translation>
     </message>
     <message>
+        <source>About Bitcoin Core</source>
+        <translation>Kirjeldus Bitcoini Tuumast</translation>
+    </message>
+    <message>
         <source>Command-line options</source>
         <translation>Käsurea valikud</translation>
     </message>

@@ -3779,6 +3779,10 @@
         <translation>根據交易手續費準則，本交易的位元量過大</translation>
     </message>
     <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>根據交易手續費準則，本交易的位元量過大</translation>
+    </message>
+    <message>
         <source>Transaction too large</source>
         <translation>交易位元量太大</translation>
     </message>

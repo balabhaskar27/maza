@@ -636,7 +636,7 @@
     </message>
     <message>
         <source>Copy amount</source>
-        <translation>Copia l'importo</translation>
+        <translation>Copia importo</translation>
     </message>
     <message>
         <source>Copy transaction ID</source>
@@ -751,7 +751,7 @@
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
-        <translation>L'indirizzo inserito "%1" è già in rubrica.</translation>
+        <translation>L'indirizzo "%1" è già presente in rubrica.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -2187,7 +2187,7 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
     </message>
     <message>
         <source>Copy amount</source>
-        <translation>Copia l'importo</translation>
+        <translation>Copia importo</translation>
     </message>
     <message>
         <source>Copy fee</source>
@@ -2600,7 +2600,7 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
     </message>
     <message>
         <source>%1/unconfirmed</source>
-        <translation>%1/non confermato</translation>
+        <translation>%1/non confermata</translation>
     </message>
     <message>
         <source>%1 confirmations</source>
@@ -3611,12 +3611,20 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
         <translation>Scopre i propri indirizzi IP (predefinito: 1 se in ascolto ed -externalip o -proxy non sono specificati)</translation>
     </message>
     <message>
+        <source>Continuously rate-limit free transactions to &lt;n&gt;*1000 bytes per minute (default:%u)</source>
+        <translation>Limita la quantità di transazioni gratuite ad &lt;n&gt;*1000 byte al minuto (predefinito: %u)</translation>
+    </message>
+    <message>
         <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
-        <translation>Crea nuovi file con i permessi di default del sistema invece dell'umask 077 (effettiva solo con la funzionalità del wallet disabilitata)</translation>
+        <translation>Crea nuovi file con i permessi di default del sistema, invece che con umask 077 (ha effetto solo con funzionalità di portamonete disabilitate)</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
         <translation>Errore: attesa per connessioni in arrivo fallita (errore riportato %s)</translation>
+    </message>
+    <message>
+        <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
+        <translation>Errore: individuato argomento -socks non supportato. Non è più possibile impostare la versione SOCKS, solamente i proxy SOCKS5 sono supportati.</translation>
     </message>
     <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
@@ -3777,6 +3785,10 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
     <message>
         <source>Transaction amount too small</source>
         <translation>Importo transazione troppo piccolo</translation>
+    </message>
+    <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>Transazione troppo grande in base alla policy sulle commissioni</translation>
     </message>
     <message>
         <source>Transaction too large for fee policy</source>
@@ -3997,6 +4009,10 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
     <message>
         <source>Keypool ran out, please call keypoolrefill first</source>
         <translation>Keypool esaurito, prima invocare keypoolrefill</translation>
+    </message>
+    <message>
+        <source>Limit size of signature cache to &lt;n&gt; entries (default: %u)</source>
+        <translation>Limita la dimensione della cache delle firme a &lt;n&gt; voci (predefinito: %u)</translation>
     </message>
     <message>
         <source>Listen for JSON-RPC connections on &lt;port&gt; (default: %u or testnet: %u)</source>

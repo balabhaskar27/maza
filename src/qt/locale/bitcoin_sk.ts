@@ -481,6 +481,10 @@
         <source>Up to date</source>
         <translation>Aktualizovaný</translation>
     </message>
+    <message numerus="yes">
+        <source>Processed %n blocks of transaction history.</source>
+        <translation><numerusform>Spracovaný %n blok tranzakčnej histórie</numerusform><numerusform>Spracované %n bloky tranzakčnej histórie</numerusform><numerusform>Spracovaných %n blokov tranzakčnej histórie</numerusform></translation>
+    </message>
     <message>
         <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>
         <translation>Ukáž %1 zoznam možných nastavení LitecoinCashu pomocou príkazového riadku</translation>
@@ -665,6 +669,10 @@
     <message>
         <source>Copy bytes</source>
         <translation>Kopírovať bajty</translation>
+    </message>
+    <message>
+        <source>Copy dust</source>
+        <translation>Kopírovať prach</translation>
     </message>
     <message>
         <source>Copy dust</source>
@@ -1014,6 +1022,14 @@
     <message>
         <source>Number of script &amp;verification threads</source>
         <translation>Počet &amp;vlákien overujúcich skript</translation>
+    </message>
+    <message>
+        <source>Accept connections from outside</source>
+        <translation>Prijať spojenia zvonku</translation>
+    </message>
+    <message>
+        <source>Allow incoming connections</source>
+        <translation>Povoliť prichádzajúce spojenia</translation>
     </message>
     <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>

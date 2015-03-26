@@ -7,7 +7,7 @@
     </message>
     <message>
         <source>Create a new address</source>
-        <translation>Crea una nueva dirección</translation>
+        <translation>Crea una nueva direCrea una nueva direccióncción</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -299,6 +299,10 @@
 <context>
     <name>HelpMessageDialog</name>
     <message>
+        <source>Bitcoin Core</source>
+        <translation>bitcoin core</translation>
+    </message>
+    <message>
         <source>version</source>
         <translation>versión</translation>
     </message>
@@ -320,6 +324,14 @@
     <message>
         <source>LitecoinCash</source>
         <translation>Litecoin Cash</translation>
+    </message>
+    <message>
+        <source>Welcome</source>
+        <translation>bienvenido</translation>
+    </message>
+    <message>
+        <source>Bitcoin Core</source>
+        <translation>bitcoin core</translation>
     </message>
     <message>
         <source>Error</source>
@@ -458,6 +470,10 @@
     <message>
         <source>Amount</source>
         <translation>Cantidad</translation>
+    </message>
+    <message>
+        <source>UNKNOWN</source>
+        <translation>DESCONOCIDO</translation>
     </message>
     <message>
         <source>N/A</source>
@@ -713,6 +729,10 @@
     </context>
 <context>
     <name>SplashScreen</name>
+    <message>
+        <source>Bitcoin Core</source>
+        <translation>bitcoin core</translation>
+    </message>
     <message>
         <source>[testnet]</source>
         <translation>[red-de-pruebas]</translation>

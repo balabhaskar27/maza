@@ -473,6 +473,10 @@
         <source>Up to date</source>
         <translation>Rahansiirtohistoria on ajan tasalla</translation>
     </message>
+    <message numerus="yes">
+        <source>Processed %n blocks of transaction history.</source>
+        <translation><numerusform>Käsitelty %n lohko rahansiirtohistoriasta.</numerusform><numerusform>Käsitelty %n lohkoa rahansiirtohistoriasta.</numerusform></translation>
+    </message>
     <message>
         <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>
         <translation>Näytä %1 ohjeet saadaksesi listan mahdollisista LitecoinCashin komentorivivalinnoista</translation>
@@ -894,7 +898,15 @@
         <source>Error</source>
         <translation>Virhe</translation>
     </message>
-    </context>
+    <message numerus="yes">
+        <source>%n GB of free space available</source>
+        <translation><numerusform>%n Gt vapaata tilaa käytettävissä</numerusform><numerusform>%n Gt vapaata tilaa käytettävissä</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>(of %n GB needed)</source>
+        <translation><numerusform>(%n Gt tarvittavasta tilasta)</numerusform><numerusform>(%n Gt tarvittavasta tilasta)</numerusform></translation>
+    </message>
+</context>
 <context>
     <name>ModalOverlay</name>
     <message>

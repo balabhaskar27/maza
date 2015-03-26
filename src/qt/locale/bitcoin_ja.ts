@@ -437,6 +437,10 @@
         <source>&amp;Command-line options</source>
         <translation>コマンドラインオプション (&amp;C)</translation>
     </message>
+    <message>
+        <source>Show the Bitcoin Core help message to get a list with possible Bitcoin command-line options</source>
+        <translation>有効な Bitcoin のコマンドライン オプションを見るために Bitcoin Core のヘルプメッセージを表示します。</translation>
+    </message>
     <message numerus="yes">
         <source>%n active connection(s) to LitecoinCash network</source>
         <translation><numerusform>%n の LitecoinCash ネットワークへのアクティブな接続</numerusform></translation>
@@ -480,6 +484,10 @@
     <message>
         <source>Up to date</source>
         <translation>バージョンは最新です</translation>
+    </message>
+    <message numerus="yes">
+        <source>Processed %n blocks of transaction history.</source>
+        <translation><numerusform>トランザクション履歴の %n ブロックを処理しました。</numerusform></translation>
     </message>
     <message>
         <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>
@@ -2763,6 +2771,10 @@
         <source>Label</source>
         <translation>ラベル</translation>
     </message>
+    <message>
+        <source>Immature (%1 confirmations, will be available after %2)</source>
+        <translation>未成熟（%1検証。%2検証完了後に使用可能となります）</translation>
+    </message>
     <message numerus="yes">
         <source>Open for %n more block(s)</source>
         <translation><numerusform>%n 以上のブロックを開く</numerusform></translation>
@@ -3379,6 +3391,10 @@
         <translation>ウォレットは読み込まず、ウォレットRPCコールを無効化する</translation>
     </message>
     <message>
+        <source>Do not load the wallet and disable wallet RPC calls</source>
+        <translation>ウォレットは読み込まず、ウォレットRPCコールを無効化する</translation>
+    </message>
+    <message>
         <source>Do you want to rebuild the block database now?</source>
         <translation>ブロック データベースを今すぐ再構築しますか?</translation>
     </message>
@@ -3435,6 +3451,10 @@
         <translation>ブロック データベースの開始エラー</translation>
     </message>
     <message>
+        <source>Error: A fatal internal error occured, see debug.log for details</source>
+        <translation>エラー：致命的な内部エラーが発生しました。詳細はdebug.logを参照してください</translation>
+    </message>
+    <message>
         <source>Error: Disk space is low!</source>
         <translation>エラー: ディスク容量不足!</translation>
     </message>
@@ -3445,6 +3465,10 @@
     <message>
         <source>Failed to rescan the wallet during initialization</source>
         <translation>初期化の途中でウォレットの再スキャンに失敗しました</translation>
+    </message>
+    <message>
+        <source>Importing...</source>
+        <translation>インポートしています……</translation>
     </message>
     <message>
         <source>Importing...</source>
@@ -3765,6 +3789,10 @@
     <message>
         <source>Transaction amount too small</source>
         <translation>取引の額が小さ過ぎます</translation>
+    </message>
+    <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>手数料ポリシーに対してトランザクションが大きすぎます</translation>
     </message>
     <message>
         <source>Transaction too large for fee policy</source>

@@ -634,6 +634,10 @@
 <context>
     <name>SplashScreen</name>
     <message>
+        <source>Bitcoin Core</source>
+        <translation>Berthama Bitcoin</translation>
+    </message>
+    <message>
         <source>[testnet]</source>
         <translation>[testo rrjetin]</translation>
     </message>

@@ -7,7 +7,7 @@
     </message>
     <message>
         <source>Create a new address</source>
-        <translation>Maak een nieuw adres aan</translation>
+        <translation>Maak een nieuw adres</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -3618,6 +3618,10 @@
         <translation>Fout: luisteren naar binnenkomende verbindingen mislukt (luisteren gaf foutmelding %s)</translation>
     </message>
     <message>
+        <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
+        <translation>Fout: er is een niet-ondersteund argument -socks aangetroffen. Het instellen van de SOCKS-versie is niet langer mogelijk. Alleen SOCKS5-proxy's worden ondersteund.</translation>
+    </message>
+    <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
         <translation>Voer opdracht uit zodra een waarschuwing is ontvangen of wanneer we een erg lange fork detecteren (%s in opdracht wordt vervangen door bericht)</translation>
     </message>
@@ -3786,6 +3790,10 @@
         <translation>De transactie is te groot voor het transactiekostenbeleid</translation>
     </message>
     <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>De transactie is te groot voor het toeslagenbeleid</translation>
+    </message>
+    <message>
         <source>Transaction too large</source>
         <translation>Transactie te groot</translation>
     </message>
@@ -3888,6 +3896,10 @@
     <message>
         <source>How thorough the block verification of -checkblocks is (0-4, default: %u)</source>
         <translation>Hoe grondig de blokverificatie van -checkblocks is (0-4, standaard: %u)</translation>
+    </message>
+    <message>
+        <source>Log transaction priority and fee per kB when mining blocks (default: %u)</source>
+        <translation>Log transactieprioriteit en -kosten per kB bij het mijnen van blokken (standaard: %u)</translation>
     </message>
     <message>
         <source>Maintain a full transaction index, used by the getrawtransaction rpc call (default: %u)</source>

@@ -1783,6 +1783,10 @@
         <translation>Montri detalojn de transakcio</translation>
     </message>
     <message>
+        <source>Exporting Failed</source>
+        <translation>ekspotado malsukcesinta</translation>
+    </message>
+    <message>
         <source>Comma separated file (*.csv)</source>
         <translation>Perkome disigita dosiero (*.csv)</translation>
     </message>

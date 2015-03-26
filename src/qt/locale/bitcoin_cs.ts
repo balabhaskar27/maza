@@ -445,6 +445,18 @@
         <source>Indexing blocks on disk...</source>
         <translation>Vytvářím index bloků na disku...</translation>
     </message>
+    <message numerus="yes">
+        <source>%n hour(s)</source>
+        <translation><numerusform>%n hodinu</numerusform><numerusform>%n hodiny</numerusform><numerusform>%n hodin</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s)</source>
+        <translation><numerusform>%n den</numerusform><numerusform>%n dny</numerusform><numerusform>%n dnů</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n week(s)</source>
+        <translation><numerusform>%n týden</numerusform><numerusform>%n týdny</numerusform><numerusform>%n týdnů</numerusform></translation>
+    </message>
     <message>
         <source>Processing blocks on disk...</source>
         <translation>Zpracovávám bloky na disku...</translation>
@@ -480,6 +492,10 @@
     <message>
         <source>Up to date</source>
         <translation>Aktuální</translation>
+    </message>
+    <message numerus="yes">
+        <source>Processed %n blocks of transaction history.</source>
+        <translation><numerusform>Zpracován %n blok transakční historie.</numerusform><numerusform>Zpracovány %n bloky transakční historie.</numerusform><numerusform>Zpracováno %n bloků transakční historie.</numerusform></translation>
     </message>
     <message>
         <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>
@@ -3366,6 +3382,10 @@
         <translation>Chyba při otevírání databáze bloků</translation>
     </message>
     <message>
+        <source>Error: A fatal internal error occured, see debug.log for details</source>
+        <translation>Chyba: Stala se fatální vnitřní chyba. detaily viz v debug.log</translation>
+    </message>
+    <message>
         <source>Error: Disk space is low!</source>
         <translation>Problém: Na disku je málo místa!</translation>
     </message>
@@ -3656,6 +3676,10 @@
     <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation>Posílat stopovací/ladicí informace do konzole místo do souboru debug.log</translation>
+    </message>
+    <message>
+        <source>Send transactions as zero-fee transactions if possible (default: %u)</source>
+        <translation>Posílat transakce pokud možno bez poplatků (výchozí: %u)</translation>
     </message>
     <message>
         <source>Show all debugging options (usage: --help -help-debug)</source>

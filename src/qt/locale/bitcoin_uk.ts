@@ -3086,6 +3086,10 @@
         <translation>Транзакція занадто велика для правил комісії</translation>
     </message>
     <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>Транзакція занадто велика для правил комісії</translation>
+    </message>
+    <message>
         <source>Transaction too large</source>
         <translation>Транзакція занадто велика</translation>
     </message>

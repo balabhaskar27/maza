@@ -516,6 +516,18 @@
         <translation>Входяща транзакция</translation>
     </message>
     <message>
+        <source>Date: %1
+Amount: %2
+Type: %3
+Address: %4
+</source>
+        <translation>Дата: %1
+Сума: %2
+Вид: %3
+Адрес: %4
+</translation>
+    </message>
+    <message>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>Портфейлът е &lt;b&gt;криптиран&lt;/b&gt; и &lt;b&gt;отключен&lt;/b&gt;</translation>
     </message>
@@ -657,6 +669,10 @@
     <message>
         <source>no</source>
         <translation>не</translation>
+    </message>
+    <message>
+        <source>This label turns red, if any recipient receives an amount smaller than %1.</source>
+        <translation>Това наименование се оцветява в червено, ако произволен получател получи сума по-малка от %1.</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -1809,6 +1825,10 @@
         <translation>Изберете използван преди адрес</translation>
     </message>
     <message>
+        <source>Choose previously used address</source>
+        <translation>Изберете използван преди адрес</translation>
+    </message>
+    <message>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
@@ -1911,6 +1931,10 @@
 </context>
 <context>
     <name>SplashScreen</name>
+    <message>
+        <source>The Bitcoin Core developers</source>
+        <translation>Разработчици на Bitcoin Core</translation>
+    </message>
     <message>
         <source>[testnet]</source>
         <translation>[testnet]</translation>
@@ -2416,6 +2440,14 @@
     <message>
         <source>Information</source>
         <translation>Информация</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
+        <translation>Невалидна сума за -minrelaytxfee=&lt;amount&gt;: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -mintxfee=&lt;amount&gt;: '%s'</source>
+        <translation>Невалидна сума за -mintxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
