@@ -717,4 +717,19 @@ Thanks to everyone who directly contributed to this release:
 - Willy Ko
 - Wladimir J. van der Laan
 
+And all those who contributed additional code review and/or security research:
+- 21E14
+- Alison Kendler
+- Aviv Zohar
+- Ethan Heilman
+- Evil-Knievel
+- fanquake
+- Jeff Garzik
+- Jonas Nick
+- Luke Dashjr
+- Patrick Strateman
+- Philip Kaufmann
+- Sergio Demian Lerner
+- Sharon Goldberg
+
 As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/bitcoin/).
