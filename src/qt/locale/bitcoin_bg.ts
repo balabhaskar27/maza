@@ -334,6 +334,10 @@
         <translation>Изпращане към Биткоин адрес</translation>
     </message>
     <message>
+        <source>Modify configuration options for Bitcoin</source>
+        <translation>Променете настройките на Биткойн</translation>
+    </message>
+    <message>
         <source>Backup wallet to another location</source>
         <translation>Запазване на портфейла на друго място</translation>
     </message>
@@ -368,6 +372,10 @@
     <message>
         <source>&amp;Receive</source>
         <translation>&amp;Получаване</translation>
+    </message>
+    <message>
+        <source>Show information about Bitcoin Core</source>
+        <translation>Покажете информация за Биткойн ядрото</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
@@ -671,6 +679,10 @@ Address: %4
         <translation>не</translation>
     </message>
     <message>
+        <source>Can vary +/- 1 byte per input.</source>
+        <translation>Може да варира с +-1 байт</translation>
+    </message>
+    <message>
         <source>This label turns red, if any recipient receives an amount smaller than %1.</source>
         <translation>Това наименование се оцветява в червено, ако произволен получател получи сума по-малка от %1.</translation>
     </message>
@@ -767,6 +779,10 @@ Address: %4
 </context>
 <context>
     <name>HelpMessageDialog</name>
+    <message>
+        <source>Bitcoin Core</source>
+        <translation>Биткойн ядро</translation>
+    </message>
     <message>
         <source>version</source>
         <translation>версия</translation>
@@ -1669,6 +1685,10 @@ Address: %4
         <translation>Копиране на количеството</translation>
     </message>
     <message>
+        <source>Copy quantity</source>
+        <translation>Копиране на количеството</translation>
+    </message>
+    <message>
         <source>Copy amount</source>
         <translation>Копирай сума</translation>
     </message>
@@ -1782,6 +1802,10 @@ Address: %4
     <message>
         <source>Message:</source>
         <translation>Съобщение:</translation>
+    </message>
+    <message>
+        <source>This is a verified payment request.</source>
+        <translation>Това е потвърдена транзакция.</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -1932,6 +1956,10 @@ Address: %4
 <context>
     <name>SplashScreen</name>
     <message>
+        <source>Bitcoin Core</source>
+        <translation>Биткойн ядро</translation>
+    </message>
+    <message>
         <source>The Bitcoin Core developers</source>
         <translation>Разработчици на Bitcoin Core</translation>
     </message>
@@ -1952,6 +1980,10 @@ Address: %4
     <message>
         <source>Open until %1</source>
         <translation>Подлежи на промяна до %1</translation>
+    </message>
+    <message>
+        <source>conflicted</source>
+        <translation>припокриващ се</translation>
     </message>
     <message>
         <source>%1/offline</source>

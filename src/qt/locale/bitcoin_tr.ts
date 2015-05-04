@@ -1374,10 +1374,6 @@
         <translation>%1 ödeme talebi çok büyük (%2 bayt, üst sınır %3 bayt).</translation>
     </message>
     <message>
-        <source>Payment request %2 is too large (%3 bytes, allowed %4 bytes).</source>
-        <translation>%2 ödeme talebi çok büyüktür (%3 bayt, müsaade edilen %4 bayt).</translation>
-    </message>
-    <message>
         <source>Payment request DoS protection</source>
         <translation>Ödeme talebi DoS koruması</translation>
     </message>

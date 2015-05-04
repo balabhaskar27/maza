@@ -1437,6 +1437,14 @@
         <translation>%1 s</translation>
     </message>
     <message>
+        <source>NETWORK</source>
+        <translation>REDE</translation>
+    </message>
+    <message>
+        <source>UNKNOWN</source>
+        <translation>DESCONHECIDO</translation>
+    </message>
+    <message>
         <source>None</source>
         <translation>Nenhum</translation>
     </message>
@@ -3088,6 +3096,14 @@
         <translation>- máximo do banco de memória deverá ser pelo menos %d MB</translation>
     </message>
     <message>
+        <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
+        <translation>Ligações na lista branca conectam desde a seguinte netmask ou endereço IP. Posse ser especificado varias vezes.</translation>
+    </message>
+    <message>
+        <source>(default: 1)</source>
+        <translation>(padrão: 1)</translation>
+    </message>
+    <message>
         <source>&lt;category&gt; can be:</source>
         <translation>&lt;categoria&gt; pode ser:</translation>
     </message>
@@ -3188,12 +3204,20 @@
         <translation>Erro ao abrir a base de dados de blocos</translation>
     </message>
     <message>
+        <source>Error: A fatal internal error occured, see debug.log for details</source>
+        <translation>Erro: Um erro fatal interno ocorreu, verificar debug.log para mais informação</translation>
+    </message>
+    <message>
         <source>Error: Disk space is low!</source>
         <translation>Erro: Pouco espaço em disco!</translation>
     </message>
     <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
         <translation>Falhou a escutar em qualquer porta. Use -listen=0 se quiser isto.</translation>
+    </message>
+    <message>
+        <source>Importing...</source>
+        <translation>A importar...</translation>
     </message>
     <message>
         <source>Importing...</source>

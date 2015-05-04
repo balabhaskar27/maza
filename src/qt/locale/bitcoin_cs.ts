@@ -3718,6 +3718,10 @@
         <translation>Transakce je na poplatkovou politiku příliš velká</translation>
     </message>
     <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>Transakce je na poplatkovou politiku příliš velká</translation>
+    </message>
+    <message>
         <source>Transaction too large</source>
         <translation>Transakce je příliš velká</translation>
     </message>

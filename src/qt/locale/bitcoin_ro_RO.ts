@@ -383,7 +383,7 @@
     </message>
     <message>
         <source>Show information about Bitcoin Core</source>
-        <translation>Arată informații despre Bitcoin Core</translation>
+        <translation>Arată informaţii despre Bitcoin Core</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
@@ -487,7 +487,7 @@
     </message>
     <message numerus="yes">
         <source>Processed %n blocks of transaction history.</source>
-        <translation><numerusform>S-a procesat %n bloc din istoricul tranzacțiilor.</numerusform><numerusform>S-au procesat %n blocuri din istoricul tranzacțiilor.</numerusform><numerusform>S-au procesat %n blocuri din istoricul tranzacțiilor.</numerusform></translation>
+        <translation><numerusform>S-a procesat %n bloc din istoricul tranzacţiilor.</numerusform><numerusform>S-au procesat %n blocuri din istoricul tranzacţiilor.</numerusform><numerusform>S-au procesat %n de blocuri din istoricul tranzacţiilor.</numerusform></translation>
     </message>
     <message>
         <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>
@@ -591,6 +591,10 @@
         <translation>Praf:</translation>
     </message>
     <message>
+        <source>Dust:</source>
+        <translation>Praf:</translation>
+    </message>
+    <message>
         <source>After Fee:</source>
         <translation>După taxă:</translation>
     </message>
@@ -673,6 +677,10 @@
     <message>
         <source>Copy bytes</source>
         <translation>Copiază octeţi</translation>
+    </message>
+    <message>
+        <source>Copy dust</source>
+        <translation>Copiază praf</translation>
     </message>
     <message>
         <source>Copy dust</source>
@@ -1880,6 +1888,14 @@
         <translation>O etichetă opţională de asociat cu adresa de primire.</translation>
     </message>
     <message>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
+        <translation>Un mesaj opţional de ataşat la cererea de plată, care va fi afişat cînd cererea este deschisă. Notă: Acest mesaj nu va fi trimis cu plata către reţeaua Bitcoin.</translation>
+    </message>
+    <message>
+        <source>An optional label to associate with the new receiving address.</source>
+        <translation>O etichetă opţională de asociat cu adresa de primire.</translation>
+    </message>
+    <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
         <translation>Foloseşte acest formular pentru a solicita plăţi. Toate cîmpurile sînt &lt;b&gt;opţionale&lt;/b&gt;.</translation>
     </message>
@@ -1992,7 +2008,7 @@
     </message>
     <message>
         <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>URI rezultat este prea lung, încearcă să reduci textul pentru etichetă / mesaj.</translation>
+        <translation>URI rezultat este prea lung, încearcaţi să reduceţi textul pentru etichetă / mesaj.</translation>
     </message>
     <message>
         <source>Error encoding URI into QR Code.</source>
@@ -2766,6 +2782,10 @@
     <message>
         <source>Label</source>
         <translation>Etichetă</translation>
+    </message>
+    <message>
+        <source>Immature (%1 confirmations, will be available after %2)</source>
+        <translation>Imatur (%1 confirmări, va fi disponibil după %2)</translation>
     </message>
     <message>
         <source>Open until %1</source>
@@ -3772,6 +3792,10 @@
     <message>
         <source>Transaction too large for fee policy</source>
         <translation>Tranzacţia are suma prea mare pentru a beneficia de gratuitate</translation>
+    </message>
+    <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>Tranzacţie prea mare pentru politică gratis</translation>
     </message>
     <message>
         <source>Transaction too large</source>

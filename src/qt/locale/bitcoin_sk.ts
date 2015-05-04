@@ -483,7 +483,7 @@
     </message>
     <message numerus="yes">
         <source>Processed %n blocks of transaction history.</source>
-        <translation><numerusform>Spracovaný %n blok tranzakčnej histórie</numerusform><numerusform>Spracované %n bloky tranzakčnej histórie</numerusform><numerusform>Spracovaných %n blokov tranzakčnej histórie</numerusform></translation>
+        <translation><numerusform>Spracovaný %n blok transakčnej histórie.</numerusform><numerusform>Spracované %n bloky transakčnej histórie.</numerusform><numerusform>Spracovaných %n blokov transakčnej histórie.</numerusform></translation>
     </message>
     <message>
         <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>
@@ -3747,6 +3747,10 @@
         <translation>Odoslať trace/debug informácie na konzolu namiesto debug.info žurnálu</translation>
     </message>
     <message>
+        <source>Send transactions as zero-fee transactions if possible (default: %u)</source>
+        <translation>Poslať ako transakcie bez poplatku, ak je to možné (predvolené: %u)</translation>
+    </message>
+    <message>
         <source>Show all debugging options (usage: --help -help-debug)</source>
         <translation>Zobraziť všetky možnosti ladenia (použitie: --help --help-debug)</translation>
     </message>
@@ -3789,6 +3793,10 @@
     <message>
         <source>Transaction amount too small</source>
         <translation>Suma transakcie príliš malá</translation>
+    </message>
+    <message>
+        <source>Transaction too large for fee policy</source>
+        <translation>Transakcia je príliš veľká pre aktuálne podmienky poplatkov</translation>
     </message>
     <message>
         <source>Transaction too large for fee policy</source>
