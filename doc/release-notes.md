@@ -49,6 +49,7 @@ frequently tested on them.
 Notable changes
 ===============
 
+<<<<<<< refs/remotes/lcc/master
 Wallet changes
 ---------------
 
@@ -115,6 +116,15 @@ Build: Minimum GCC bumped to 4.8.x
 The minimum version of the GCC compiler required to compile Bitcoin Core is now 4.8. No effort will be
 made to support older versions of GCC. See discussion in issue #11732 for more information.
 The minimum version for the Clang compiler is still 3.3. Other minimum dependency versions can be found in `doc/dependencies.md` in the repository.
+=======
+This fixes a serious problem on Windows with usernames that have non-ASCII
+characters (https://github.com/bitcoin/bitcoin/issues/6078).
+
+For other platforms there are no notable changes.
+
+For the notable changes in 0.10, refer to the release notes
+at https://github.com/bitcoin/bitcoin/blob/v0.10.0/doc/release-notes.md
+>>>>>>> Release notes 0.10.2
 
 Support for signalling pruned nodes (BIP159)
 ---------------------------------------------
@@ -125,6 +135,7 @@ Performance: SHA256 assembly enabled by default
 -------------------------------------------------
 The SHA256 hashing optimizations for architectures supporting SSE4, which lead to ~50% speedups in SHA256 on supported hardware (~5% faster synchronization and block validation), have now been enabled by default. In previous versions they were enabled using the `--enable-experimental-asm` flag when building, but are now the default and no longer deemed experimental.
 
+<<<<<<< refs/remotes/lcc/master
 GUI changes
 -----------
 - Uses of "µBTC" in the GUI now also show the more colloquial term "bits", specified in BIP176.
@@ -609,12 +620,21 @@ Testing changes
 - #11952 `9ab9963` univalue: Bump subtree (MarcoFalke)
 - #12367 `09fc859` Fix two fast-shutdown bugs (TheBlueMatt)
 - #12422 `4d54e7a` util: Make LockDirectory thread-safe, consistent, and fix OpenBSD 6.2 build (laanwj)
+=======
+Wallet:
+- `824c011` fix boost::get usage with boost 1.58
+
+Miscellaneous:
+- `da65606` Avoid crash on start in TestBlockValidity with gen=1.
+- `424ae66` don't imbue boost::filesystem::path with locale "C" on windows (fixes #6078)
+>>>>>>> Release notes 0.10.2
 
 Credits
 =======
 
 Thanks to everyone who directly contributed to this release:
 
+<<<<<<< refs/remotes/lcc/master
 - 251
 - Aaron Clauson
 - Aaron Golliver
@@ -715,21 +735,17 @@ Thanks to everyone who directly contributed to this release:
 - Werner Lemberg
 - William Casarin
 - Willy Ko
+=======
+- Cory Fields
+- Gregory Maxwell
+- Jonas Schnelli
+>>>>>>> Release notes 0.10.2
 - Wladimir J. van der Laan
 
 And all those who contributed additional code review and/or security research:
-- 21E14
-- Alison Kendler
-- Aviv Zohar
-- Ethan Heilman
-- Evil-Knievel
-- fanquake
-- Jeff Garzik
-- Jonas Nick
-- Luke Dashjr
-- Patrick Strateman
-- Philip Kaufmann
-- Sergio Demian Lerner
-- Sharon Goldberg
+
+- dexX7
+- Pieter Wuille
+- vayvanne
 
 As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/bitcoin/).
