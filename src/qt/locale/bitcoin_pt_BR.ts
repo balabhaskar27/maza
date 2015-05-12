@@ -1373,6 +1373,13 @@ Esta sincronização inicial é muito exigente e pode expor problemas de hardwar
     <message>
         <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
         <translation>Pedido de pagamento %1 é muito grande (%2 bytes, permitido %3 bytes).</translation>
+<<<<<<< refs/remotes/lcc/master
+=======
+    </message>
+    <message>
+        <source>Payment request DoS protection</source>
+        <translation>Pagamento requer proteção DoS</translation>
+>>>>>>> Translations update
     </message>
     <message>
         <source>Error communicating with %1: %2</source>

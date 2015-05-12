@@ -695,6 +695,10 @@
         <translation>Peut varier +/- %1 satoshi(s) par entrée.</translation>
     </message>
     <message>
+        <source>This label turns red, if any recipient receives an amount smaller than %1.</source>
+        <translation>Cette étiquette devient rouge si un destinataire reçoit un montant inférieur à %1.</translation>
+    </message>
+    <message>
         <source>(no label)</source>
         <translation>(aucune étiquette)</translation>
     </message>
@@ -996,8 +1000,13 @@
         <translation>&amp;Principaux</translation>
     </message>
     <message>
+<<<<<<< refs/remotes/lcc/master
         <source>Automatically start %1 after logging in to the system.</source>
         <translation>Démarrer %1 automatiquement après avoir ouvert une session sur l’ordinateur.</translation>
+=======
+        <source>Automatically start Bitcoin after logging in to the system.</source>
+        <translation>Démarrer Bitcoin automatiquement après avoir ouvert une session sur le système.</translation>
+>>>>>>> Translations update
     </message>
     <message>
         <source>&amp;Start %1 on system login</source>
@@ -1232,8 +1241,13 @@
         <translation>Erreur</translation>
     </message>
     <message>
+<<<<<<< refs/remotes/lcc/master
         <source>The configuration file could not be opened.</source>
         <translation>Impossible d’ouvrir le fichier de configuration.</translation>
+=======
+        <source>Client will be shutdown, do you want to proceed?</source>
+        <translation>Le client sera arrêté, voulez-vous continuer ?</translation>
+>>>>>>> Translations update
     </message>
     <message>
         <source>This change would require a client restart.</source>
@@ -2257,8 +2271,13 @@
         <translation>Le montant dépasse votre solde lorsque les frais de transaction de %1 sont inclus.</translation>
     </message>
     <message>
+<<<<<<< refs/remotes/lcc/master
         <source>Duplicate address found: addresses should only be used once each.</source>
         <translation>Adresse identique trouvée : chaque adresse ne devrait être utilisée qu’une fois.</translation>
+=======
+        <source>Duplicate address found, can only send to each address once per send operation.</source>
+        <translation>Adresse identique trouvée. Il n'est possible d'envoyer qu'une fois à chaque adresse,  par opération d'envoi.</translation>
+>>>>>>> Translations update
     </message>
     <message>
         <source>Transaction creation failed!</source>
@@ -2421,8 +2440,13 @@
         <translation>&amp;Signer un message</translation>
     </message>
     <message>
+<<<<<<< refs/remotes/lcc/master
         <source>You can sign messages/agreements with your addresses to prove you can receive litecoincash sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>Vous pouvez signer des messages ou des accords avec vos adresses pour prouver que vous pouvez recevoir des litecoincash à ces dernières. Faites attention de ne rien signer de vague ou au hasard, car des attaques d’hameçonnage pourraient essayer de vous faire signer avec votre identité afin de l’usurper. Ne signez que des déclarations entièrement détaillées et avec lesquelles vous êtes d’accord.</translation>
+=======
+        <source>You can sign messages with your addresses to prove you own them. Be careful not to sign anything vague, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <translation>Vous pouvez signer des messages avec vos adresses pour prouver que vous les détenez. Faites attention de ne rien signer de vague, car des attaques d'hameçonnage pourraient essayer de vous faire signer avec votre identité afin de l'usurper. Ne signez que des déclarations entièrement détaillées et avec lesquelles vous êtes d'accord.</translation>
+>>>>>>> Translations update
     </message>
     <message>
         <source>The LitecoinCash address to sign the message with</source>
@@ -2477,8 +2501,13 @@
         <translation>&amp;Vérifier un message</translation>
     </message>
     <message>
+<<<<<<< refs/remotes/lcc/master
         <source>Enter the receiver's address, message (ensure you copy line breaks, spaces, tabs, etc. exactly) and signature below to verify the message. Be careful not to read more into the signature than what is in the signed message itself, to avoid being tricked by a man-in-the-middle attack. Note that this only proves the signing party receives with the address, it cannot prove sendership of any transaction!</source>
         <translation>Saisir ci-dessous l’adresse du destinataire, le message (s’assurer de copier fidèlement les retours à la ligne, les espaces, les tabulations, etc.) et la signature pour vérifier le message. Faire attention à ne pas déduire davantage de la signature que ce qui est contenu dans le message signé même, pour éviter d’être trompé par une attaque d’homme du milieu. Prendre en compte que cela ne fait que prouver que le signataire reçoit l’adresse et ne peut pas prouver la provenance d’une transaction !</translation>
+=======
+        <source>Enter the signing address, message (ensure you copy line breaks, spaces, tabs, etc. exactly) and signature below to verify the message. Be careful not to read more into the signature than what is in the signed message itself, to avoid being tricked by a man-in-the-middle attack.</source>
+        <translation>Saisir ci-dessous l'adresse de signature, le message (assurez-vous d'avoir copié exactement les retours à la ligne, les espaces, tabulations etc.) et la signature pour vérifier le message. Faire attention à ne pas déduire davantage de la signature que ce qui est contenu dans le message signé même, pour éviter d'être trompé par une attaque d'homme du milieu.</translation>
+>>>>>>> Translations update
     </message>
     <message>
         <source>The LitecoinCash address the message was signed with</source>
@@ -3598,8 +3627,13 @@
         <translation>Permettre les connexions JSON-RPC de sources spécifiques. Valide pour &lt;ip&gt; qui sont une IP simple (p. ex. 1.2.3.4), un réseau/masque réseau (p. ex. 1.2.3.4/255.255.255.0) ou un réseau/CIDR (p. ex. 1.2.3.4/24). Cette option peut être être précisée plusieurs fois</translation>
     </message>
     <message>
+<<<<<<< refs/remotes/lcc/master
         <source>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</source>
         <translation>Se lier à l’adresse donnée et aux pairs s’y connectant. Utiliser la notation [host]:port pour l’IPv6</translation>
+=======
+        <source>Maximum total fees to use in a single wallet transaction, setting too low may abort large transactions (default: %s)</source>
+        <translation>Total maximal des frais à utiliser en une seule transaction de portefeuille. Le définir trop bas pourrait interrompre les grosses transactions (par défaut : %s)</translation>
+>>>>>>> Translations update
     </message>
     <message>
         <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
