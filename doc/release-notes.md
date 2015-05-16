@@ -50,6 +50,7 @@ Notable changes
 ===============
 
 <<<<<<< refs/remotes/lcc/master
+<<<<<<< refs/remotes/lcc/master
 Wallet changes
 ---------------
 
@@ -118,6 +119,9 @@ made to support older versions of GCC. See discussion in issue #11732 for more i
 The minimum version for the Clang compiler is still 3.3. Other minimum dependency versions can be found in `doc/dependencies.md` in the repository.
 =======
 This fixes a serious problem on Windows with usernames that have non-ASCII
+=======
+This fixes a serious problem on Windows with data directories that have non-ASCII
+>>>>>>> doc: small amandment to release notes
 characters (https://github.com/bitcoin/bitcoin/issues/6078).
 
 For other platforms there are no notable changes.
