@@ -249,7 +249,7 @@ void OverviewPage::setWalletModel(WalletModel *model)
         connect(model, SIGNAL(newHiveSummaryAvailable()), this, SLOT(updateHiveSummary()));
     }
 
-    // update the display unit, to not use the default ("MZC")
+    // update the display unit, to not use the default ("MAZA")
     updateDisplayUnit();
 }
 

@@ -68,10 +68,10 @@ CLEAN_BITCOIN_QT_TEST = $(TEST_QT_MOC_CPP) qt/test/*.gcda qt/test/*.gcno
 
 CLEANFILES += $(CLEAN_BITCOIN_QT_TEST)
 
-test_mazacoin_qt : qt/test/test_mazacoin-qt$(EXEEXT)
+test_maza_qt : qt/test/test_maza-qt$(EXEEXT)
 
-test_mazacoin_qt_check : qt/test/test_mazacoin-qt$(EXEEXT) FORCE
+test_maza_qt_check : qt/test/test_maza-qt$(EXEEXT) FORCE
 	$(MAKE) check-TESTS TESTS=$^
 
-test_mazacoin_qt_clean: FORCE
-	rm -f $(CLEAN_BITCOIN_QT_TEST) $(qt_test_test_mazacoin_qt_OBJECTS)
+test_maza_qt_clean: FORCE
+	rm -f $(CLEAN_BITCOIN_QT_TEST) $(qt_test_test_maza_qt_OBJECTS)

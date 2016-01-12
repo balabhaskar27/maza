@@ -145,8 +145,8 @@ void setupAmountWidget(QLineEdit *widget, QWidget *parent)
 
 bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 {
-    // return if URI is not valid or is no mazacoin: URI
-    if(!uri.isValid() || uri.scheme() != QString("mazacoin"))
+    // return if URI is not valid or is no maza: URI
+    if(!uri.isValid() || uri.scheme() != QString("maza"))
         return false;
 
     SendCoinsRecipient rv;
@@ -206,13 +206,13 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 
 bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 {
-    // Convert mazacoin:// to mazacoin:
+    // Convert maza:// to maza:
     //
-    //    Cannot handle this later, because mazacoin:// will cause Qt to see the part after // as host,
+    //    Cannot handle this later, because maza:// will cause Qt to see the part after // as host,
     //    which will lower-case it (and thus invalidate the address).
-    if(uri.startsWith("mazacoin://", Qt::CaseInsensitive))
+    if(uri.startsWith("maza://", Qt::CaseInsensitive))
     {
-        uri.replace(0, 11, "mazacoin:");
+        uri.replace(0, 11, "maza:");
     }
     QUrl uriInstance(uri);
     return parseBitcoinURI(uriInstance, out);
@@ -220,7 +220,7 @@ bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 
 QString formatBitcoinURI(const SendCoinsRecipient &info)
 {
-    QString ret = QString("mazacoin:%1").arg(info.address);
+    QString ret = QString("maza:%1").arg(info.address);
     int paramCount = 0;
 
     if (info.amount)
@@ -615,7 +615,7 @@ fs::path static StartupShortcutPath()
 {
     std::string chain = ChainNameFromCommandLine();
     if (chain == CBaseChainParams::MAIN)
-    return GetSpecialFolderPath(CSIDL_STARTUP) / "Mazacoin.lnk";
+    return GetSpecialFolderPath(CSIDL_STARTUP) / "Maza.lnk";
     if (chain == CBaseChainParams::TESTNET) // Remove this special case when CBaseChainParams::TESTNET = "testnet4"
         return GetSpecialFolderPath(CSIDL_STARTUP) / "LitecoinCash (testnet).lnk";
     return GetSpecialFolderPath(CSIDL_STARTUP) / strprintf("LitecoinCash (%s).lnk", chain);
@@ -623,7 +623,7 @@ fs::path static StartupShortcutPath()
 
 bool GetStartOnSystemStartup()
 {
-    // check for Mazacoin.lnk
+    // check for Maza.lnk
     return fs::exists(StartupShortcutPath());
 }
 
@@ -713,7 +713,7 @@ fs::path static GetAutostartFilePath()
 {
     std::string chain = ChainNameFromCommandLine();
     if (chain == CBaseChainParams::MAIN)
-    return GetAutostartDir() / "mazacoin.desktop";
+    return GetAutostartDir() / "maza.desktop";
     return GetAutostartDir() / strprintf("litecoincash-%s.lnk", chain);
 }
 
@@ -754,11 +754,11 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         if (!optionFile.good())
             return false;
         std::string chain = ChainNameFromCommandLine();
-        // Write a mazacoin.desktop file to the autostart directory:
+        // Write a maza.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
         if (chain == CBaseChainParams::MAIN)
-        optionFile << "Name=Mazacoin\n";
+        optionFile << "Name=Maza\n";
         else
             optionFile << strprintf("Name=LitecoinCash (%s)\n", chain);
         optionFile << "Exec=" << pszExePath << strprintf(" -min -testnet=%d -regtest=%d\n", gArgs.GetBoolArg("-testnet", false), gArgs.GetBoolArg("-regtest", false));
@@ -843,7 +843,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
     LSSharedFileListItemRef foundItem = findStartupItemInList(loginItems, bitcoinAppUrl);
 
     if(fAutoStart && !foundItem) {
-        // add mazacoin app to startup item list
+        // add maza app to startup item list
         LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, nullptr, nullptr, bitcoinAppUrl, nullptr, nullptr);
     }
     else if(!fAutoStart && foundItem) {

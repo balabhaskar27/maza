@@ -1,9 +1,9 @@
 Sample configuration files for:
 
-SystemD: mazacoind.service
-Upstart: mazacoind.conf
-OpenRC:  mazacoind.openrc
-         mazacoind.openrcconf
+SystemD: mazad.service
+Upstart: mazad.conf
+OpenRC:  mazad.openrc
+         mazad.openrcconf
 
 CentOS:  bitcoind.init
 OS X:    org.bitcoin.bitcoind.plist

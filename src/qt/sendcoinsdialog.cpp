@@ -805,7 +805,7 @@ void SendCoinsDialog::coinControlChangeEdited(const QString& text)
         }
         else if (!IsValidDestination(dest)) // Invalid address
         {
-            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Mazacoin address"));
+            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Maza address"));
         }
         else // Valid address
         {

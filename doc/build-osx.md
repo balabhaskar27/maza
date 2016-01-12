@@ -1,6 +1,6 @@
 Mac OS X Build Instructions and Notes
 ====================================
-This guide will show you how to build mazacoind(headless client) for OSX.
+This guide will show you how to build mazad(headless client) for OSX.
 The commands in this guide should be executed in a Terminal application.
 The built-in one is located in `/Applications/Utilities/Terminal.app`.
 
@@ -48,16 +48,16 @@ from the root of the repository.
 Build LitecoinCash Core
 ------------------------
 
-### Building `mazacoind`
+### Building `mazad`
 1. Clone the litecoincash source code and cd into `litecoincash`
 
         git clone https://github.com/litecoincash-project/litecoincash
         cd litecoincash
 
-        git clone https://github.com/mazacoin/mazacoin.git
-        cd mazacoin
+        git clone https://github.com/maza/maza.git
+        cd maza
 
-2.  Build mazacoind:
+2.  Build mazad:
 
     You can disable the GUI build by passing `--without-gui` to configure.
 
@@ -71,11 +71,11 @@ Build LitecoinCash Core
 
 Creating a release build
 ------------------------
-You can ignore this section if you are building `mazacoind` for your own use.
+You can ignore this section if you are building `mazad` for your own use.
 
-mazacoind/mazacoin-cli binaries are not included in the Mazacoin-Qt.app bundle.
+mazad/maza-cli binaries are not included in the Maza-Qt.app bundle.
 
-If you are building `mazacoind` or `Mazacoin-Qt` for others, your build machine should be set up
+If you are building `mazad` or `Maza-Qt` for others, your build machine should be set up
 as follows for maximum compatibility:
 
         make install
@@ -91,18 +91,18 @@ bundle is packaged and signed to create the .dmg disk image that is distributed.
 Running
 -------
 
-It's now available at `./mazacoind`, provided that you are still in the `src`
+It's now available at `./mazad`, provided that you are still in the `src`
 directory. We have to first create the RPC configuration file, though.
 
-Run `./mazacoind` to get the filename where it should be put, or just try these
+Run `./mazad` to get the filename where it should be put, or just try these
 commands:
 
-    echo -e "rpcuser=mazacoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Mazacoin/mazacoin.conf"
-    chmod 600 "/Users/${USER}/Library/Application Support/Mazacoin/mazacoin.conf"
+    echo -e "rpcuser=mazarpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Maza/maza.conf"
+    chmod 600 "/Users/${USER}/Library/Application Support/Maza/maza.conf"
 
     chmod 600 "/Users/${USER}/Library/Application Support/LitecoinCash/litecoincash.conf"
 
-    tail -f $HOME/Library/Application\ Support/Mazacoin/debug.log
+    tail -f $HOME/Library/Application\ Support/Maza/debug.log
 
 You can monitor the download process by looking at the debug.log file:
 
@@ -111,9 +111,9 @@ You can monitor the download process by looking at the debug.log file:
 Other commands:
 -------
 
-    ./mazacoind -daemon # to start the mazacoin daemon.
-    ./mazacoin-cli --help  # for a list of command-line options.
-    ./mazacoin-cli help    # When the daemon is running, to get a list of RPC commands
+    ./mazad -daemon # to start the maza daemon.
+    ./maza-cli --help  # for a list of command-line options.
+    ./maza-cli help    # When the daemon is running, to get a list of RPC commands
 
 Using Qt Creator as IDE
 ------------------------

@@ -65,11 +65,11 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += mazacoind
+  bin_PROGRAMS += mazad
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += mazacoin-cli mazacoin-tx
+  bin_PROGRAMS += maza-cli maza-tx
 endif
 
 # mazacoin core #
@@ -438,7 +438,7 @@ libbitcoin_cli_a_SOURCES = \
   rpc/client.cpp \
   $(BITCOIN_CORE_H)
 
-nodist_libmazacoin_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libmaza_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #
