@@ -49,7 +49,7 @@ static const int MAX_URI_LENGTH = 255;
 #define SPINNER_FRAMES 36
 
 #define QAPP_ORG_NAME "Maza"
-#define QAPP_ORG_DOMAIN "maza.org"
+#define QAPP_ORG_DOMAIN "mazacoin.org"
 #define QAPP_APP_NAME_DEFAULT "Maza-Qt"
 #define QAPP_APP_NAME_TESTNET "Maza-Qt-testnet"
 
