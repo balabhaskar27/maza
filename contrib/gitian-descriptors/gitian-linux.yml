@@ -28,7 +28,7 @@ packages:
 - "ca-certificates"
 - "python"
 remotes:
-- "url": "https://github.com/maza/maza-new.git"
+- "url": "https://github.com/mazacoin/mazacoin-new.git"
   "dir": "maza"
 files: []
 script: |
