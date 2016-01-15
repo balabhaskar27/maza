@@ -1,5 +1,5 @@
 ---
-name: "litecoincash-dmg-signer"
+name: "maza-dmg-signer"
 suites:
 - "trusty"
 architectures:
@@ -10,7 +10,7 @@ remotes:
 - "url": "https://github.com/litecoincash-project/litecoincash-detached-sigs.git"
   "dir": "signature"
 files:
-- "litecoincash-osx-unsigned.tar.gz"
+- "maza-osx-unsigned.tar.gz"
 script: |
   WRAP_DIR=$HOME/wrapped
   mkdir -p ${WRAP_DIR}
@@ -27,8 +27,8 @@ script: |
     chmod +x ${WRAP_DIR}/${prog}
   done
 
-  UNSIGNED=litecoincash-osx-unsigned.tar.gz
-  SIGNED=litecoincash-osx-signed.dmg
+  UNSIGNED=maza-osx-unsigned.tar.gz
+  SIGNED=maza-osx-signed.dmg
 
   tar -xf ${UNSIGNED}
   OSX_VOLNAME="$(cat osx_volname)"
