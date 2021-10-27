@@ -2,7 +2,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-// LitecoinCash: Hive
+// Maza: Hive
 
 #include <wallet/wallet.h>
 #include <wallet/fees.h>
@@ -23,7 +23,7 @@
 #include <qt/tinypie.h>
 #include <qt/qcustomplot.h>
 
-#include <qt/optionsdialog.h> // LitecoinCash: Hive: Mining optimisations
+#include <qt/optionsdialog.h> // Maza: Hive: Mining optimisations
 
 #include <QAction>
 #include <QCursor>
@@ -331,11 +331,11 @@ void HiveDialog::on_createBeesButton_clicked() {
 		WalletModel::UnlockContext ctx(model->requestUnlock());
 		if(!ctx.isValid())
 			return;     // Unlock wallet was cancelled
-        model->createBees(ui->beeCountSpinner->value(), clientModel->getOptionsModel()->getHiveContribCF(), this, beePopIndex); // LitecoinCash: MinotaurX+Hive1.2
+        model->createBees(ui->beeCountSpinner->value(), clientModel->getOptionsModel()->getHiveContribCF(), this, beePopIndex); // Maza: MinotaurX+Hive1.2
     }
 }
 
-// LitecoinCash: Hive: Mining optimisations: Shortcut to Hive mining options
+// Maza: Hive: Mining optimisations: Shortcut to Hive mining options
 void HiveDialog::on_showHiveOptionsButton_clicked() {
     if(!clientModel || !clientModel->getOptionsModel())
         return;

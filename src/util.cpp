@@ -82,8 +82,8 @@
 // Application startup time (used for uptime calculation)
 const int64_t nStartupTime = GetTime();
 
-const char * const BITCOIN_CONF_FILENAME = "litecoincash.conf";
-const char * const BITCOIN_PID_FILENAME = "litecoincashd.pid";
+const char * const BITCOIN_CONF_FILENAME = "maza.conf";
+const char * const BITCOIN_PID_FILENAME = "mazad.pid";
 const char * const DEFAULT_DEBUGLOGFILE = "debug.log";
 
 ArgsManager gArgs;
@@ -252,8 +252,8 @@ const CLogCategoryDesc LogCategories[] =
     {BCLog::COINDB, "coindb"},
     {BCLog::QT, "qt"},
     {BCLog::LEVELDB, "leveldb"},
-    {BCLog::HIVE, "hive"},  // LitecoinCash: Hive
-    {BCLog::MINOTAURX, "minotaurx"},  // LitecoinCash: MinotaurX+Hive1.2
+    {BCLog::HIVE, "hive"},  // Maza: Hive
+    {BCLog::MINOTAURX, "minotaurx"},  // Maza: MinotaurX+Hive1.2
     {BCLog::ALL, "1"},
     {BCLog::ALL, "all"},
 };
@@ -595,7 +595,7 @@ fs::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/LitecoinCash";
+    return pathRet / "Library/Application Support/Maza";
 #else
     // Unix
     return pathRet / ".maza";
@@ -936,7 +936,7 @@ bool SetupNetworking()
     return true;
 }
 
-// LitecoinCash: Hive: Mining Optimisations: Return number of virt cores
+// Maza: Hive: Mining Optimisations: Return number of virt cores
 int GetNumVirtualCores() {
     return boost::thread::hardware_concurrency();
 }
@@ -952,12 +952,12 @@ int GetNumCores()
 
 std::string CopyrightHolders(const std::string& strPrefix)
 {
-    // LitecoinCash: Add a row
+    // Maza: Add a row
     std::string strFirstPrefix = strPrefix;    
     strFirstPrefix.replace(strFirstPrefix.find("2011-"), sizeof("2011-")-1, "2018-");        
     std::string strCopyrightHolders = strFirstPrefix + strprintf(_(COPYRIGHT_HOLDERS), _(COPYRIGHT_HOLDERS_SUBSTITUTION));
     
-    // LitecoinCash: Check for untranslated substitution to make sure Litecion Core copyright is not removed by accident
+    // Maza: Check for untranslated substitution to make sure Litecion Core copyright is not removed by accident
     if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION).find("Litecoin Core") == std::string::npos)
         strCopyrightHolders += "\n" + strPrefix + "The Litecoin Core developers";
 

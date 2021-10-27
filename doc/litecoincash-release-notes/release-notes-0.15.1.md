@@ -1,25 +1,25 @@
-LitecoinCash Core version *0.15.1* is now available from:
+Maza Core version *0.15.1* is now available from:
 
-  <https://download.litecoinca.sh/litecoincash-0.15.1/>
+  <https://download.litecoinca.sh/maza-0.15.1/>
 
 This is a new minor version release, including various bugfixes and
 performance improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/litecoincash-project/litecoincash/issues>
+  <https://github.com/mazacoin/maza/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://groups.google.com/forum/#!forum/litecoincash-dev>
+  <https://groups.google.com/forum/#!forum/maza-dev>
 
 How to Upgrade
 ==============
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the 
-installer (on Windows) or just copy over `/Applications/LitecoinCash-Qt` (on Mac)
-or `litecoincashd`/`litecoincash-qt` (on Linux).
+installer (on Windows) or just copy over `/Applications/Maza-Qt` (on Mac)
+or `mazad`/`maza-qt` (on Linux).
 
 The first time you run version 0.15.0 or higher, your chainstate database will
 be converted to a new format, which will take anywhere from a few minutes to
@@ -48,10 +48,10 @@ processing the entire blockchain.
 Compatibility
 ==============
 
-LitecoinCash Core is extensively tested on multiple operating systems using
+Maza Core is extensively tested on multiple operating systems using
 the Linux kernel, macOS 10.8+, and Windows Vista and later. Windows XP is not supported.
 
-LitecoinCash Core should also work on most other Unix-like systems but is not
+Maza Core should also work on most other Unix-like systems but is not
 frequently tested on them.
 
 
@@ -61,7 +61,7 @@ Notable changes
 Network fork safety enhancements
 --------------------------------
 
-A number of changes to the way LitecoinCash Core deals with peer connections and invalid blocks
+A number of changes to the way Maza Core deals with peer connections and invalid blocks
 have been made, as a safety precaution against blockchain forks and misbehaving peers.
 
 - Unrequested blocks with less work than the minimum-chain-work are now no longer processed even

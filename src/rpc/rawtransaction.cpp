@@ -120,7 +120,7 @@ UniValue getrawtransaction(const JSONRPCRequest& request)
             "         \"reqSigs\" : n,            (numeric) The required sigs\n"
             "         \"type\" : \"pubkeyhash\",  (string) The type, eg 'pubkeyhash'\n"
             "         \"addresses\" : [           (json array of string)\n"
-            "           \"address\"        (string) litecoincash address\n"
+            "           \"address\"        (string) maza address\n"
             "           ,...\n"
             "         ]\n"
             "       }\n"
@@ -337,7 +337,7 @@ UniValue createrawtransaction(const JSONRPCRequest& request)
             "     ]\n"
             "2. \"outputs\"               (object, required) a json object with outputs\n"
             "    {\n"
-            "      \"address\": x.xxx,    (numeric or string, required) The key is the litecoincash address, the numeric value (can be string) is the " + CURRENCY_UNIT + " amount\n"
+            "      \"address\": x.xxx,    (numeric or string, required) The key is the maza address, the numeric value (can be string) is the " + CURRENCY_UNIT + " amount\n"
             "      \"data\": \"hex\"      (string, required) The key is \"data\", the value is hex encoded data\n"
             "      ,...\n"
             "    }\n"
@@ -422,7 +422,7 @@ UniValue createrawtransaction(const JSONRPCRequest& request)
         } else {
             CTxDestination destination = DecodeDestination(name_);
             if (!IsValidDestination(destination)) {
-                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid LitecoinCash address: ") + name_);
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Maza address: ") + name_);
             }
 
             if (!destinations.insert(destination).second) {
@@ -444,7 +444,7 @@ UniValue createrawtransaction(const JSONRPCRequest& request)
     return EncodeHexTx(rawTx);
 }
 
-// LitecoinCash: Hive: Create a raw bee creation transaction allowing user to specify the inputs
+// Maza: Hive: Create a raw bee creation transaction allowing user to specify the inputs
 UniValue createrawbct(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() < 2 || request.params.size() > 4)
@@ -574,7 +574,7 @@ UniValue createrawbct(const JSONRPCRequest& request)
     CAmount beeCreationValue = totalBeeCost;
     CAmount donationValue = (CAmount)(totalBeeCost / consensusParams.communityContribFactor);
 
-    // LitecoinCash: MinotaurX+Hive1.2
+    // Maza: MinotaurX+Hive1.2
     CBlockIndex* pindexPrev = chainActive.Tip();
     assert(pindexPrev != nullptr);    
     if (IsMinotaurXEnabled(pindexPrev, consensusParams))
@@ -641,7 +641,7 @@ UniValue decoderawtransaction(const JSONRPCRequest& request)
             "         \"reqSigs\" : n,            (numeric) The required sigs\n"
             "         \"type\" : \"pubkeyhash\",  (string) The type, eg 'pubkeyhash'\n"
             "         \"addresses\" : [           (json array of string)\n"
-            "           \"12tvKAXCxZjSmdNbao16dKXC8tRWfcF5oc\"   (string) litecoincash address\n"
+            "           \"12tvKAXCxZjSmdNbao16dKXC8tRWfcF5oc\"   (string) maza address\n"
             "           ,...\n"
             "         ]\n"
             "       }\n"
@@ -688,7 +688,7 @@ UniValue decodescript(const JSONRPCRequest& request)
             "  \"type\":\"type\", (string) The output type\n"
             "  \"reqSigs\": n,    (numeric) The required signatures\n"
             "  \"addresses\": [   (json array of string)\n"
-            "     \"address\"     (string) litecoincash address\n"
+            "     \"address\"     (string) maza address\n"
             "     ,...\n"
             "  ],\n"
             "  \"p2sh\",\"address\" (string) address of P2SH script wrapping this redeem script (not returned if the script is already a P2SH).\n"
@@ -1015,7 +1015,7 @@ UniValue signrawtransaction(const JSONRPCRequest& request)
     const CKeyStore& keystore = tempKeystore;
 #endif
 
-    int nHashType = SIGHASH_ALL | SIGHASH_FORKID;																// LitecoinCash: Replay attack protection
+    int nHashType = SIGHASH_ALL | SIGHASH_FORKID;																// Maza: Replay attack protection
     if (!request.params[3].isNull()) {
         static std::map<std::string, int> mapSigHashValues = {
             {std::string("ALL"), int(SIGHASH_ALL)},
@@ -1024,16 +1024,16 @@ UniValue signrawtransaction(const JSONRPCRequest& request)
             {std::string("NONE|ANYONECANPAY"), int(SIGHASH_NONE|SIGHASH_ANYONECANPAY)},
             {std::string("SINGLE"), int(SIGHASH_SINGLE)},
             {std::string("SINGLE|ANYONECANPAY"), int(SIGHASH_SINGLE|SIGHASH_ANYONECANPAY)},
-            {std::string("ALL|FORKID"), int(SIGHASH_ALL|SIGHASH_FORKID)},											// LitecoinCash: Replay attack protection
-            {std::string("NONE|FORKID"), int(SIGHASH_NONE|SIGHASH_FORKID)},											// LitecoinCash: Replay attack protection
-            {std::string("SINGLE|FORKID"), int(SIGHASH_SINGLE|SIGHASH_FORKID)},										// LitecoinCash: Replay attack protection
-            {std::string("ALL|FORKID|ANYONECANPAY"), int(SIGHASH_ALL|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},			// LitecoinCash: Replay attack protection
-            {std::string("NONE|FORKID|ANYONECANPAY"), int(SIGHASH_NONE|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},		// LitecoinCash: Replay attack protection
-            {std::string("SINGLE|FORKID|ANYONECANPAY"), int(SIGHASH_SINGLE|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},	// LitecoinCash: Replay attack protection            
+            {std::string("ALL|FORKID"), int(SIGHASH_ALL|SIGHASH_FORKID)},											// Maza: Replay attack protection
+            {std::string("NONE|FORKID"), int(SIGHASH_NONE|SIGHASH_FORKID)},											// Maza: Replay attack protection
+            {std::string("SINGLE|FORKID"), int(SIGHASH_SINGLE|SIGHASH_FORKID)},										// Maza: Replay attack protection
+            {std::string("ALL|FORKID|ANYONECANPAY"), int(SIGHASH_ALL|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},			// Maza: Replay attack protection
+            {std::string("NONE|FORKID|ANYONECANPAY"), int(SIGHASH_NONE|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},		// Maza: Replay attack protection
+            {std::string("SINGLE|FORKID|ANYONECANPAY"), int(SIGHASH_SINGLE|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},	// Maza: Replay attack protection            
         };
         std::string strHashType = request.params[3].get_str();
         if (mapSigHashValues.count(strHashType))
-            nHashType = mapSigHashValues[strHashType] | SIGHASH_FORKID;												// LitecoinCash: Replay attack protection
+            nHashType = mapSigHashValues[strHashType] | SIGHASH_FORKID;												// Maza: Replay attack protection
         else
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid sighash param");
     }
@@ -1189,7 +1189,7 @@ static const CRPCCommand commands[] =
   //  --------------------- ------------------------  -----------------------  ----------
     { "rawtransactions",    "getrawtransaction",      &getrawtransaction,      {"txid","verbose","blockhash"} },
     { "rawtransactions",    "createrawtransaction",   &createrawtransaction,   {"inputs","outputs","locktime","replaceable"} },
-    { "rawtransactions",    "createrawbct",           &createrawbct,           {"inputs","beecount","honey_address","community_contrib", "locktime"} }, // LitecoinCash: Hive
+    { "rawtransactions",    "createrawbct",           &createrawbct,           {"inputs","beecount","honey_address","community_contrib", "locktime"} }, // Maza: Hive
     { "rawtransactions",    "decoderawtransaction",   &decoderawtransaction,   {"hexstring","iswitness"} },
     { "rawtransactions",    "decodescript",           &decodescript,           {"hexstring"} },
     { "rawtransactions",    "sendrawtransaction",     &sendrawtransaction,     {"hexstring","allowhighfees"} },

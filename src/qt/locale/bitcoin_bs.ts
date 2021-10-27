@@ -14,7 +14,7 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     </context>
@@ -33,7 +33,7 @@
 <context>
     <name>Intro</name>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     </context>

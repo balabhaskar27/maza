@@ -62,8 +62,8 @@
         <translation>Direcciones de recibo</translation>
     </message>
     <message>
-        <source>These are your LitecoinCash addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Estas son tus direcciones de LitecoinCash para enviar pagos. Siempre revisa el monto y la dirección de envío antes de enviar monedas.</translation>
+        <source>These are your Maza addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Estas son tus direcciones de Maza para enviar pagos. Siempre revisa el monto y la dirección de envío antes de enviar monedas.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -178,8 +178,8 @@
         <translation>Reindexando bloques en el disco...</translation>
     </message>
     <message>
-        <source>Send coins to a LitecoinCash address</source>
-        <translation>Enviar monedas a una dirección LitecoinCash</translation>
+        <source>Send coins to a Maza address</source>
+        <translation>Enviar monedas a una dirección Maza</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -202,7 +202,7 @@
         <translation>&amp;Verificar mensaje...</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -365,7 +365,7 @@
 <context>
     <name>Intro</name>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -458,8 +458,8 @@
         <translation>Mensaje:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the LitecoinCash network.</source>
-        <translation>Mensaje opcional para agregar a la solicitud de pago, el cual será mostrado cuando la solicitud este abierta. Nota: El mensaje no se manda con el pago a travéz de la red de LitecoinCash.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Maza network.</source>
+        <translation>Mensaje opcional para agregar a la solicitud de pago, el cual será mostrado cuando la solicitud este abierta. Nota: El mensaje no se manda con el pago a travéz de la red de Maza.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -645,7 +645,7 @@
     </message>
     <message>
         <source>Litecoin Cash Core</source>
-        <translation>nucleo LitecoinCash</translation>
+        <translation>nucleo Maza</translation>
     </message>
     <message>
         <source>&lt;category&gt; can be:</source>

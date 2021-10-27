@@ -62,12 +62,12 @@
         <translation>Adresa primatelja</translation>
     </message>
     <message>
-        <source>These are your LitecoinCash addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Ovo su vaše LitecoinCash adrese za slanje novca. Uvijek provjerite iznos i adresu primatelja prije slanja novca.</translation>
+        <source>These are your Maza addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Ovo su vaše Maza adrese za slanje novca. Uvijek provjerite iznos i adresu primatelja prije slanja novca.</translation>
     </message>
     <message>
-        <source>These are your LitecoinCash addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Ovo su vaše LitecoinCash adrese za primanje novca. Preporučamo da koristite novu adresu za primanje za svaku transakciju.</translation>
+        <source>These are your Maza addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Ovo su vaše Maza adrese za primanje novca. Preporučamo da koristite novu adresu za primanje za svaku transakciju.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -168,8 +168,8 @@
         <translation>Potvrdi šifriranje novčanika</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR LITECOINCASH&lt;/b&gt;!</source>
-        <translation>Upozorenje: Ako šifrirate vaš novčanik i izgubite lozinku, &lt;b&gt;IZGUBIT ĆETE SVE SVOJE LITECOINCASHE!&lt;/b&gt;</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAZA&lt;/b&gt;!</source>
+        <translation>Upozorenje: Ako šifrirate vaš novčanik i izgubite lozinku, &lt;b&gt;IZGUBIT ĆETE SVE SVOJE MAZAE!&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -302,8 +302,8 @@
         <translation>Re-indeksiranje blokova na disku...</translation>
     </message>
     <message>
-        <source>Send coins to a LitecoinCash address</source>
-        <translation>Slanje novca na litecoincash adresu</translation>
+        <source>Send coins to a Maza address</source>
+        <translation>Slanje novca na maza adresu</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -326,7 +326,7 @@
         <translation>&amp;Potvrdite poruku...</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -354,12 +354,12 @@
         <translation>Šifriranje privatnih ključeva koji u novčaniku</translation>
     </message>
     <message>
-        <source>Sign messages with your LitecoinCash addresses to prove you own them</source>
-        <translation>Poruku potpišemo s litecoincash adresom, kako bi dokazali vlasništvo nad tom adresom</translation>
+        <source>Sign messages with your Maza addresses to prove you own them</source>
+        <translation>Poruku potpišemo s maza adresom, kako bi dokazali vlasništvo nad tom adresom</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified LitecoinCash addresses</source>
-        <translation>Provjeravanje poruke, kao dokaz, da je potpisana navedenom litecoincash adresom</translation>
+        <source>Verify messages to ensure they were signed with specified Maza addresses</source>
+        <translation>Provjeravanje poruke, kao dokaz, da je potpisana navedenom maza adresom</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -378,8 +378,8 @@
         <translation>Traka kartica</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and litecoincash: URIs)</source>
-        <translation>Zatraži uplatu (stvara QR kod i litecoincash: URI adresu)</translation>
+        <source>Request payments (generates QR codes and maza: URIs)</source>
+        <translation>Zatraži uplatu (stvara QR kod i maza: URI adresu)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -390,16 +390,16 @@
         <translation>Prikaži popis korištenih adresa i oznaka za primanje novca</translation>
     </message>
     <message>
-        <source>Open a litecoincash: URI or payment request</source>
-        <translation>Otvori litecoincash: URI adresu ili zahtjev za uplatu</translation>
+        <source>Open a maza: URI or payment request</source>
+        <translation>Otvori maza: URI adresu ili zahtjev za uplatu</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>Opcije &amp;naredbene linije</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to LitecoinCash network</source>
-        <translation><numerusform>%n aktivna veza na LitecoinCash mrežu</numerusform><numerusform>%n aktivnih veza na LitecoinCash mrežu</numerusform><numerusform>%n aktivnih veza na LitecoinCash mrežu</numerusform></translation>
+        <source>%n active connection(s) to Maza network</source>
+        <translation><numerusform>%n aktivna veza na Maza mrežu</numerusform><numerusform>%n aktivnih veza na Maza mrežu</numerusform><numerusform>%n aktivnih veza na Maza mrežu</numerusform></translation>
     </message>
     <message>
         <source>Indexing blocks on disk...</source>
@@ -591,7 +591,7 @@
     </message>
     <message>
         <source>The label associated with this address list entry</source>
-        <translation>Oznaka litecoincash adrese</translation>
+        <translation>Oznaka maza adrese</translation>
     </message>
     <message>
         <source>The address associated with this address list entry. This can only be modified for sending addresses.</source>
@@ -618,8 +618,8 @@
         <translation>Uredi adresu za slanje</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid LitecoinCash address.</source>
-        <translation>Upisana adresa "%1" nije valjana litecoincash adresa.</translation>
+        <source>The entered address "%1" is not a valid Maza address.</source>
+        <translation>Upisana adresa "%1" nije valjana maza adresa.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -683,7 +683,7 @@
         <translation>Dobrodošli</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -776,8 +776,8 @@
         <translation>&amp;Trošenje nepotvrđenih vraćenih iznosa</translation>
     </message>
     <message>
-        <source>Automatically open the LitecoinCash client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatski otvori port LitecoinCash klijenta na ruteru. To radi samo ako ruter podržava UPnP i ako je omogućen.</translation>
+        <source>Automatically open the Maza client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatski otvori port Maza klijenta na ruteru. To radi samo ako ruter podržava UPnP i ako je omogućen.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -825,7 +825,7 @@
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Izaberite željeni najmanji dio litecoincasha koji će biti prikazan u sučelju i koji će se koristiti za plaćanje.</translation>
+        <translation>Izaberite željeni najmanji dio mazaa koji će biti prikazan u sučelju i koji će se koristiti za plaćanje.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -855,8 +855,8 @@
         <translation>Oblik</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the LitecoinCash network after a connection is established, but this process has not completed yet.</source>
-        <translation>Prikazani podatci mogu biti zastarjeli. Vaš novčanik se automatski sinkronizira s LitecoinCash mrežom kada je veza uspostavljena, ali taj proces još nije završen.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Maza network after a connection is established, but this process has not completed yet.</source>
+        <translation>Prikazani podatci mogu biti zastarjeli. Vaš novčanik se automatski sinkronizira s Maza mrežom kada je veza uspostavljena, ali taj proces još nije završen.</translation>
     </message>
     <message>
         <source>Total:</source>

@@ -62,12 +62,12 @@
         <translation>Ricevaj adresoj</translation>
     </message>
     <message>
-        <source>These are your LitecoinCash addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Jen viaj LitecoinCash-adresoj por sendi pagojn. Zorge kontrolu la sumon kaj la alsendan adreson antaŭ ol sendi.</translation>
+        <source>These are your Maza addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Jen viaj Maza-adresoj por sendi pagojn. Zorge kontrolu la sumon kaj la alsendan adreson antaŭ ol sendi.</translation>
     </message>
     <message>
-        <source>These are your LitecoinCash addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Jen viaj litecoincashj adresoj por ricevi pagojn. Estas konsilinde uzi apartan ricevan adreson por ĉiu transakcio.</translation>
+        <source>These are your Maza addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Jen viaj mazaj adresoj por ricevi pagojn. Estas konsilinde uzi apartan ricevan adreson por ĉiu transakcio.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -164,7 +164,7 @@
         <translation>Tajpu la malnovan pasvorton kaj la novan pasvorton por la monujo.</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR LITECOINCASH&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAZA&lt;/b&gt;!</source>
         <translation>Atentu! Se vi ĉifras vian monujon kaj perdas la pasfrazon, vi &lt;b&gt;PERDOS LA TUTON DE VIA BITMONO&lt;b&gt;!</translation>
     </message>
     <message>
@@ -176,7 +176,7 @@
         <translation>La monujo estas ĉifrita</translation>
     </message>
     <message>
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your litecoincash from being stolen by malware infecting your computer.</source>
+        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your maza from being stolen by malware infecting your computer.</source>
         <translation>%1 nun fermiĝos por fini la ĉifradon. Memoru, ke eĉ ĉifrado ne protektas kontraŭ ĉiu atako, ekz. se viruso infektus vian komputilon.</translation>
     </message>
     <message>
@@ -270,8 +270,8 @@
         <translation>Reindeksado de blokoj sur disko...</translation>
     </message>
     <message>
-        <source>Send coins to a LitecoinCash address</source>
-        <translation>Sendi monon al LitecoinCash-adreso</translation>
+        <source>Send coins to a Maza address</source>
+        <translation>Sendi monon al Maza-adreso</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -294,7 +294,7 @@
         <translation>&amp;Kontroli mesaĝon...</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -322,12 +322,12 @@
         <translation>Ĉifri la privatajn ŝlosilojn de via monujo</translation>
     </message>
     <message>
-        <source>Sign messages with your LitecoinCash addresses to prove you own them</source>
-        <translation>Subskribi mesaĝojn per via LitecoinCash-adresoj por pravigi, ke vi estas la posedanto</translation>
+        <source>Sign messages with your Maza addresses to prove you own them</source>
+        <translation>Subskribi mesaĝojn per via Maza-adresoj por pravigi, ke vi estas la posedanto</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified LitecoinCash addresses</source>
-        <translation>Kontroli mesaĝojn por kontroli ĉu ili estas subskribitaj per specifaj LitecoinCash-adresoj</translation>
+        <source>Verify messages to ensure they were signed with specified Maza addresses</source>
+        <translation>Kontroli mesaĝojn por kontroli ĉu ili estas subskribitaj per specifaj Maza-adresoj</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -346,8 +346,8 @@
         <translation>Langeto-breto</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and litecoincash: URIs)</source>
-        <translation>Peti pagon (kreas QR-kodojn kaj URI-ojn kun prefikso litecoincash:)</translation>
+        <source>Request payments (generates QR codes and maza: URIs)</source>
+        <translation>Peti pagon (kreas QR-kodojn kaj URI-ojn kun prefikso maza:)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -358,8 +358,8 @@
         <translation>Vidigi la liston de uzitaj ricevaj adresoj kaj etikedoj</translation>
     </message>
     <message>
-        <source>Open a litecoincash: URI or payment request</source>
-        <translation>Malfermi litecoincash:-URI-on aŭ pagpeton</translation>
+        <source>Open a maza: URI or payment request</source>
+        <translation>Malfermi maza:-URI-on aŭ pagpeton</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -599,7 +599,7 @@
         <translation>Uzi alian dosierujon por datumoj:</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -680,8 +680,8 @@
         <translation>Fakulo</translation>
     </message>
     <message>
-        <source>Automatically open the LitecoinCash client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Aŭtomate malfermi la kursilan pordon por LitecoinCash. Tio funkcias nur se via kursilo havas la UPnP-funkcion, kaj se tiu ĉi estas ŝaltita.</translation>
+        <source>Automatically open the Maza client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Aŭtomate malfermi la kursilan pordon por Maza. Tio funkcias nur se via kursilo havas la UPnP-funkcion, kaj se tiu ĉi estas ŝaltita.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -737,7 +737,7 @@
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Elekti la defaŭltan manieron por montri litecoincashjn sumojn en la interfaco, kaj kiam vi sendos bitmonon.</translation>
+        <translation>Elekti la defaŭltan manieron por montri mazajn sumojn en la interfaco, kaj kiam vi sendos bitmonon.</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -779,8 +779,8 @@
         <translation>Formularo</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the LitecoinCash network after a connection is established, but this process has not completed yet.</source>
-        <translation>Eblas, ke la informoj videblaj ĉi tie estas eksdataj. Via monujo aŭtomate sinkoniĝas kun la litecoincash reto kiam ili konektiĝas, sed tiu procezo ankoraŭ ne finfariĝis.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Maza network after a connection is established, but this process has not completed yet.</source>
+        <translation>Eblas, ke la informoj videblaj ĉi tie estas eksdataj. Via monujo aŭtomate sinkoniĝas kun la maza reto kiam ili konektiĝas, sed tiu procezo ankoraŭ ne finfariĝis.</translation>
     </message>
     <message>
         <source>Your current spendable balance</source>
@@ -1134,7 +1134,7 @@
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>Sendi LitecoinCashn</translation>
+        <translation>Sendi Mazan</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -1277,8 +1277,8 @@
         <translation>Kreo de transakcio fiaskis!</translation>
     </message>
     <message>
-        <source>Warning: Invalid LitecoinCash address</source>
-        <translation>Averto: Nevalida LitecoinCash-adreso</translation>
+        <source>Warning: Invalid Maza address</source>
+        <translation>Averto: Nevalida Maza-adreso</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -1393,8 +1393,8 @@
         <translation>Kopii la aktualan subskribon al la tondejo</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this LitecoinCash address</source>
-        <translation>Subskribi la mesaĝon por pravigi, ke vi estas la posedanto de tiu LitecoinCash-adreso</translation>
+        <source>Sign the message to prove you own this Maza address</source>
+        <translation>Subskribi la mesaĝon por pravigi, ke vi estas la posedanto de tiu Maza-adreso</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -1413,8 +1413,8 @@
         <translation>&amp;Kontroli Mesaĝon</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified LitecoinCash address</source>
-        <translation>Kontroli la mesaĝon por pravigi, ke ĝi ja estas subskribita per la specifa LitecoinCash-adreso</translation>
+        <source>Verify the message to ensure it was signed with the specified Maza address</source>
+        <translation>Kontroli la mesaĝon por pravigi, ke ĝi ja estas subskribita per la specifa Maza-adreso</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -1837,7 +1837,7 @@
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Sendi LitecoinCashn</translation>
+        <translation>Sendi Mazan</translation>
     </message>
     </context>
 <context>
@@ -1895,7 +1895,7 @@
     </message>
     <message>
         <source>Litecoin Cash Core</source>
-        <translation>Kerno de LitecoinCash</translation>
+        <translation>Kerno de Maza</translation>
     </message>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>

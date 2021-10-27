@@ -130,7 +130,7 @@
         <translation>Kõvakettal olevate plokkide reindekseerimine...</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -273,7 +273,7 @@
         <translation>Tere tulemast</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>

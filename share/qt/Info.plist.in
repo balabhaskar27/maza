@@ -31,7 +31,7 @@
   <key>CFBundleExecutable</key>
   <string>Maza-Qt</string>
   <key>CFBundleName</key>
-  <string>LitecoinCash-Qt</string>
+  <string>Maza-Qt</string>
 
   <key>LSHasLocalizedDisplayName</key>
   <true/>
@@ -59,7 +59,7 @@
       <key>UTTypeIdentifier</key>
       <string>org.maza.paymentrequest</string>
       <key>UTTypeDescription</key>
-      <string>LitecoinCash payment request</string>
+      <string>Maza payment request</string>
       <key>UTTypeConformsTo</key>
       <array>
         <string>public.data</string>

@@ -40,9 +40,9 @@ QString BitcoinUnits::longName(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("mzc");
-    case mBTC: return QString("mmzc");
-    case uBTC: return QString("umzc");
+    case BTC: return QString("MAZA");               
+    case mBTC: return QString("mMAZA");
+    case uBTC: return QString::fromUtf8("µMAZA");
     default: return QString("???");
     }
 }
@@ -71,10 +71,10 @@ qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)
     {
-    case BTC:  return 100000000 / COIN_SCALE;       // LitecoinCash: Updated factors
-    case mBTC: return 100000 / COIN_SCALE;
-    case uBTC: return 100 / COIN_SCALE;
-    default:   return 100000000 / COIN_SCALE;
+    case BTC:  return 100000000;       
+    case mBTC: return 100000;
+    case uBTC: return 100;
+    default:   return 100000000;
     }
 }
 
@@ -82,7 +82,7 @@ int BitcoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case BTC: return 7;                             // LitecoinCash: Updated decimals
+    case BTC: return 7;                             // Maza: Updated decimals
     case mBTC: return 4;
     case uBTC: return 1;
     default: return 0;

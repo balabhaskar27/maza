@@ -54,12 +54,12 @@
         <translation>Duke marr adresen</translation>
     </message>
     <message>
-        <source>These are your LitecoinCash addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Këto janë LitecoinCash adresat e juaja për të dërguar pagesa. Gjithmon kontrolloni shumën dhe adresën pranuese para se të dërgoni monedha.</translation>
+        <source>These are your Maza addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Këto janë Maza adresat e juaja për të dërguar pagesa. Gjithmon kontrolloni shumën dhe adresën pranuese para se të dërgoni monedha.</translation>
     </message>
     <message>
-        <source>These are your LitecoinCash addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Këto janë LitecoinCash adresat e juaja për të pranuar pagesa. Rekomandohet që gjithmon të përdorni një adresë të re për çdo transaksion.</translation>
+        <source>These are your Maza addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Këto janë Maza adresat e juaja për të pranuar pagesa. Rekomandohet që gjithmon të përdorni një adresë të re për çdo transaksion.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -230,7 +230,7 @@
         <translation>Ndrysho frazkalimin e përdorur per enkriptimin e portofolit</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -401,7 +401,7 @@
         <translation>Miresevini</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -813,7 +813,7 @@
     </message>
     <message>
         <source>Litecoin Cash Core</source>
-        <translation>Berthama LitecoinCash</translation>
+        <translation>Berthama Maza</translation>
     </message>
     <message>
         <source>Information</source>

@@ -334,10 +334,6 @@
         <translation>Изпращане към Биткоин адрес</translation>
     </message>
     <message>
-        <source>Modify configuration options for Bitcoin</source>
-        <translation>Променете настройките на Биткойн</translation>
-    </message>
-    <message>
         <source>Backup wallet to another location</source>
         <translation>Запазване на портфейла на друго място</translation>
     </message>
@@ -372,10 +368,6 @@
     <message>
         <source>&amp;Receive</source>
         <translation>&amp;Получаване</translation>
-    </message>
-    <message>
-        <source>Show information about Bitcoin Core</source>
-        <translation>Покажете информация за Биткойн ядрото</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
@@ -426,17 +418,8 @@
         <translation>Покажи списък с използваните адреси и имена.</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>Open a litecoincash: URI or payment request</source>
         <translation>Отворете LitecoinCash: URI  или заявка за плащане</translation>
-=======
-        <source>Open a bitcoin: URI or payment request</source>
-        <translation>Отворете биткойн: URI  или заявка за плащане</translation>
-    </message>
-    <message>
-        <source>&amp;Command-line options</source>
-        <translation>&amp;Налични команди</translation>
->>>>>>> Translations update
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -477,10 +460,6 @@
     <message>
         <source>Up to date</source>
         <translation>Синхронизиран</translation>
-    </message>
-    <message numerus="yes">
-        <source>Processed %n blocks of transaction history.</source>
-        <translation><numerusform>Обслужени %n блокове от историята с транзакции.</numerusform><numerusform>Обслужени %n блокове от историята с транзакции.</numerusform></translation>
     </message>
     <message>
         <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>
@@ -535,18 +514,6 @@
     <message>
         <source>Incoming transaction</source>
         <translation>Входяща транзакция</translation>
-    </message>
-    <message>
-        <source>Date: %1
-Amount: %2
-Type: %3
-Address: %4
-</source>
-        <translation>Дата: %1
-Сума: %2
-Вид: %3
-Адрес: %4
-</translation>
     </message>
     <message>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
@@ -676,10 +643,6 @@ Address: %4
         <translation>Копирай прахта:</translation>
     </message>
     <message>
-        <source>Copy dust</source>
-        <translation>Копирай прахта:</translation>
-    </message>
-    <message>
         <source>Copy change</source>
         <translation>Копирай рестото</translation>
     </message>
@@ -694,18 +657,6 @@ Address: %4
     <message>
         <source>no</source>
         <translation>не</translation>
-    </message>
-    <message>
-        <source>This means a fee of at least %1 per kB is required.</source>
-        <translation>Това означава че се изисква такса от поне %1 на килобайт.</translation>
-    </message>
-    <message>
-        <source>Can vary +/- 1 byte per input.</source>
-        <translation>Може да варира с +-1 байт</translation>
-    </message>
-    <message>
-        <source>This label turns red, if any recipient receives an amount smaller than %1.</source>
-        <translation>Това наименование се оцветява в червено, ако произволен получател получи сума по-малка от %1.</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -800,10 +751,6 @@ Address: %4
 </context>
 <context>
     <name>HelpMessageDialog</name>
-    <message>
-        <source>Bitcoin Core</source>
-        <translation>Биткойн ядро</translation>
-    </message>
     <message>
         <source>version</source>
         <translation>версия</translation>
@@ -949,25 +896,12 @@ Address: %4
         <translation>Мегабайта</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>Number of script &amp;verification threads</source>
         <translation>Брой на скриптове и &amp;нишки за потвърждение</translation>
-=======
-        <source>Accept connections from outside</source>
-        <translation>Приемай връзки отвън</translation>
-    </message>
-    <message>
-        <source>Allow incoming connections</source>
-        <translation>Позволи входящите връзки</translation>
->>>>>>> Translations update
     </message>
     <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
         <translation>IP адрес на прокси (напр. за IPv4: 127.0.0.1 / за IPv6: ::1)</translation>
-    </message>
-    <message>
-        <source>Third party transaction URLs</source>
-        <translation>URL адреси на трети страни</translation>
     </message>
     <message>
         <source>Reset all client options to default.</source>
@@ -1156,7 +1090,6 @@ Address: %4
 <context>
     <name>PaymentServer</name>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>Payment request error</source>
         <translation>Възникна грешка по време назаявката за плащане</translation>
     </message>
@@ -1165,8 +1098,6 @@ Address: %4
         <translation>Litecoin Cash не можe да се стартира: click-to-pay handler</translation>
     </message>
     <message>
-=======
->>>>>>> Translations update
         <source>URI handling</source>
         <translation>Справяне с URI</translation>
     </message>
@@ -1175,13 +1106,10 @@ Address: %4
         <translation>Невалиден адрес на плащане %1</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>Payment request file handling</source>
         <translation>Файл за справяне със заявки</translation>
     </message>
     <message>
-=======
->>>>>>> Translations update
         <source>Payment request rejected</source>
         <translation>Заявката за плащане беше отхвърлена</translation>
     </message>
@@ -1190,7 +1118,6 @@ Address: %4
         <translation>Мрежата от която се извършва заявката за плащане не съвпада с мрежата на клиента.</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>Payment request expired.</source>
         <translation>Заявката за плащане е изтекла.</translation>
     </message>
@@ -1199,39 +1126,16 @@ Address: %4
         <translation>Невалидна заявка за плащане.</translation>
     </message>
     <message>
-=======
-        <source>Payment request has expired.</source>
-        <translation>Заявката за плащане е изтекла.</translation>
-    </message>
-    <message>
->>>>>>> Translations update
         <source>Requested payment amount of %1 is too small (considered dust).</source>
         <translation>Заявената сума за плащане: %1 е твърде малка (счита се за отпадък)</translation>
-    </message>
-    <message>
-        <source>Payment request error</source>
-        <translation>Възникна грешка по време назаявката за плащане</translation>
-    </message>
-    <message>
-        <source>Cannot start bitcoin: click-to-pay handler</source>
-        <translation>Биткойн не можe да се стартира: click-to-pay handler</translation>
-    </message>
-    <message>
-        <source>Payment request file handling</source>
-        <translation>Файл за справяне със заявки</translation>
     </message>
     <message>
         <source>Refund from %1</source>
         <translation>Възстановяване на сума от %1</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
         <translation>Заявката за плащане %1 е твърде голям (%2 байта, позволени %3 байта).</translation>
-=======
-        <source>Payment request DoS protection</source>
-        <translation>Дос защита на заявката за плащане</translation>
->>>>>>> Translations update
     </message>
     <message>
         <source>Error communicating with %1: %2</source>
@@ -1272,13 +1176,8 @@ Address: %4
         <translation>Сума</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>Enter a LitecoinCash address (e.g. %1)</source>
         <translation>Въведете LitecoinCash адрес (например: %1)</translation>
-=======
-        <source>Enter a Bitcoin address (e.g. %1)</source>
-        <translation>Въведете Биткойн адрес (например: %1)</translation>
->>>>>>> Translations update
     </message>
     <message>
         <source>%1 d</source>
@@ -1438,13 +1337,6 @@ Address: %4
         <translation>Услуги</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-=======
-        <source>Starting Height</source>
-        <translation>Стартова височина</translation>
-    </message>
-    <message>
->>>>>>> Translations update
         <source>Connection Time</source>
         <translation>Продължителност на връзката</translation>
     </message>
@@ -1457,17 +1349,6 @@ Address: %4
         <translation>Получени за последно</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-=======
-        <source>Bytes Sent</source>
-        <translation>Изпратени байтове</translation>
-    </message>
-    <message>
-        <source>Bytes Received</source>
-        <translation>Получени байтове</translation>
-    </message>
-    <message>
->>>>>>> Translations update
         <source>Ping Time</source>
         <translation>Време за отговор</translation>
     </message>
@@ -1535,33 +1416,6 @@ Address: %4
         <source>Unknown</source>
         <translation>Неизвестен</translation>
     </message>
-<<<<<<< refs/remotes/lcc/master
-=======
-    <message>
-        <source>via %1</source>
-        <translation>посредством %1</translation>
-    </message>
-    <message>
-        <source>never</source>
-        <translation>Никога</translation>
-    </message>
-    <message>
-        <source>Inbound</source>
-        <translation>Входящи</translation>
-    </message>
-    <message>
-        <source>Outbound</source>
-        <translation>Изходящи</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation>Неизвестен</translation>
-    </message>
-    <message>
-        <source>Fetching...</source>
-        <translation>Прихващане...</translation>
-    </message>
->>>>>>> Translations update
 </context>
 <context>
     <name>ReceiveCoinsDialog</name>
@@ -1747,13 +1601,6 @@ Address: %4
         <translation>Избери...</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-=======
-        <source>Minimize</source>
-        <translation>Минимизирай</translation>
-    </message>
-    <message>
->>>>>>> Translations update
         <source>per kilobyte</source>
         <translation>за килобайт</translation>
     </message>
@@ -1768,21 +1615,6 @@ Address: %4
     <message>
         <source>Custom:</source>
         <translation>По избор:</translation>
-<<<<<<< refs/remotes/lcc/master
-=======
-    </message>
-    <message>
-        <source>Confirmation time:</source>
-        <translation>Време за потвърждение:</translation>
->>>>>>> Translations update
-    </message>
-    <message>
-        <source>normal</source>
-        <translation>нормален</translation>
-    </message>
-    <message>
-        <source>fast</source>
-        <translation>бърз</translation>
     </message>
     <message>
         <source>Send to multiple recipients at once</source>
@@ -1815,10 +1647,6 @@ Address: %4
     <message>
         <source>S&amp;end</source>
         <translation>И&amp;зпрати</translation>
-    </message>
-    <message>
-        <source>Copy quantity</source>
-        <translation>Копиране на количеството</translation>
     </message>
     <message>
         <source>Copy quantity</source>
@@ -1893,21 +1721,8 @@ Address: %4
         <translation>Внимание:Неизвестен адрес за промяна</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>(no label)</source>
         <translation>(без име)</translation>
-=======
-        <source>Copy dust</source>
-        <translation>Копирай прахта:</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to send?</source>
-        <translation>Наистина ли искате да изпратите?</translation>
-    </message>
-    <message>
-        <source>added as transaction fee</source>
-        <translation>добавено като такса за трансакция</translation>
->>>>>>> Translations update
     </message>
 </context>
 <context>
@@ -1953,14 +1768,6 @@ Address: %4
         <translation>Съобщение:</translation>
     </message>
     <message>
-        <source>This is a verified payment request.</source>
-        <translation>Това е потвърдена транзакция.</translation>
-    </message>
-    <message>
-        <source>This is an unverified payment request.</source>
-        <translation>Това е непотвърдена заявка за плащане.</translation>
-    </message>
-    <message>
         <source>Pay To:</source>
         <translation>Плащане на:</translation>
     </message>
@@ -1968,13 +1775,10 @@ Address: %4
         <source>Memo:</source>
         <translation>Бележка:</translation>
     </message>
-<<<<<<< refs/remotes/lcc/master
     <message>
         <source>Enter a label for this address to add it to your address book</source>
         <translation>Въведете име за този адрес, за да го добавите в списъка с адреси</translation>
     </message>
-=======
->>>>>>> Translations update
 </context>
 <context>
     <name>SendConfirmationDialog</name>
@@ -1999,10 +1803,6 @@ Address: %4
     <message>
         <source>&amp;Sign Message</source>
         <translation>&amp;Подпиши</translation>
-    </message>
-    <message>
-        <source>Choose previously used address</source>
-        <translation>Изберете използван преди адрес</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2112,14 +1912,6 @@ Address: %4
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Биткойн ядро</translation>
-    </message>
-    <message>
-        <source>The Bitcoin Core developers</source>
-        <translation>Разработчици на Bitcoin Core</translation>
-    </message>
-    <message>
         <source>[testnet]</source>
         <translation>[testnet]</translation>
     </message>
@@ -2136,10 +1928,6 @@ Address: %4
     <message>
         <source>Open until %1</source>
         <translation>Подлежи на промяна до %1</translation>
-    </message>
-    <message>
-        <source>conflicted</source>
-        <translation>припокриващ се</translation>
     </message>
     <message>
         <source>%1/offline</source>
@@ -2594,31 +2382,6 @@ Address: %4
         <translation>Настройки на връзката:</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-        <source>Do you want to rebuild the block database now?</source>
-        <translation>Желаете ли да пресъздадете базата данни с блокове сега?</translation>
-    </message>
-    <message>
-        <source>Error initializing block database</source>
-        <translation>Грешка в пускането на базата данни с блокове</translation>
-=======
-        <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
-        <translation>Сложете в бял списък пиъри,свързващи се от дадената интернет маска или айпи адрес.Може да бъде заложено неколкократно.</translation>
-    </message>
-    <message>
-        <source>(default: 1)</source>
-        <translation>(по подразбиране 1)</translation>
-    </message>
-    <message>
-        <source>&lt;category&gt; can be:</source>
-        <translation>&lt;category&gt; може да бъде:</translation>
-    </message>
-    <message>
-        <source>Connection options:</source>
-        <translation>Настройки на връзката:</translation>
->>>>>>> Translations update
-    </message>
-    <message>
         <source>Do you want to rebuild the block database now?</source>
         <translation>Желаете ли да пресъздадете базата данни с блокове сега?</translation>
     </message>
@@ -2647,28 +2410,12 @@ Address: %4
         <translation>Настройки на портфейла:</translation>
     </message>
     <message>
-        <source>Set the number of threads for coin generation if enabled (-1 = all cores, default: %d)</source>
-        <translation>Заложете броя на нишки за генерация на монети ако е включено(-1 = всички ядра, по подразбиране: %d)</translation>
-    </message>
-    <message>
-        <source>Warning: -maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
-        <translation>Внимание: -maxtxfee има много висока стойност! Толкова високи такси могат да бъдат заплатени на една транзакция.</translation>
-    </message>
-    <message>
         <source>Connect through SOCKS5 proxy</source>
         <translation>Свързване чрез SOCKS5  прокси</translation>
     </message>
     <message>
         <source>Information</source>
         <translation>Информация</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
-        <translation>Невалидна сума за -minrelaytxfee=&lt;amount&gt;: '%s'</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -mintxfee=&lt;amount&gt;: '%s'</source>
-        <translation>Невалидна сума за -mintxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
@@ -2731,21 +2478,8 @@ Address: %4
         <translation>Сумите на транзакциите не могат да бъдат отрицателни</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>Transaction must have at least one recipient</source>
         <translation>Транзакцията трябва да има поне един получател.</translation>
-=======
-        <source>Specify connection timeout in milliseconds (minimum: 1, default: %d)</source>
-        <translation>Задайте време на изключване при проблеми със свързването в милисекунди(минимум:1, по подразбиране %d)</translation>
-    </message>
-    <message>
-        <source>Specify pid file (default: %s)</source>
-        <translation>Задайте pid  файл(по подразбиране: %s)</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s'</source>
-        <translation>Невалидна сума за -paytxfee=&lt;amount&gt;: '%s'</translation>
->>>>>>> Translations update
     </message>
     <message>
         <source>Insufficient funds</source>

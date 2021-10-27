@@ -1,5 +1,5 @@
 ---
-name: "litecoincash-osx-0.16"
+name: "maza-osx-0.16"
 enable_cache: true
 suites:
 - "trusty"

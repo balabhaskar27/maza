@@ -62,12 +62,12 @@
         <translation>Адреса получения</translation>
     </message>
     <message>
-        <source>These are your LitecoinCash addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Это ваши адреса LitecoinCash для отправки платежей. Всегда проверяйте сумму и адрес получателя перед отправкой LCC-монет.</translation>
+        <source>These are your Maza addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Это ваши адреса Maza для отправки платежей. Всегда проверяйте сумму и адрес получателя перед отправкой LCC-монет.</translation>
     </message>
     <message>
-        <source>These are your LitecoinCash addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Это ваши адреса LitecoinCash для приёма платежей. Рекомендуется использовать новый адрес получения для каждой транзакции.</translation>
+        <source>These are your Maza addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Это ваши адреса Maza для приёма платежей. Рекомендуется использовать новый адрес получения для каждой транзакции.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -172,7 +172,7 @@
         <translation>Подтвердите шифрование кошелька.</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR LITECOINCASH&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAZA&lt;/b&gt;!</source>
         <translation>Предупреждение: если вы зашифруете кошелёк и потеряете пароль, вы &lt;b&gt;ПОТЕРЯЕТЕ ВСЕ ВАШИ LCC-МОНЕТЫ&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -184,7 +184,7 @@
         <translation>Кошелёк зашифрован.</translation>
     </message>
     <message>
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your litecoincash from being stolen by malware infecting your computer.</source>
+        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your maza from being stolen by malware infecting your computer.</source>
         <translation>Сейчас %1 закроется для завершения процесса шифрования. Помните, что шифрование вашего бумажника не может полностью защитить ваши LCC-монеты от кражи с помощью инфицирования вашего компьютера вредоносным ПО.</translation>
     </message>
     <message>
@@ -342,8 +342,8 @@
         <translation>Идёт переиндексация блоков на диске...</translation>
     </message>
     <message>
-        <source>Send coins to a LitecoinCash address</source>
-        <translation>Отправить монеты на указанный адрес LitecoinCash</translation>
+        <source>Send coins to a Maza address</source>
+        <translation>Отправить монеты на указанный адрес Maza</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -366,8 +366,8 @@
         <translation>&amp;Проверить сообщение...</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
-        <translation>LitecoinCash</translation>
+        <source>Maza</source>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -394,12 +394,12 @@
         <translation>Зашифровать приватные ключи, принадлежащие вашему кошельку</translation>
     </message>
     <message>
-        <source>Sign messages with your LitecoinCash addresses to prove you own them</source>
-        <translation>Подписать сообщения с помощью вашего адреса LitecoinCash, чтобы доказать, что вы ими владеете</translation>
+        <source>Sign messages with your Maza addresses to prove you own them</source>
+        <translation>Подписать сообщения с помощью вашего адреса Maza, чтобы доказать, что вы ими владеете</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified LitecoinCash addresses</source>
-        <translation>Проверить сообщения, чтобы удостовериться, что они были подписаны определённым адресом LitecoinCash</translation>
+        <source>Verify messages to ensure they were signed with specified Maza addresses</source>
+        <translation>Проверить сообщения, чтобы удостовериться, что они были подписаны определённым адресом Maza</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -418,8 +418,8 @@
         <translation>Панель вкладок</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and litecoincash: URIs)</source>
-        <translation>Запросить платежи (создаёт QR-коды и litecoincash-ссылки)</translation>
+        <source>Request payments (generates QR codes and maza: URIs)</source>
+        <translation>Запросить платежи (создаёт QR-коды и maza-ссылки)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -430,16 +430,16 @@
         <translation>Показать список использованных адресов и меток получения</translation>
     </message>
     <message>
-        <source>Open a litecoincash: URI or payment request</source>
-        <translation>Открыть litecoincash: URI или запрос платежа</translation>
+        <source>Open a maza: URI or payment request</source>
+        <translation>Открыть maza: URI или запрос платежа</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Параметры командной строки</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to LitecoinCash network</source>
-        <translation><numerusform>%n активных соединений с сетью LitecoinCash</numerusform><numerusform>%n активных соединений с сетью LitecoinCash</numerusform><numerusform>%n активных соединений с сетью LitecoinCash</numerusform><numerusform>%n активных соединений с сетью LitecoinCash</numerusform></translation>
+        <source>%n active connection(s) to Maza network</source>
+        <translation><numerusform>%n активных соединений с сетью Maza</numerusform><numerusform>%n активных соединений с сетью Maza</numerusform><numerusform>%n активных соединений с сетью Maza</numerusform><numerusform>%n активных соединений с сетью Maza</numerusform></translation>
     </message>
     <message>
         <source>Indexing blocks on disk...</source>
@@ -482,7 +482,7 @@
         <translation>Синхронизировано</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible LitecoinCash command-line options</source>
+        <source>Show the %1 help message to get a list with possible Maza command-line options</source>
         <translation>Показать помощь по %1, чтобы получить список доступных параметров командной строки</translation>
     </message>
     <message>
@@ -552,8 +552,8 @@
         <translation>Кошелёк &lt;b&gt;зашифрован&lt;/b&gt; и в настоящее время &lt;b&gt;заблокирован&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>A fatal error occurred. LitecoinCash can no longer continue safely and will quit.</source>
-        <translation>Произошла неисправимая ошибка. LitecoinCash не может безопасно продолжать работу и будет закрыт.</translation>
+        <source>A fatal error occurred. Maza can no longer continue safely and will quit.</source>
+        <translation>Произошла неисправимая ошибка. Maza не может безопасно продолжать работу и будет закрыт.</translation>
     </message>
 </context>
 <context>
@@ -746,8 +746,8 @@
         <translation>Изменить адрес отправки</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid LitecoinCash address.</source>
-        <translation>Введённый адрес "%1" не является правильным LitecoinCash-адресом.</translation>
+        <source>The entered address "%1" is not a valid Maza address.</source>
+        <translation>Введённый адрес "%1" не является правильным Maza-адресом.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -871,7 +871,7 @@
         <translation>Использовать другой каталог данных:</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -883,8 +883,8 @@
         <translation>Приблизительно %1 Гб данных будет храниться в этом каталоге.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the LitecoinCash block chain.</source>
-        <translation>%1 будет загружать и хранить копию цепочки блоков LitecoinCash.</translation>
+        <source>%1 will download and store a copy of the Maza block chain.</source>
+        <translation>%1 будет загружать и хранить копию цепочки блоков Maza.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -914,11 +914,11 @@
         <translation>Форма</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the litecoincash network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the maza network, as detailed below.</source>
         <translation>Недавние транзакции могут быть пока не видны, поэтому ваш баланс может отображаться некорректно. Эта информация станет корректной, как только ваш кошелёк будет синхронизирован с сетью, см. подробности ниже.</translation>
     </message>
     <message>
-        <source>Attempting to spend litecoincash that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <source>Attempting to spend maza that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation>Попытка потратить LCC-монеты из ещё неотображённых транзакций будет отвергнута сетью.</translation>
     </message>
     <message>
@@ -1088,8 +1088,8 @@
         <translation>&amp;Тратить неподтверждённую сдачу</translation>
     </message>
     <message>
-        <source>Automatically open the LitecoinCash client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Автоматически открыть порт для LitecoinCash-клиента на роутере. Работает только если Ваш роутер поддерживает UPnP, и данная функция включена.</translation>
+        <source>Automatically open the Maza client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Автоматически открыть порт для Maza-клиента на роутере. Работает только если Ваш роутер поддерживает UPnP, и данная функция включена.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1104,12 +1104,12 @@
         <translation>Разрешить входящие подключения</translation>
     </message>
     <message>
-        <source>Connect to the LitecoinCash network through a SOCKS5 proxy.</source>
-        <translation>Подключаться к сети LitecoinCash через прокси SOCKS5</translation>
+        <source>Connect to the Maza network through a SOCKS5 proxy.</source>
+        <translation>Подключаться к сети Maza через прокси SOCKS5</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
-        <translation>&amp;Подключаться к сети LitecoinCash через прокси SOCKS5 (прокси по умолчанию):</translation>
+        <translation>&amp;Подключаться к сети Maza через прокси SOCKS5 (прокси по умолчанию):</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -1140,8 +1140,8 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the LitecoinCash network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Подключаться к сети LitecoinCash через прокси SOCKS5 для скрытых сервисов Tor.</translation>
+        <source>Connect to the Maza network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>Подключаться к сети Maza через прокси SOCKS5 для скрытых сервисов Tor.</translation>
     </message>
     <message>
         <source>&amp;Window</source>
@@ -1247,8 +1247,8 @@
         <translation>Форма</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the LitecoinCash network after a connection is established, but this process has not completed yet.</source>
-        <translation>Отображаемая информация может быть устаревшей. Ваш кошелёк автоматически синхронизируется с сетью LitecoinCash после подключения, но этот процесс пока не завершён.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Maza network after a connection is established, but this process has not completed yet.</source>
+        <translation>Отображаемая информация может быть устаревшей. Ваш кошелёк автоматически синхронизируется с сетью Maza после подключения, но этот процесс пока не завершён.</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1322,8 +1322,8 @@
         <translation>Ошибка запроса платежа</translation>
     </message>
     <message>
-        <source>Cannot start litecoincash: click-to-pay handler</source>
-        <translation>Не удаётся запустить litecoincash: обработчик click-to-pay</translation>
+        <source>Cannot start maza: click-to-pay handler</source>
+        <translation>Не удаётся запустить maza: обработчик click-to-pay</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1338,8 +1338,8 @@
         <translation>Неверный адрес платежа %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid LitecoinCash address or malformed URI parameters.</source>
-        <translation>Не удалось обработать URI! Это может быть связано с неверным адресом LitecoinCash или неправильными параметрами URI.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Maza address or malformed URI parameters.</source>
+        <translation>Не удалось обработать URI! Это может быть связано с неверным адресом Maza или неправильными параметрами URI.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1440,8 +1440,8 @@
         <translation>Сумма</translation>
     </message>
     <message>
-        <source>Enter a LitecoinCash address (e.g. %1)</source>
-        <translation>Введите адрес LitecoinCash (например, %1)</translation>
+        <source>Enter a Maza address (e.g. %1)</source>
+        <translation>Введите адрес Maza (например, %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1864,8 +1864,8 @@
         <translation>&amp;Сообщение</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the LitecoinCash network.</source>
-        <translation>Необязательное сообщение для запроса платежа, которое будет показано при открытии запроса. Заметьте: сообщение не будет отправлено вместе с платежом через сеть LitecoinCash.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Maza network.</source>
+        <translation>Необязательное сообщение для запроса платежа, которое будет показано при открытии запроса. Заметьте: сообщение не будет отправлено вместе с платежом через сеть Maza.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2109,8 +2109,8 @@
         <translation>Скрыть</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for litecoincash transactions than the network can process.</source>
-        <translation>Плату "только минимальной комиссии" рекомендуется использовать пока объём транзакции меньше, чем свободное место в блоках. Учтите, однако, что такая транзакция может никогда не подтвердиться, если спрос на litecoincash транзакции превысит возможности сети по их обработке.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for maza transactions than the network can process.</source>
+        <translation>Плату "только минимальной комиссии" рекомендуется использовать пока объём транзакции меньше, чем свободное место в блоках. Учтите, однако, что такая транзакция может никогда не подтвердиться, если спрос на maza транзакции превысит возможности сети по их обработке.</translation>
     </message>
     <message>
         <source>(read the tooltip)</source>
@@ -2281,8 +2281,8 @@
         <translation><numerusform>Начало подтверждения ожидается через %n блок.</numerusform><numerusform>Начало подтверждения ожидается через %n блока.</numerusform><numerusform>Начало подтверждения ожидается через %n блоков.</numerusform><numerusform>Начало подтверждения ожидается через %n блоков.</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid LitecoinCash address</source>
-        <translation>Внимание: неверный адрес LitecoinCash</translation>
+        <source>Warning: Invalid Maza address</source>
+        <translation>Внимание: неверный адрес Maza</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2324,8 +2324,8 @@
         <translation>Это нормальный платёж.</translation>
     </message>
     <message>
-        <source>The LitecoinCash address to send the payment to</source>
-        <translation>Адрес LitecoinCash, на который отправить платёж</translation>
+        <source>The Maza address to send the payment to</source>
+        <translation>Адрес Maza, на который отправить платёж</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -2344,7 +2344,7 @@
         <translation>Удалить эту запись</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less litecoincash than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less maza than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>С отправляемой суммы будет удержана комиссия. Получателю придёт меньше LCC-монет, чем вы вводите в поле количества для отправки. Если выбрано несколько получателей, комиссия распределится поровну.</translation>
     </message>
     <message>
@@ -2372,8 +2372,8 @@
         <translation>Введите метку для этого адреса, чтобы добавить его в список использованных</translation>
     </message>
     <message>
-        <source>A message that was attached to the litecoincash: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the LitecoinCash network.</source>
-        <translation>К litecoincash: URI было прикреплено сообщение, которое будет сохранено вместе с транзакцией для вашего сведения. Заметьте: сообщение не будет отправлено через сеть LitecoinCash.</translation>
+        <source>A message that was attached to the maza: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Maza network.</source>
+        <translation>К maza: URI было прикреплено сообщение, которое будет сохранено вместе с транзакцией для вашего сведения. Заметьте: сообщение не будет отправлено через сеть Maza.</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -2417,12 +2417,12 @@
         <translation>&amp;Подписать сообщение</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive litecoincash sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive maza sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>Вы можете подписывать сообщения/соглашения своими адресами, чтобы доказать свою возможность получать LCC-монеты на них. Будьте осторожны, не подписывайте что-то неопределённое или случайное, так как злоумышленники с помощью фишинговых атак могут обманным путём заставить вас подписать нежелательные сообщения. Подписывайте только те сообщения, с которыми вы до мелочей согласны.</translation>
     </message>
     <message>
-        <source>The LitecoinCash address to sign the message with</source>
-        <translation>Адрес LitecoinCash, которым подписать сообщение</translation>
+        <source>The Maza address to sign the message with</source>
+        <translation>Адрес Maza, которым подписать сообщение</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2453,8 +2453,8 @@
         <translation>Скопировать текущую подпись в системный буфер обмена</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this LitecoinCash address</source>
-        <translation>Подписать сообщение, чтобы доказать владение адресом LitecoinCash</translation>
+        <source>Sign the message to prove you own this Maza address</source>
+        <translation>Подписать сообщение, чтобы доказать владение адресом Maza</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2477,12 +2477,12 @@
         <translation>Введите ниже адрес получателя, сообщение (убедитесь, что переводы строк, пробелы, табы и т.п. в точности скопированы) и подпись, чтобы проверить сообщение. Убедитесь, что не скопировали лишнего в подпись, по сравнению с самим подписываемым сообщением, чтобы не стать жертвой атаки "man-in-the-middle". Заметьте, что эта операция удостоверяет лишь авторство подписавшего, но не может удостоверить отправителя транзакции.</translation>
     </message>
     <message>
-        <source>The LitecoinCash address the message was signed with</source>
-        <translation>Адрес LitecoinCash, которым было подписано сообщение</translation>
+        <source>The Maza address the message was signed with</source>
+        <translation>Адрес Maza, которым было подписано сообщение</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified LitecoinCash address</source>
-        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом LitecoinCash</translation>
+        <source>Verify the message to ensure it was signed with the specified Maza address</source>
+        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом Maza</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>

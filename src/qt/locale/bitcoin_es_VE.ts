@@ -142,8 +142,8 @@
         <translation>Reindexando bloques en el disco...</translation>
     </message>
     <message>
-        <source>Send coins to a LitecoinCash address</source>
-        <translation>Enviar monedas a una dirección LitecoinCash</translation>
+        <source>Send coins to a Maza address</source>
+        <translation>Enviar monedas a una dirección Maza</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -158,7 +158,7 @@
         <translation>Abre la consola de depuración y diágnostico</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -186,12 +186,12 @@
         <translation>Encriptar las llaves privadas que pertenecen a tu billetera</translation>
     </message>
     <message>
-        <source>Sign messages with your LitecoinCash addresses to prove you own them</source>
-        <translation>Firma mensajes con tus direcciones LitecoinCash para probar que eres dueño de ellas</translation>
+        <source>Sign messages with your Maza addresses to prove you own them</source>
+        <translation>Firma mensajes con tus direcciones Maza para probar que eres dueño de ellas</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified LitecoinCash addresses</source>
-        <translation>Verificar mensajes para asegurar que estaban firmados con direcciones LitecoinCash especificas</translation>
+        <source>Verify messages to ensure they were signed with specified Maza addresses</source>
+        <translation>Verificar mensajes para asegurar que estaban firmados con direcciones Maza especificas</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -437,7 +437,7 @@
         <translation>Usa un directorio de datos personalizado:</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>

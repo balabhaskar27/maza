@@ -83,15 +83,15 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     labelWalletEncryptionIcon(0),
     labelWalletHDStatusIcon(0),
     connectionsControl(0),
-    hiveStatusIcon(0),          // LitecoinCash: Hive status icon
+    hiveStatusIcon(0),          // Maza: Hive status icon
     labelBlocksIcon(0),
     progressBarLabel(0),
     progressBar(0),
     progressDialog(0),
     appMenuBar(0),
     overviewAction(0),
-    hiveAction(0),              // LitecoinCash: Hive page
-    importPrivateKeyAction(0),  // LitecoinCash: Key import helper
+    hiveAction(0),              // Maza: Hive page
+    importPrivateKeyAction(0),  // Maza: Key import helper
     historyAction(0),
     quitAction(0),
     sendCoinsAction(0),
@@ -203,7 +203,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     labelWalletEncryptionIcon = new QLabel();
     labelWalletHDStatusIcon = new QLabel();
     connectionsControl = new GUIUtil::ClickableLabel();
-    hiveStatusIcon = new GUIUtil::ClickableLabel();                         // LitecoinCash: Hive status icon
+    hiveStatusIcon = new GUIUtil::ClickableLabel();                         // Maza: Hive status icon
     labelBlocksIcon = new GUIUtil::ClickableLabel();
     if(enableWallet)
     {
@@ -216,8 +216,8 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     frameBlocksLayout->addStretch();
     frameBlocksLayout->addWidget(connectionsControl);
     frameBlocksLayout->addStretch();
-    frameBlocksLayout->addWidget(hiveStatusIcon);        // LitecoinCash: Hive status icon
-    frameBlocksLayout->addStretch();                     // LitecoinCash: Hive status icon
+    frameBlocksLayout->addWidget(hiveStatusIcon);        // Maza: Hive status icon
+    frameBlocksLayout->addStretch();                     // Maza: Hive status icon
     frameBlocksLayout->addWidget(labelBlocksIcon);
     frameBlocksLayout->addStretch();
 
@@ -252,7 +252,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
 
     connect(connectionsControl, SIGNAL(clicked(QPoint)), this, SLOT(toggleNetworkActive()));
 
-    // LitecoinCash: Hive: Clicking on hive status icon takes user to Hive tab
+    // Maza: Hive: Clicking on hive status icon takes user to Hive tab
     connect(hiveStatusIcon, SIGNAL(clicked(QPoint)), this, SLOT(gotoHivePage()));
 
     modalOverlay = new ModalOverlay(this->centralWidget());
@@ -324,7 +324,7 @@ void BitcoinGUI::createActions()
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
 
-    // LitecoinCash: Hive page
+    // Maza: Hive page
     hiveAction = new QAction(platformStyle->SingleColorIcon(":/icons/bee"), tr("The &Hive"), this);
     hiveAction->setStatusTip(tr("Hive Mining center"));
     hiveAction->setToolTip(hiveAction->statusTip());
@@ -337,8 +337,8 @@ void BitcoinGUI::createActions()
     // can be triggered from the tray menu, and need to show the GUI to be useful.
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
-    connect(hiveAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));  // LitecoinCash: Hive page
-    connect(hiveAction, SIGNAL(triggered()), this, SLOT(gotoHivePage()));           // LitecoinCash: Hive page
+    connect(hiveAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));  // Maza: Hive page
+    connect(hiveAction, SIGNAL(triggered()), this, SLOT(gotoHivePage()));           // Maza: Hive page
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(gotoSendCoinsPage()));
     connect(sendCoinsMenuAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -355,7 +355,7 @@ void BitcoinGUI::createActions()
     quitAction->setStatusTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(platformStyle->TextColorIcon(":/icons/about"), tr("&About Litecoin Cash"), this); // LitecoinCash: Don't use package name here; we want coin name with a space in window titles.
+    aboutAction = new QAction(platformStyle->TextColorIcon(":/icons/about"), tr("&About Litecoin Cash"), this); // Maza: Don't use package name here; we want coin name with a space in window titles.
     aboutAction->setStatusTip(tr("Show information about %1").arg(tr(PACKAGE_NAME)));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutAction->setEnabled(false);
@@ -396,11 +396,11 @@ void BitcoinGUI::createActions()
 
     showHelpMessageAction = new QAction(platformStyle->TextColorIcon(":/icons/info"), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible LitecoinCash command-line options").arg(tr(PACKAGE_NAME)));
+    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible Maza command-line options").arg(tr(PACKAGE_NAME)));
 
-    // LitecoinCash: Key import helper
+    // Maza: Key import helper
     importPrivateKeyAction = new QAction(platformStyle->TextColorIcon(":/icons/key"), tr("&Import private key..."), this);
-    importPrivateKeyAction->setToolTip(tr("Import a Litecoin or LitecoinCash private key"));
+    importPrivateKeyAction->setToolTip(tr("Import a Litecoin or Maza private key"));
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
@@ -423,7 +423,7 @@ void BitcoinGUI::createActions()
         connect(usedSendingAddressesAction, SIGNAL(triggered()), walletFrame, SLOT(usedSendingAddresses()));
         connect(usedReceivingAddressesAction, SIGNAL(triggered()), walletFrame, SLOT(usedReceivingAddresses()));
         connect(openAction, SIGNAL(triggered()), this, SLOT(openClicked()));
-        connect(importPrivateKeyAction, SIGNAL(triggered()), walletFrame, SLOT(importPrivateKey()));    // LitecoinCash: Key import helper
+        connect(importPrivateKeyAction, SIGNAL(triggered()), walletFrame, SLOT(importPrivateKey()));    // Maza: Key import helper
     }
 #endif // ENABLE_WALLET
 
@@ -453,8 +453,8 @@ void BitcoinGUI::createMenuBar()
         file->addAction(usedSendingAddressesAction);
         file->addAction(usedReceivingAddressesAction);
         file->addSeparator();
-        file->addAction(importPrivateKeyAction);    // LitecoinCash: Key import helper
-        file->addSeparator();                       // LitecoinCash: Key import helper
+        file->addAction(importPrivateKeyAction);    // Maza: Key import helper
+        file->addSeparator();                       // Maza: Key import helper
     }
     file->addAction(quitAction);
 
@@ -490,7 +490,7 @@ void BitcoinGUI::createToolBars()
         toolbar->addAction(sendCoinsAction);
         toolbar->addAction(receiveCoinsAction);
         toolbar->addAction(historyAction);
-        toolbar->addAction(hiveAction);     // LitecoinCash: Hive page
+        toolbar->addAction(hiveAction);     // Maza: Hive page
         overviewAction->setChecked(true);
     }
 }
@@ -598,8 +598,8 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     usedSendingAddressesAction->setEnabled(enabled);
     usedReceivingAddressesAction->setEnabled(enabled);
     openAction->setEnabled(enabled);
-    hiveAction->setEnabled(enabled);                // LitecoinCash: Hive page
-    importPrivateKeyAction->setEnabled(enabled);    // LitecoinCash: Key import helper
+    hiveAction->setEnabled(enabled);                // Maza: Hive page
+    importPrivateKeyAction->setEnabled(enabled);    // Maza: Key import helper
 }
 
 void BitcoinGUI::createTrayIcon(const NetworkStyle *networkStyle)
@@ -716,7 +716,7 @@ void BitcoinGUI::gotoOverviewPage()
     if (walletFrame) walletFrame->gotoOverviewPage();
 }
 
-// LitecoinCash: Hive: Switch to hive page
+// Maza: Hive: Switch to hive page
 void BitcoinGUI::gotoHivePage()
 {
     hiveAction->setChecked(true);
@@ -768,7 +768,7 @@ void BitcoinGUI::updateNetworkState()
     QString tooltip;
 
     if (clientModel->getNetworkActive()) {
-        tooltip = tr("%n active connection(s) to LitecoinCash network", "", count) + QString(".<br>") + tr("Click to disable network activity.");
+        tooltip = tr("%n active connection(s) to Maza network", "", count) + QString(".<br>") + tr("Click to disable network activity.");
     } else {
         tooltip = tr("Network activity disabled.") + QString("<br>") + tr("Click to enable network activity again.");
         icon = ":/icons/network_disabled";
@@ -781,7 +781,7 @@ void BitcoinGUI::updateNetworkState()
     connectionsControl->setPixmap(platformStyle->SingleColorIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
 }
 
-// LitecoinCash: Hive: Update the hive status icon
+// Maza: Hive: Update the hive status icon
 void BitcoinGUI::updateHiveStatusIcon(QString icon, QString tooltip) {
     QPixmap pixmap;
     pixmap.load(icon);

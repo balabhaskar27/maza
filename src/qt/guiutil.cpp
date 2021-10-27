@@ -127,7 +127,7 @@ void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
 #if QT_VERSION >= 0x040700
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
-    widget->setPlaceholderText(QObject::tr("Enter a LitecoinCash address (e.g. %1)").arg(
+    widget->setPlaceholderText(QObject::tr("Enter a Maza address (e.g. %1)").arg(
         QString::fromStdString(DummyAddress(Params()))));
 #endif
     widget->setValidator(new BitcoinAddressEntryValidator(parent));
@@ -617,8 +617,8 @@ fs::path static StartupShortcutPath()
     if (chain == CBaseChainParams::MAIN)
     return GetSpecialFolderPath(CSIDL_STARTUP) / "Maza.lnk";
     if (chain == CBaseChainParams::TESTNET) // Remove this special case when CBaseChainParams::TESTNET = "testnet4"
-        return GetSpecialFolderPath(CSIDL_STARTUP) / "LitecoinCash (testnet).lnk";
-    return GetSpecialFolderPath(CSIDL_STARTUP) / strprintf("LitecoinCash (%s).lnk", chain);
+        return GetSpecialFolderPath(CSIDL_STARTUP) / "Maza (testnet).lnk";
+    return GetSpecialFolderPath(CSIDL_STARTUP) / strprintf("Maza (%s).lnk", chain);
 }
 
 bool GetStartOnSystemStartup()
@@ -714,7 +714,7 @@ fs::path static GetAutostartFilePath()
     std::string chain = ChainNameFromCommandLine();
     if (chain == CBaseChainParams::MAIN)
     return GetAutostartDir() / "maza.desktop";
-    return GetAutostartDir() / strprintf("litecoincash-%s.lnk", chain);
+    return GetAutostartDir() / strprintf("maza-%s.lnk", chain);
 }
 
 bool GetStartOnSystemStartup()
@@ -760,7 +760,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         if (chain == CBaseChainParams::MAIN)
         optionFile << "Name=Maza\n";
         else
-            optionFile << strprintf("Name=LitecoinCash (%s)\n", chain);
+            optionFile << strprintf("Name=Maza (%s)\n", chain);
         optionFile << "Exec=" << pszExePath << strprintf(" -min -testnet=%d -regtest=%d\n", gArgs.GetBoolArg("-testnet", false), gArgs.GetBoolArg("-regtest", false));
         optionFile << "Terminal=false\n";
         optionFile << "Hidden=false\n";

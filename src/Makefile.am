@@ -255,7 +255,7 @@ libbitcoin_wallet_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 # crypto primitives library
-# LitecoinCash: MinotaurX: Added crypto/minotaurx/
+# Maza: MinotaurX: Added crypto/minotaurx/
 crypto_libbitcoin_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(SSL_CFLAGS)
 crypto_libbitcoin_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 crypto_libbitcoin_crypto_a_SOURCES = \
@@ -438,20 +438,20 @@ libbitcoin_cli_a_SOURCES = \
   rpc/client.cpp \
   $(BITCOIN_CORE_H)
 
-nodist_libmaza_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #
-litecoincashd_SOURCES = bitcoind.cpp
-litecoincashd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-litecoincashd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-litecoincashd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+mazad_SOURCES = bitcoind.cpp
+mazad_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+mazad_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+mazad_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-litecoincashd_SOURCES += bitcoind-res.rc
+mazad_SOURCES += bitcoind-res.rc
 endif
 
-litecoincashd_LDADD = \
+mazad_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -465,38 +465,38 @@ litecoincashd_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-litecoincashd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
+mazad_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
 
 # bitcoin-cli binary #
-litecoincash_cli_SOURCES = bitcoin-cli.cpp
-litecoincash_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-litecoincash_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-litecoincash_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+maza_cli_SOURCES = bitcoin-cli.cpp
+maza_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+maza_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+maza_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-litecoincash_cli_SOURCES += bitcoin-cli-res.rc
+maza_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
-litecoincash_cli_LDADD = \
+maza_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
 
-litecoincash_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+maza_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
 # bitcoin-tx binary #
-litecoincash_tx_SOURCES = bitcoin-tx.cpp
-litecoincash_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-litecoincash_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-litecoincash_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+maza_tx_SOURCES = bitcoin-tx.cpp
+maza_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+maza_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+maza_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-litecoincash_tx_SOURCES += bitcoin-tx-res.rc
+maza_tx_SOURCES += bitcoin-tx-res.rc
 endif
 
-litecoincash_tx_LDADD = \
+maza_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -504,7 +504,7 @@ litecoincash_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-litecoincash_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+maza_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
 # bitcoinconsensus library #
@@ -530,7 +530,7 @@ CTAES_DIST += crypto/ctaes/ctaes.h
 CTAES_DIST += crypto/ctaes/README.md
 CTAES_DIST += crypto/ctaes/test.c
 
-# LitecoinCash: MinotaurX
+# Maza: MinotaurX
 CRYPTO_HELPER_DIST =  crypto/minotaurx/aes_helper.c
 CRYPTO_HELPER_DIST += crypto/minotaurx/hamsi_helper.c
 CRYPTO_HELPER_DIST += crypto/minotaurx/haval_helper.c
@@ -553,7 +553,7 @@ CLEANFILES += wallet/test/*.gcda wallet/test/*.gcno
 CLEANFILES += zmq/*.gcda zmq/*.gcno
 CLEANFILES += obj/build.h
 
-# LitecoinCash: MinotaurX
+# Maza: MinotaurX
 EXTRA_DIST = $(CTAES_DIST) $(CRYPTO_HELPER_DIST)
 
 

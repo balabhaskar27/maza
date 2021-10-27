@@ -62,25 +62,16 @@
         <translation>адрасы Прымання</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-        <source>These are your LitecoinCash addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Тут знаходзяцца LitecoinCash-адрасы для высылання плацяжоў. Заўсёды спраўджвайце колькасць і адрас прызначэння перад здзяйсненнем транзакцыі.</translation>
+        <source>These are your Maza addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Тут знаходзяцца Maza-адрасы для высылання плацяжоў. Заўсёды спраўджвайце колькасць і адрас прызначэння перад здзяйсненнем транзакцыі.</translation>
     </message>
     <message>
-        <source>These are your LitecoinCash addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Тут знаходзяцца LitecoinCash-адрасы для прымання плацяжоў. Пажадана выкарыстоўваць новы адрас для кожнай транзакцыі.</translation>
+        <source>These are your Maza addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Тут знаходзяцца Maza-адрасы для прымання плацяжоў. Пажадана выкарыстоўваць новы адрас для кожнай транзакцыі.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
         <translation>Капіяваць адрас</translation>
-=======
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Тут знаходзяцца Біткойн-адрасы для высылання плацяжоў. Заўсёды спраўджвайце колькасць і адрас прызначэння перад здзяйсненнем транзакцыі.</translation>
-    </message>
-    <message>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Тут знаходзяцца Біткойн-адрасы для прымання плацяжоў. Пажадана выкарыстоўваць новы адрас для кожнай транзакцыі.</translation>
->>>>>>> Translations update
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -177,7 +168,7 @@
         <translation>Пацвердзіце шыфраванне гаманца</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR LITECOINCASH&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAZA&lt;/b&gt;!</source>
         <translation>Увага: калі вы зашыфруеце свой гаманец і страціце парольную фразу, то &lt;b&gt;СТРАЦІЦЕ ЎСЕ СВАЕ БІТКОЙНЫ&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -185,32 +176,12 @@
         <translation>Ці ўпэўненыя вы, што жадаеце зашыфраваць свой гаманец?</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-=======
-        <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
-        <translation>ВАЖНА: Усе папярэднія копіі гаманца варта замяніць новым зашыфраваным файлам. У мэтах бяспекі папярэднія копіі незашыфраванага файла-гаманца стануць неўжывальнымі, калі вы станеце карыстацца новым зашыфраваным гаманцом.</translation>
-    </message>
-    <message>
-        <source>Warning: The Caps Lock key is on!</source>
-        <translation>Увага: Caps Lock уключаны!</translation>
-    </message>
-    <message>
->>>>>>> Translations update
         <source>Wallet encrypted</source>
         <translation>Гаманец зашыфраваны</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
         <translation>ВАЖНА: Усе папярэднія копіі гаманца варта замяніць новым зашыфраваным файлам. У мэтах бяспекі папярэднія копіі незашыфраванага файла-гаманца стануць неўжывальнымі, калі вы станеце карыстацца новым зашыфраваным гаманцом.</translation>
-=======
-        <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>Увядзіце новы пароль для гаманца.&lt;br/&gt;Парольная фраза павинна складацца&lt;b&gt; не меньш чым з дзесяці сімвалаў&lt;/b&gt;, ці &lt;b&gt;больш чым з васьмі слоў&lt;/b&gt;.</translation>
-    </message>
-    <message>
-        <source>Bitcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation>Bitcoin зачыняецца дзеля завяршэння працэсса шыфравання. Памятайце, што шыфраванне гаманца цалкам абараняе вашыя сродкі ад скрадання шкоднымі праграмамі якія могуць пранікнуць у ваш камп'ютар.</translation>
->>>>>>> Translations update
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -323,28 +294,12 @@
         <translation>Адчыниць &amp;URI...</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-=======
-        <source>Bitcoin Core client</source>
-        <translation>Bitcoin Core кліент</translation>
-    </message>
-    <message>
-        <source>Importing blocks from disk...</source>
-        <translation>Імпартуюцца блокі з дыску...</translation>
-    </message>
-    <message>
->>>>>>> Translations update
         <source>Reindexing blocks on disk...</source>
         <translation>Пераіндэксацыя блокаў на дыску...</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-        <source>Send coins to a LitecoinCash address</source>
-        <translation>Даслаць манеты на LitecoinCash-адрас</translation>
-=======
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Даслаць манеты на Біткойн-адрас</translation>
->>>>>>> Translations update
+        <source>Send coins to a Maza address</source>
+        <translation>Даслаць манеты на Maza-адрас</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -367,13 +322,8 @@
         <translation>Праверыць паведамленне...</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-        <source>LitecoinCash</source>
-        <translation>Litecoin Cash</translation>
-=======
-        <source>Bitcoin</source>
-        <translation>Біткойн</translation>
->>>>>>> Translations update
+        <source>Maza</source>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -388,10 +338,6 @@
         <translation>Атрымаць</translation>
     </message>
     <message>
-        <source>Show information about Bitcoin Core</source>
-        <translation>Паказаць інфармацыю аб Bitcoin Core</translation>
-    </message>
-    <message>
         <source>&amp;Show / Hide</source>
         <translation>&amp;Паказаць / Схаваць</translation>
     </message>
@@ -404,21 +350,12 @@
         <translation>Зашыфраваць прыватныя ключы, якия належаць вашаму гаманцу</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-        <source>Sign messages with your LitecoinCash addresses to prove you own them</source>
-        <translation>Падпісаць паведамленне з дапамогай LitecoinCash-адраса каб даказаць, што яно належыць вам</translation>
+        <source>Sign messages with your Maza addresses to prove you own them</source>
+        <translation>Падпісаць паведамленне з дапамогай Maza-адраса каб даказаць, што яно належыць вам</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified LitecoinCash addresses</source>
-        <translation>Спраўдзіць паведамленне з дапамогай LitecoinCash-адраса каб даказаць, што яно належыць вам</translation>
-=======
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation>Падпісаць паведамленне з дапамогай Біткойн-адраса каб даказаць, што яно належыць вам</translation>
-    </message>
-    <message>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation>Спраўдзіць паведамленне з дапамогай Біткойн-адраса каб даказаць, што яно належыць вам</translation>
->>>>>>> Translations update
+        <source>Verify messages to ensure they were signed with specified Maza addresses</source>
+        <translation>Спраўдзіць паведамленне з дапамогай Maza-адраса каб даказаць, што яно належыць вам</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -433,17 +370,8 @@
         <translation>Дапамога</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-        <source>Request payments (generates QR codes and litecoincash: URIs)</source>
-        <translation>Запатрабаваць плацёж (генеруецца QR-код для litecoincash URI)</translation>
-=======
-        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation>Запатрабаваць плацёж (генеруецца QR-код для біткойн URI)</translation>
-    </message>
-    <message>
-        <source>&amp;About Bitcoin Core</source>
-        <translation>Аб Bitcoin Core</translation>
->>>>>>> Translations update
+        <source>Request payments (generates QR codes and maza: URIs)</source>
+        <translation>Запатрабаваць плацёж (генеруецца QR-код для maza URI)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -454,37 +382,12 @@
         <translation>Паказаць спіс адрасоў і метак для прымання</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-        <source>Open a litecoincash: URI or payment request</source>
-        <translation>Адкрыць litecoincash: URI ці запыт плацяжу</translation>
+        <source>Open a maza: URI or payment request</source>
+        <translation>Адкрыць maza: URI ці запыт плацяжу</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>Опцыі каманднага радка</translation>
-    </message>
-    <message>
-        <source>%1 behind</source>
-        <translation>%1 таму</translation>
-    </message>
-    <message>
-        <source>Last received block was generated %1 ago.</source>
-        <translation>Апошні прыняты блок генераваны %1 таму.</translation>
-    </message>
-    <message>
-        <source>Transactions after this will not yet be visible.</source>
-        <translation>Транзакцыи пасля гэтай не будуць бачныя.</translation>
-=======
-        <source>&amp;Command-line options</source>
-        <translation>Опцыі каманднага радка</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n active connection(s) to Bitcoin network</source>
-        <translation><numerusform>%n актыўнае злучэнне з Bitcoin-сецівам</numerusform><numerusform>%n актыўных злучэнняў з Bitcoin-сецівам</numerusform><numerusform>%n актыўных злучэнняў з Bitcoin-сецівам</numerusform><numerusform>%n актыўных злучэнняў з Bitcoin-сецівам</numerusform></translation>
->>>>>>> Translations update
-    </message>
-    <message>
-        <source>No block source available...</source>
-        <translation>Крыніца блокаў недасяжная...</translation>
     </message>
     <message>
         <source>%1 behind</source>
@@ -564,7 +467,6 @@
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Гаманец &lt;b&gt;зашыфраваны&lt;/b&gt; і зараз &lt;b&gt;заблакаваны&lt;/b&gt;</translation>
     </message>
-<<<<<<< refs/remotes/lcc/master
     </context>
 <context>
     <name>CoinControlDialog</name>
@@ -573,19 +475,6 @@
         <translation>Колькасць:</translation>
     </message>
     <message>
-=======
-</context>
-<context>
-    <name>ClientModel</name>
-    <message>
-        <source>Network Alert</source>
-        <translation>Трывога Сеціва</translation>
-    </message>
-</context>
-<context>
-    <name>CoinControlDialog</name>
-    <message>
->>>>>>> Translations update
         <source>Bytes:</source>
         <translation>Байтаў:</translation>
     </message>
@@ -594,13 +483,6 @@
         <translation>Колькасць:</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-=======
-        <source>Priority:</source>
-        <translation>Прыярытэт:</translation>
-    </message>
-    <message>
->>>>>>> Translations update
         <source>Fee:</source>
         <translation>Камісія:</translation>
     </message>
@@ -613,13 +495,10 @@
         <translation>Пасля камісіі:</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>(un)select all</source>
         <translation>(не)выбраць ўсё</translation>
     </message>
     <message>
-=======
->>>>>>> Translations update
         <source>Tree mode</source>
         <translation>Рэжым дрэва</translation>
     </message>
@@ -652,10 +531,6 @@
         <translation>Пацверджана</translation>
     </message>
     <message>
-        <source>Priority</source>
-        <translation>Прыярытэт</translation>
-    </message>
-    <message>
         <source>Copy address</source>
         <translation>Капіяваць адрас</translation>
     </message>
@@ -672,7 +547,6 @@
         <translation>Капіяваць ID транзакцыі</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>Lock unspent</source>
         <translation>Замкнуць непатрачанае</translation>
     </message>
@@ -699,42 +573,6 @@
     <message>
         <source>Copy dust</source>
         <translation>Капіяваць пыл</translation>
-=======
-        <source>highest</source>
-        <translation>найвышэйшы</translation>
-    </message>
-    <message>
-        <source>higher</source>
-        <translation>вышэйшы</translation>
-    </message>
-    <message>
-        <source>high</source>
-        <translation>высокі</translation>
-    </message>
-    <message>
-        <source>medium-high</source>
-        <translation>вышэй сярэдняга</translation>
-    </message>
-    <message>
-        <source>medium</source>
-        <translation>сярэдні</translation>
-    </message>
-    <message>
-        <source>low-medium</source>
-        <translation>ніжэй сярэдняга</translation>
-    </message>
-    <message>
-        <source>low</source>
-        <translation>нізкі</translation>
-    </message>
-    <message>
-        <source>lower</source>
-        <translation>ніжэйшы</translation>
-    </message>
-    <message>
-        <source>lowest</source>
-        <translation>найніжэйшы</translation>
->>>>>>> Translations update
     </message>
     <message>
         <source>yes</source>
@@ -818,10 +656,6 @@
         <translation>Опцыі каманднага радка</translation>
     </message>
     <message>
-        <source>Command-line options</source>
-        <translation>Опцыі каманднага радка</translation>
-    </message>
-    <message>
         <source>Usage:</source>
         <translation>Ужыванне:</translation>
     </message>
@@ -841,13 +675,8 @@
         <translation>Вітаем</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-        <source>LitecoinCash</source>
-        <translation>Litecoin Cash</translation>
-=======
-        <source>Welcome to Bitcoin Core.</source>
-        <translation>Вітаем у Bitcoin Core.</translation>
->>>>>>> Translations update
+        <source>Maza</source>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Error</source>
@@ -878,7 +707,6 @@
         <source>MB</source>
         <translation>Мб</translation>
     </message>
-<<<<<<< refs/remotes/lcc/master
     <message>
         <source>W&amp;allet</source>
         <translation>Гаманец</translation>
@@ -887,8 +715,6 @@
         <source>Error</source>
         <translation>Памылка</translation>
     </message>
-=======
->>>>>>> Translations update
     </context>
 <context>
     <name>OverviewPage</name>
@@ -976,10 +802,6 @@
         <source>Message</source>
         <translation>Паведамленне</translation>
     </message>
-    <message>
-        <source>Message</source>
-        <translation>Паведамленне</translation>
-    </message>
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
@@ -994,13 +816,6 @@
     <message>
         <source>Message</source>
         <translation>Паведамленне</translation>
-<<<<<<< refs/remotes/lcc/master
-=======
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>Колькасць</translation>
->>>>>>> Translations update
     </message>
     <message>
         <source>(no label)</source>
@@ -1014,7 +829,6 @@
         <translation>Даслаць Манеты</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>Insufficient funds!</source>
         <translation>Недастаткова сродкаў</translation>
     </message>
@@ -1023,8 +837,6 @@
         <translation>Колькасць:</translation>
     </message>
     <message>
-=======
->>>>>>> Translations update
         <source>Bytes:</source>
         <translation>Байтаў:</translation>
     </message>
@@ -1033,13 +845,6 @@
         <translation>Колькасць:</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
-=======
-        <source>Priority:</source>
-        <translation>Прыярытэт:</translation>
-    </message>
-    <message>
->>>>>>> Translations update
         <source>Fee:</source>
         <translation>Камісія:</translation>
     </message>
@@ -1127,7 +932,6 @@
         <translation>Alt+P</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>Message:</source>
         <translation>Паведамленне:</translation>
     </message>
@@ -1147,12 +951,6 @@
 <context>
     <name>SendConfirmationDialog</name>
     </context>
-=======
-        <source>Memo:</source>
-        <translation>Памятка:</translation>
-    </message>
-</context>
->>>>>>> Translations update
 <context>
     <name>ShutdownWindow</name>
     </context>
@@ -1204,32 +1002,16 @@
         <translation>Статус</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>, has not been successfully broadcast yet</source>
         <translation>, пакуль не было паспяхова транслявана</translation>
     </message>
     <message>
-=======
->>>>>>> Translations update
         <source>Date</source>
         <translation>Дата</translation>
     </message>
     <message>
-<<<<<<< refs/remotes/lcc/master
         <source>unknown</source>
         <translation>невядома</translation>
-=======
-        <source>Message</source>
-        <translation>Паведамленне</translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation>Каментар</translation>
-    </message>
-    <message>
-        <source>Transaction ID</source>
-        <translation>ID</translation>
->>>>>>> Translations update
     </message>
     <message>
         <source>Message</source>
@@ -1484,13 +1266,12 @@
         <translation>Запусціць у фоне як дэман і прымаць каманды</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
-        <translation>Litecoin Cash Core</translation>
+        <source>Maza Core</source>
+        <translation>Maza Core</translation>
     </message>
     <message>
         <source>Do you want to rebuild the block database now?</source>
         <translation>Ці жадаеце вы перабудаваць зараз базу звестак блокаў?</translation>
-<<<<<<< refs/remotes/lcc/master
     </message>
     <message>
         <source>Error initializing block database</source>
@@ -1499,100 +1280,6 @@
     <message>
         <source>Error initializing wallet database environment %s!</source>
         <translation>Памалка ініцыялізацыі асяроддзя базы звестак гаманца %s!</translation>
-=======
-    </message>
-    <message>
-        <source>Error initializing block database</source>
-        <translation>Памылка ініцыялізацыі базвы звестак блокаў</translation>
-    </message>
-    <message>
-        <source>Error initializing wallet database environment %s!</source>
-        <translation>Памалка ініцыялізацыі асяроддзя базы звестак гаманца %s!</translation>
-    </message>
-    <message>
-        <source>Error loading block database</source>
-        <translation>Памылка загрузкі базвы звестак блокаў</translation>
-    </message>
-    <message>
-        <source>Error opening block database</source>
-        <translation>Памылка адчынення базы звестак блокаў</translation>
-    </message>
-    <message>
-        <source>Error: A fatal internal error occured, see debug.log for details</source>
-        <translation>Памылка: здарылася Фатальная унутраная памылка, глядзі debug.log для падрабязнасцяў</translation>
-    </message>
-    <message>
-        <source>Error: Disk space is low!</source>
-        <translation>Памылка: Замала вольнага месца на дыску!</translation>
-    </message>
-    <message>
-        <source>Importing...</source>
-        <translation>Імпартаванне...</translation>
-    </message>
-    <message>
-        <source>Not enough file descriptors available.</source>
-        <translation>Не хапае файлавых дэскрыптараў.</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: %u)</source>
-        <translation>Use UPnP to map the listening port (default: %u)</translation>
-    </message>
-    <message>
-        <source>Verifying blocks...</source>
-        <translation>Праверка блокаў...</translation>
-    </message>
-    <message>
-        <source>Verifying wallet...</source>
-        <translation>Праверка гаманца...</translation>
-    </message>
-    <message>
-        <source>Wallet options:</source>
-        <translation>Опцыі гаманца:</translation>
-    </message>
-    <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Імпартаванне блокаў з вонкавага blk000??.dat файла</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>Інфармацыя</translation>
-    </message>
-    <message>
-        <source>RPC server options:</source>
-        <translation>Опцыі RPC сервера:</translation>
-    </message>
-    <message>
-        <source>Send trace/debug info to console instead of debug.log file</source>
-        <translation>Слаць trace/debug звесткі ў кансоль замест файла debug.log</translation>
-    </message>
-    <message>
-        <source>Signing transaction failed</source>
-        <translation>Памылка подпісу транзакцыі</translation>
-    </message>
-    <message>
-        <source>This is experimental software.</source>
-        <translation>Гэта эксперыментальная праграма.</translation>
-    </message>
-    <message>
-        <source>Transaction amount too small</source>
-        <translation>Транзакцыя занадта малая</translation>
-    </message>
-    <message>
-        <source>Transaction too large</source>
-        <translation>Транзакцыя занадта вялікая</translation>
-    </message>
-    <message>
-        <source>Username for JSON-RPC connections</source>
-        <translation>Імя карыстальника для JSON-RPC злучэнняў</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Увага</translation>
-    </message>
-    <message>
-        <source>Password for JSON-RPC connections</source>
-        <translation>Пароль для JSON-RPC злучэнняў</translation>
->>>>>>> Translations update
     </message>
     <message>
         <source>Error loading block database</source>

@@ -45,14 +45,14 @@ from the root of the repository.
 
 **Note**: You only need Berkeley DB if the wallet is enabled (see the section *Disable-Wallet mode* below).
 
-Build LitecoinCash Core
+Build Maza Core
 ------------------------
 
 ### Building `mazad`
-1. Clone the litecoincash source code and cd into `litecoincash`
+1. Clone the maza source code and cd into `maza`
 
-        git clone https://github.com/litecoincash-project/litecoincash
-        cd litecoincash
+        git clone https://github.com/mazacoin/maza
+        cd maza
 
         git clone https://github.com/maza/maza.git
         cd maza
@@ -82,9 +82,9 @@ as follows for maximum compatibility:
 
     or
 
-        cd ~/litecoincash/src
-        cp litecoincashd /usr/local/bin/
-        cp litecoincash-cli /usr/local/bin/
+        cd ~/maza/src
+        cp mazad /usr/local/bin/
+        cp maza-cli /usr/local/bin/
 Once dependencies are compiled, see release-process.md for how the Mazacoin-Qt.app
 bundle is packaged and signed to create the .dmg disk image that is distributed.
 
@@ -100,13 +100,13 @@ commands:
     echo -e "rpcuser=mazarpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Maza/maza.conf"
     chmod 600 "/Users/${USER}/Library/Application Support/Maza/maza.conf"
 
-    chmod 600 "/Users/${USER}/Library/Application Support/LitecoinCash/litecoincash.conf"
+    chmod 600 "/Users/${USER}/Library/Application Support/Maza/maza.conf"
 
     tail -f $HOME/Library/Application\ Support/Maza/debug.log
 
 You can monitor the download process by looking at the debug.log file:
 
-    tail -f $HOME/Library/Application\ Support/LitecoinCash/debug.log
+    tail -f $HOME/Library/Application\ Support/Maza/debug.log
 
 Other commands:
 -------
@@ -117,14 +117,14 @@ Other commands:
 
 Using Qt Creator as IDE
 ------------------------
-You can use Qt Creator as an IDE, for litecoincash development.
+You can use Qt Creator as an IDE, for maza development.
 Download and install the community edition of [Qt Creator](https://www.qt.io/download/).
 Uncheck everything except Qt Creator during the installation process.
 
 1. Make sure you installed everything through Homebrew mentioned above
 2. Do a proper ./configure --enable-debug
 3. In Qt Creator do "New Project" -> Import Project -> Import Existing Project
-4. Enter "litecoincash-qt" as project name, enter src/qt as location
+4. Enter "maza-qt" as project name, enter src/qt as location
 5. Leave the file selection as it is
 6. Confirm the "summary page"
 7. In the "Projects" tab select "Manage Kits..."

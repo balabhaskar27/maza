@@ -103,8 +103,8 @@ namespace BCLog {
         COINDB      = (1 << 18),
         QT          = (1 << 19),
         LEVELDB     = (1 << 20),
-        HIVE        = (1 << 21),    // LitecoinCash: Hive logging
-        MINOTAURX   = (1 << 22),    // LitecoinCash: MinotaurX+Hive1.2
+        HIVE        = (1 << 21),    // Maza: Hive logging
+        MINOTAURX   = (1 << 22),    // Maza: MinotaurX+Hive1.2
         ALL         = ~(uint32_t)0,
     };
 }
@@ -309,7 +309,7 @@ std::string HelpMessageOpt(const std::string& option, const std::string& message
  * when boost is newer than 1.56.
  */
 int GetNumCores();
-int GetNumVirtualCores();   // LitecoinCash: Hive: Mining Optimisations: Return number of virt cores
+int GetNumVirtualCores();   // Maza: Hive: Mining Optimisations: Return number of virt cores
 
 void RenameThread(const char* name);
 

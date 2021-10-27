@@ -54,7 +54,7 @@ static int AppInitRawTx(int argc, char* argv[])
     if (argc<2 || gArgs.IsArgSet("-?") || gArgs.IsArgSet("-h") || gArgs.IsArgSet("-help"))
     {
         // First part of help message is specific to this utility
-        std::string strUsage = strprintf(_("%s litecoincash-tx utility version"), _(PACKAGE_NAME)) + " " + FormatFullVersion() + "\n\n" +
+        std::string strUsage = strprintf(_("%s maza-tx utility version"), _(PACKAGE_NAME)) + " " + FormatFullVersion() + "\n\n" +
             _("Usage:") + "\n" +
               "  maza-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded maza transaction") + "\n" +
               "  maza-tx [options] -create [commands]   " + _("Create hex-encoded maza transaction") + "\n" +

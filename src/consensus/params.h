@@ -11,8 +11,8 @@
 #include <map>
 #include <string>
 
-#include <script/script.h>  // LitecoinCash: Needed for CScript
-#include <amount.h>         // LitecoinCash: Needed for CAmount
+#include <script/script.h>  // Maza: Needed for CScript
+#include <amount.h>         // Maza: Needed for CAmount
 
 namespace Consensus {
 
@@ -21,9 +21,9 @@ enum DeploymentPos
     DEPLOYMENT_TESTDUMMY,
     DEPLOYMENT_CSV, // Deployment of BIP68, BIP112, and BIP113.
     DEPLOYMENT_SEGWIT, // Deployment of BIP141, BIP143, and BIP147.
-    DEPLOYMENT_HIVE,        // LitecoinCash: Hive: Deployment
-    DEPLOYMENT_HIVE_1_1,    // LitecoinCash: Hive: 1.1 Deployment
-    DEPLOYMENT_MINOTAURX,   // LitecoinCash: MinotaurX+Hive1.2: Deployment
+    DEPLOYMENT_HIVE,        // Maza: Hive: Deployment
+    DEPLOYMENT_HIVE_1_1,    // Maza: Hive: 1.1 Deployment
+    DEPLOYMENT_MINOTAURX,   // Maza: MinotaurX+Hive1.2: Deployment
 
     // NOTE: Also add new deployments to VersionBitsDeploymentInfo in versionbits.cpp
     MAX_VERSION_BITS_DEPLOYMENTS
@@ -83,16 +83,15 @@ struct Params {
     uint256 nMinimumChainWork;
     uint256 defaultAssumeValid;
 
-    // LitecoinCash: General consensus params
+    // Maza: General consensus params
     uint32_t powForkTime;               // Time of PoW hash method change
-    int lastScryptBlock;                // Height of last scrypt block
-    int slowStartBlocks;                // Scale post-fork block reward over this many blocks
-    int totalMoneySupplyHeight;         // Height at which TMS is reached, do not issue rewards past this point
+    int nPowDGWHeight;                // Height of last non DGW block
+	int nHiveStartHeight;				//Start of Hive for Maza
     uint256 powLimitSHA;                // Initial hash target at fork
-    CAmount premineAmount;              // Premine amount
-    CScript premineOutputScript;        // Premine output script
+	uint256 startingDifficulty;
+  
 
-    // LitecoinCash: Hive-related consensus params
+    // Maza: Hive-related consensus params
     CAmount minBeeCost;                 // Minimum cost of a bee, used when no more block rewards
     int beeCostFactor;                  // Bee cost is block_reward/beeCostFactor
     std::string beeCreationAddress;     // Unspendable address for bee creation
@@ -108,7 +107,7 @@ struct Params {
     int hiveBlockSpacingTargetTypical;  // Observed Hive block frequency (1 out of this many blocks are observed to be Hive)
     int hiveBlockSpacingTargetTypical_1_1; // Observed Hive block frequency in Hive 1.1 (1 out of this many blocks are observed to be Hive)
 
-    // LitecoinCash: Hive 1.1-related consensus fields
+    // Maza: Hive 1.1-related consensus fields
     int minK;                           // Minimum chainwork scale for Hive blocks (see Hive whitepaper section 5)
     int maxK;                           // Maximum chainwork scale for Hive blocks (see Hive whitepaper section 5)
     double maxHiveDiff;                 // Hive difficulty at which max chainwork bonus is awarded
@@ -118,7 +117,7 @@ struct Params {
     int maxConsecutiveHiveBlocks;       // Maximum hive blocks that can occur consecutively before a PoW block is required
     int hiveDifficultyWindow;           // How many blocks the SMA averages over in hive difficulty adjust
 
-    // LitecoinCash: MinotaurX+Hive1.2-related consensus fields
+    // Maza: MinotaurX+Hive1.2-related consensus fields
     int64_t lwmaAveragingWindow;        // Averaging window size for LWMA diff adjust
     std::vector<uint256> powTypeLimits; // Limits for each pow type (with future-proofing space; can't pick up NUM_BLOCK_TYPES here)
 };

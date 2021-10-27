@@ -30,12 +30,10 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     QWidget(0, f), curAlignment(0)
 {
     // set reference point, paddings
-    int paddingRight            = 10;   // LitecoinCash: Fix ugly spacing on splash screen
+    int paddingRight            = 10;   // Maza: Fix ugly spacing on splash screen
     int paddingTop              = 50;
     int titleVersionVSpace      = 17;
     int titleCopyrightVSpace    = 40;
-    int titleCopyrightVSpace2   = 53;
-    int titleCopyrightVSpace3   = 66;
 
     float fontFactor            = 1.0;
     float devicePixelRatio      = 1.0;
@@ -71,7 +69,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     pixPaint.fillRect(rGradient, gradient);
 
     // draw the bitcoin icon, expected size of PNG: 1024x1024
-    // LitecoinCash: Adjusted to show whole logo
+    // Maza: Adjusted to show whole logo
     QRect rectIcon(QPoint(20,20), QSize(256,256));
     const QSize requiredSize(256,256);
 

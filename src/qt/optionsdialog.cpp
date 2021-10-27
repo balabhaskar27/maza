@@ -38,7 +38,7 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     ui->threadsScriptVerif->setMinimum(-GetNumCores());
     ui->threadsScriptVerif->setMaximum(MAX_SCRIPTCHECK_THREADS);
 
-    // LitecoinCash: Hive: Mining optimisations
+    // Maza: Hive: Mining optimisations
     ui->hiveCheckThreads->setMaximum(GetNumVirtualCores());
 
     /* Network elements init */
@@ -183,12 +183,12 @@ void OptionsDialog::setMapper()
     mapper->addMapping(ui->spendZeroConfChange, OptionsModel::SpendZeroConfChange);
     mapper->addMapping(ui->coinControlFeatures, OptionsModel::CoinControlFeatures);
 
-    // LitecoinCash: Hive: Mining optimisations (int)
+    // Maza: Hive: Mining optimisations (int)
     mapper->addMapping(ui->hiveCheckThreads, OptionsModel::HiveCheckThreads);
     mapper->addMapping(ui->hiveCheckDelay, OptionsModel::HiveCheckDelay);
     mapper->addMapping(ui->hiveCheckEarlyOut, OptionsModel::HiveCheckEarlyOut);
 
-    // LitecoinCash: MinotaurX+Hive1.2
+    // Maza: MinotaurX+Hive1.2
     mapper->addMapping(ui->hiveContribCF, OptionsModel::HiveContribCF);
 
     /* Network */

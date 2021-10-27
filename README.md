@@ -26,16 +26,16 @@ Development Process
 -------------------
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/litecoincash-project/litecoincash/tags) are created
+completely stable. [Tags](https://github.com/mazacoin/maza/tags) are created
 regularly to indicate new official, stable release versions of Litecoin Cash Core.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-The developer [mailing list](https://groups.google.com/forum/#!forum/litecoincash-dev)
+The developer [mailing list](https://groups.google.com/forum/#!forum/maza-dev)
 should be used to discuss complicated or controversial changes before working
 on a patch set.
 
-Developer IRC can be found on Freenode at #litecoincash-dev.
+Developer IRC can be found on Freenode at #maza-dev.
 
 Testing
 -------

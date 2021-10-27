@@ -7,7 +7,7 @@ architectures:
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/litecoincash-project/litecoincash-detached-sigs.git"
+- "url": "https://github.com/mazacoin/maza-detached-sigs.git"
   "dir": "signature"
 files:
 - "maza-osx-unsigned.tar.gz"

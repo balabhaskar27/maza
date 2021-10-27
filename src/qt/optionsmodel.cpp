@@ -16,7 +16,7 @@
 #include <net.h>
 #include <netbase.h>
 #include <txdb.h> // for -dbcache defaults
-#include <miner.h> // LitecoinCash: Hive: Mining optimisations: For -hivecheckthreads, -hivecheckdelay, -hiveearlyout defaults
+#include <miner.h> // Maza: Hive: Mining optimisations: For -hivecheckthreads, -hivecheckdelay, -hiveearlyout defaults
 #include <qt/intro.h>
 
 #ifdef ENABLE_WALLET
@@ -112,7 +112,7 @@ void OptionsModel::Init(bool resetSettings)
     if (!gArgs.SoftSetBoolArg("-spendzeroconfchange", settings.value("bSpendZeroConfChange").toBool()))
         addOverriddenOption("-spendzeroconfchange");
 
-    // LitecoinCash: Hive: Mining optimisations
+    // Maza: Hive: Mining optimisations
     if (!settings.contains("nHiveCheckThreads"))
         settings.setValue("nHiveCheckThreads", (qint64)DEFAULT_HIVE_THREADS);
     if (!gArgs.SoftSetArg("-hivecheckthreads", settings.value("nHiveCheckThreads").toString().toStdString()))
@@ -128,7 +128,7 @@ void OptionsModel::Init(bool resetSettings)
     if (!gArgs.SoftSetBoolArg("-hiveearlyout", settings.value("fHiveCheckEarlyOut").toBool()))
         addOverriddenOption("-hiveearlyout");
 
-    // LitecoinCash: MinotaurX+Hive1.2
+    // Maza: MinotaurX+Hive1.2
     if (!settings.contains("fHiveContribCF"))
         settings.setValue("fHiveContribCF", DEFAULT_HIVE_CONTRIB_CF);
     fHiveContribCF = settings.value("fHiveContribCF").toBool();
@@ -293,7 +293,7 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
         case SpendZeroConfChange:
             return settings.value("bSpendZeroConfChange");
 
-        // LitecoinCash: Hive: Mining optimisations
+        // Maza: Hive: Mining optimisations
         case HiveCheckThreads:
             return settings.value("nHiveCheckThreads");
         case HiveCheckDelay:
@@ -301,7 +301,7 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
         case HiveCheckEarlyOut:
             return settings.value("fHiveCheckEarlyOut");
 
-        // LitecoinCash: MinotaurX+Hive1.2
+        // Maza: MinotaurX+Hive1.2
         case HiveContribCF:
             return settings.value("fHiveContribCF");
 #endif
@@ -416,7 +416,7 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             }
             break;
 
-        // LitecoinCash: Hive: Mining optimisations
+        // Maza: Hive: Mining optimisations
         case HiveCheckDelay:
             if (settings.value("nHiveCheckDelay") != value) {
                 settings.setValue("nHiveCheckDelay", value);
@@ -439,7 +439,7 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             }
             break;
 
-        // LitecoinCash: MinotaurX+Hive1.2
+        // Maza: MinotaurX+Hive1.2
         case HiveContribCF:
             fHiveContribCF = value.toBool();
             if (settings.value("fHiveContribCF") != value)

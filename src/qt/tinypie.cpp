@@ -1,4 +1,4 @@
-// LitecoinCash: Hexagon pie :)
+// Maza: Hexagon pie :)
 
 #include <qt/tinypie.h>
 

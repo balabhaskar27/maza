@@ -44,8 +44,8 @@ unsigned int ParseConfirmTarget(const UniValue& value)
  * or from the last difficulty change if 'lookup' is nonpositive.
  * If 'height' is nonnegative, compute the estimate at the time when a given block was found.
  */
-// LitecoinCash: Hive: count hashes with dedicated function, dont use chainwork. GetNumHashes is Hive Aware.
-// LitecoinCash: MinotaurX+Hive1.2: Only consider the correct powType when counting hashes
+// Maza: Hive: count hashes with dedicated function, dont use chainwork. GetNumHashes is Hive Aware.
+// Maza: MinotaurX+Hive1.2: Only consider the correct powType when counting hashes
 UniValue GetNetworkHashPS(int lookup, int height, POW_TYPE powType) {
     CBlockIndex *pb = chainActive.Tip();
 
@@ -57,13 +57,13 @@ UniValue GetNetworkHashPS(int lookup, int height, POW_TYPE powType) {
 
     // If lookup is -1, then use blocks since last difficulty change.
     if (lookup <= 0)
-        lookup = IsHive11Enabled(pb, Params().GetConsensus()) ? 1 : pb->nHeight % Params().GetConsensus().DifficultyAdjustmentInterval() + 1;   // LitecoinCash: Hive 1.1: Taking the opportunity to provide a more sensible default.
+        lookup = IsHive11Enabled(pb, Params().GetConsensus()) ? 1 : pb->nHeight % Params().GetConsensus().DifficultyAdjustmentInterval() + 1;   // Maza: Hive 1.1: Taking the opportunity to provide a more sensible default.
 
     // If lookup is larger than chain, then set it to chain length.
     if (lookup > pb->nHeight)
         lookup = pb->nHeight;
 
-    // LitecoinCash: MinotaurX+Hive1.2: Skip incorrect powType
+    // Maza: MinotaurX+Hive1.2: Skip incorrect powType
     while(IsMinotaurXEnabled(pb, Params().GetConsensus()) && pb->GetBlockHeader().GetPoWType() != powType) {
         assert (pb->pprev);
         pb = pb->pprev;
@@ -78,12 +78,12 @@ UniValue GetNetworkHashPS(int lookup, int height, POW_TYPE powType) {
     int64_t minTime = pb->GetBlockTime();
     int64_t maxTime = minTime;
 	
-	arith_uint256 workDiff = GetNumHashes(*pb, powType);    // LitecoinCash: MinotaurX+Hive1.2: add powType param
+	arith_uint256 workDiff = GetNumHashes(*pb, powType);    // Maza: MinotaurX+Hive1.2: add powType param
 	
     for (int i = 0; i < lookup; i++) {
         pb = pb->pprev;
 
-        // LitecoinCash: MinotaurX+Hive1.2: Skip incorrect powType
+        // Maza: MinotaurX+Hive1.2: Skip incorrect powType
 
         // TODO: Strictly speaking we may also went to step over hive blocks in here!
         // However, it is not a major problem as GetNumHashes is Hive aware, and since
@@ -101,7 +101,7 @@ UniValue GetNetworkHashPS(int lookup, int height, POW_TYPE powType) {
         int64_t time = pb->GetBlockTime();
         minTime = std::min(time, minTime);
         maxTime = std::max(time, maxTime);
-        workDiff += GetNumHashes(*pb, powType);              // LitecoinCash: MinotaurX+Hive1.2: add powType param
+        workDiff += GetNumHashes(*pb, powType);              // Maza: MinotaurX+Hive1.2: add powType param
     }
 
     // In case there's a situation where minTime == maxTime, we don't want a divide by zero exception.
@@ -113,7 +113,7 @@ UniValue GetNetworkHashPS(int lookup, int height, POW_TYPE powType) {
 	return workDiff.getdouble() / timeDiff;
 }
 
-// LitecoinCash: Hive: Mining optimisations: Set hive mining params
+// Maza: Hive: Mining optimisations: Set hive mining params
 UniValue sethiveparams(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 3)
@@ -136,7 +136,7 @@ UniValue sethiveparams(const JSONRPCRequest& request)
     return NullUniValue;
 }
 
-// LitecoinCash: Hive: Mining optimisations: Get hive mining params
+// Maza: Hive: Mining optimisations: Get hive mining params
 UniValue gethiveparams(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 0)
@@ -166,7 +166,7 @@ UniValue getnetworkhashps(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() > 3)
         throw std::runtime_error(
-            "getnetworkhashps ( nblocks height powalgo )\n"     // LitecoinCash: MinotaurX+Hive1.2
+            "getnetworkhashps ( nblocks height powalgo )\n"     // Maza: MinotaurX+Hive1.2
             "\nReturns the estimated network hashes per second based on the last n blocks.\n"
             "Pass in [blocks] to override # of blocks, -1 specifies since last difficulty change.\n"
             "Pass in [height] to estimate the network speed at the time when a certain block was found.\n"
@@ -174,7 +174,7 @@ UniValue getnetworkhashps(const JSONRPCRequest& request)
             "\nArguments:\n"
             "1. nblocks     (numeric, optional, default=120) The number of blocks, or -1 for blocks since last difficulty change.\n"
             "2. height      (numeric, optional, default=-1) To estimate at the time of the given height.\n"
-            "3. powalgo     (string, optional) This can be set to \"sha256d\" or \"minotaurx\". If omitted, wallet's default is assumed (-powalgo conf option)\n" // LitecoinCash: MinotaurX+Hive1.2
+            "3. powalgo     (string, optional) This can be set to \"sha256d\" or \"minotaurx\". If omitted, wallet's default is assumed (-powalgo conf option)\n" // Maza: MinotaurX+Hive1.2
             "\nResult:\n"
             "x             (numeric) Hashes per second estimated\n"
             "\nExamples:\n"
@@ -182,7 +182,7 @@ UniValue getnetworkhashps(const JSONRPCRequest& request)
             + HelpExampleRpc("getnetworkhashps", "")
        );
 
-    // LitecoinCash: MinotaurX+Hive1.2
+    // Maza: MinotaurX+Hive1.2
     std::string strAlgo = gArgs.GetArg("-powalgo", DEFAULT_POW_TYPE);
     if (!request.params[2].isNull())
         strAlgo = request.params[2].get_str();
@@ -259,7 +259,7 @@ UniValue generatetoaddress(const JSONRPCRequest& request)
             "\nMine blocks immediately to a specified address (before the RPC call returns)\n"
             "\nArguments:\n"
             "1. nblocks      (numeric, required) How many blocks are generated immediately.\n"
-            "2. address      (string, required) The address to send the newly generated litecoincash to.\n"
+            "2. address      (string, required) The address to send the newly generated maza to.\n"
             "3. maxtries     (numeric, optional) How many iterations to try (default = 1000000).\n"
             "\nResult:\n"
             "[ blockhashes ]     (array) hashes of blocks generated\n"
@@ -297,12 +297,12 @@ UniValue getmininginfo(const JSONRPCRequest& request)
             "  \"currentblockweight\": nnn, (numeric) The last block weight\n"
             "  \"currentblocktx\": nnn,     (numeric) The last block transaction\n"
             "  \"difficulty\": xxx.xxxxx    (numeric) The current difficulty for sha256d\n"
-            "  \"minotaurxdifficulty\": x.x (numeric) the current difficulty for minotaurx once activated\n"  // LitecoinCash: MinotaurX+Hive1.2
+            "  \"minotaurxdifficulty\": x.x (numeric) the current difficulty for minotaurx once activated\n"  // Maza: MinotaurX+Hive1.2
             "  \"networkhashps\": nnn,      (numeric) The network hashes per second\n"
             "  \"pooledtx\": n              (numeric) The size of the mempool\n"
             "  \"chain\": \"xxxx\",           (string) current network name as defined in BIP70 (main, test, regtest)\n"
             "  \"warnings\": \"...\"          (string) any network and blockchain warnings\n"
-            "  \"errors\": \"...\"            (string) DEPRECATED. Same as warnings. Only shown when litecoincashd is started with -deprecatedrpc=getmininginfo\n"
+            "  \"errors\": \"...\"            (string) DEPRECATED. Same as warnings. Only shown when mazad is started with -deprecatedrpc=getmininginfo\n"
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("getmininginfo", "")
@@ -318,7 +318,7 @@ UniValue getmininginfo(const JSONRPCRequest& request)
     obj.push_back(Pair("currentblocktx",   (uint64_t)nLastBlockTx));
     obj.push_back(Pair("difficulty",       (double)GetDifficulty()));
     if (IsMinotaurXEnabled(chainActive.Tip(), Params().GetConsensus()))
-        obj.push_back(Pair("minotaurxdifficulty", GetDifficulty(nullptr, false, POW_TYPE_MINOTAURX)));    // LitecoinCash: MinotaurX+Hive1.2
+        obj.push_back(Pair("minotaurxdifficulty", GetDifficulty(nullptr, false, POW_TYPE_MINOTAURX)));    // Maza: MinotaurX+Hive1.2
     obj.push_back(Pair("networkhashps",    getnetworkhashps(request)));
     obj.push_back(Pair("pooledtx",         (uint64_t)mempool.size()));
     obj.push_back(Pair("chain",            Params().NetworkIDString()));
@@ -397,7 +397,7 @@ std::string gbt_vb_name(const Consensus::DeploymentPos pos) {
 UniValue getblocktemplate(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() > 1)
-        // LitecoinCash: MinotaurX+Hive1.2: Include help note about algo field in template_request
+        // Maza: MinotaurX+Hive1.2: Include help note about algo field in template_request
         throw std::runtime_error(
             "getblocktemplate ( TemplateRequest )\n"
             "\nIf the request parameters include a 'mode' key, that is used to explicitly select between the default 'template' request or a 'proposal'.\n"
@@ -481,7 +481,7 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
     UniValue lpval = NullUniValue;
     std::set<std::string> setClientRules;
     int64_t nMaxVersionPreVB = -1;
-    std::string strAlgo = gArgs.GetArg("-powalgo", DEFAULT_POW_TYPE);   // LitecoinCash: MinotaurX+Hive1.2: Pow type (as string)
+    std::string strAlgo = gArgs.GetArg("-powalgo", DEFAULT_POW_TYPE);   // Maza: MinotaurX+Hive1.2: Pow type (as string)
     if (!request.params[0].isNull())
     {
         const UniValue& oparam = request.params[0].get_obj();
@@ -526,7 +526,7 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
             return BIP22ValidationResult(state);
         }
 
-        // LitecoinCash: MinotaurX+Hive1.2: Override default pow type
+        // Maza: MinotaurX+Hive1.2: Override default pow type
         const UniValue& algoval = find_value(oparam, "powalgo");
         if (algoval.isStr())
             strAlgo = algoval.get_str();
@@ -546,7 +546,7 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
         }
     }
 
-    // LitecoinCash: MinotaurX+Hive1.2: Check for a valid pow type
+    // Maza: MinotaurX+Hive1.2: Check for a valid pow type
     bool algoFound = false;
     POW_TYPE powType;
     for (unsigned int i = 0; i < NUM_BLOCK_TYPES; i++) {
@@ -566,10 +566,10 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
         throw JSONRPCError(RPC_CLIENT_P2P_DISABLED, "Error: Peer-to-peer functionality missing or disabled");
 
     if (g_connman->GetNodeCount(CConnman::CONNECTIONS_ALL) == 0)
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "LitecoinCash is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Maza is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "LitecoinCash is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Maza is downloading blocks...");
 
     static unsigned int nTransactionsUpdatedLast;
 
@@ -632,11 +632,11 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
     // Cache whether the last invocation was with segwit support, to avoid returning
     // a segwit-block to a non-segwit caller.
     static bool fLastTemplateSupportsSegwit = true;
-    static POW_TYPE lastPowType = NUM_BLOCK_TYPES;  // LitecoinCash: MinotaurX+Hive1.2
+    static POW_TYPE lastPowType = NUM_BLOCK_TYPES;  // Maza: MinotaurX+Hive1.2
     if (pindexPrev != chainActive.Tip() ||
         (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 5) ||
         fLastTemplateSupportsSegwit != fSupportsSegwit ||
-        lastPowType != powType) // LitecoinCash: MinotaurX+Hive1.2: Include powType check in cache refresh condition
+        lastPowType != powType) // Maza: MinotaurX+Hive1.2: Include powType check in cache refresh condition
     {
         // Clear pindexPrev so future calls make a new block, despite any failures from here on
         pindexPrev = nullptr;
@@ -649,8 +649,8 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
 
         // Create new block
         CScript scriptDummy = CScript() << OP_TRUE;
-        pblocktemplate = BlockAssembler(Params()).CreateNewBlock(scriptDummy, fSupportsSegwit, nullptr, powType);   // LitecoinCash: MinotaurX+Hive1.2: Include powType
-        lastPowType = powType;   // LitecoinCash: MinotaurX+Hive1.2: Cache pow type just requested
+        pblocktemplate = BlockAssembler(Params()).CreateNewBlock(scriptDummy, fSupportsSegwit, nullptr, powType);   // Maza: MinotaurX+Hive1.2: Include powType
+        lastPowType = powType;   // Maza: MinotaurX+Hive1.2: Cache pow type just requested
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
 
@@ -921,7 +921,7 @@ UniValue estimatefee(const JSONRPCRequest& request)
 
     if (!IsDeprecatedRPCEnabled("estimatefee")) {
         throw JSONRPCError(RPC_METHOD_DEPRECATED, "estimatefee is deprecated and will be fully removed in v0.17. "
-            "To use estimatefee in v0.16, restart litecoincashd with -deprecatedrpc=estimatefee.\n"
+            "To use estimatefee in v0.16, restart mazad with -deprecatedrpc=estimatefee.\n"
             "Projects should transition to using estimatesmartfee before upgrading to v0.17");
     }
 
@@ -1118,8 +1118,8 @@ static const CRPCCommand commands[] =
 
     { "hidden",             "estimaterawfee",         &estimaterawfee,         {"conf_target", "threshold"} },
 
-    { "mining",             "sethiveparams",          &sethiveparams,          {"hivecheckdelay", "hivecheckthreads", "hiveearlyout"} },  // LitecoinCash: Hive: Mining optimisations: Set hive mining params
-    { "mining",             "gethiveparams",          &gethiveparams,          {} },  // LitecoinCash: Hive: Mining optimisations: Get hive mining params
+    { "mining",             "sethiveparams",          &sethiveparams,          {"hivecheckdelay", "hivecheckthreads", "hiveearlyout"} },  // Maza: Hive: Mining optimisations: Set hive mining params
+    { "mining",             "gethiveparams",          &gethiveparams,          {} },  // Maza: Hive: Mining optimisations: Get hive mining params
 };
 
 void RegisterMiningRPCCommands(CRPCTable &t)

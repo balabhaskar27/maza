@@ -98,7 +98,7 @@
         <translation>Vhura &amp;URI</translation>
     </message>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     <message>
@@ -165,7 +165,7 @@
 <context>
     <name>Intro</name>
     <message>
-        <source>LitecoinCash</source>
+        <source>Maza</source>
         <translation>Litecoin Cash</translation>
     </message>
     </context>
@@ -194,8 +194,8 @@
         <translation>Marii </translation>
     </message>
     <message>
-        <source>Enter a LitecoinCash address (e.g. %1)</source>
-        <translation>Nyora kero ye LitecoinCash (sekuti %1)</translation>
+        <source>Enter a Maza address (e.g. %1)</source>
+        <translation>Nyora kero ye Maza (sekuti %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
