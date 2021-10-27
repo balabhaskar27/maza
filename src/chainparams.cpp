@@ -222,7 +222,7 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
-        consensus.nSubsidyHalvingInterval = 91500;
+        consensus.nSubsidyHalvingInterval = 950000;
         consensus.BIP16Height = 0; // always enforce BIP16
         consensus.BIP34Height = 100;
         consensus.BIP34Hash = uint256S("0x000000095bbba46901bc8b723224e93b127319bb28e163a3d00857c7aef528be"); // Block hash at block 1
