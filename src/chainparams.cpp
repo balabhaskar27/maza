@@ -226,7 +226,7 @@ public:
         consensus.BIP16Height = 0; // always enforce BIP16
         consensus.BIP34Height = 100;
         consensus.BIP34Hash = uint256S("0x000000095bbba46901bc8b723224e93b127319bb28e163a3d00857c7aef528be"); // Block hash at block 1
-        consensus.BIP65Height = 627012;
+        consensus.BIP65Height = 628000;
         consensus.BIP66Height = 100000;
         consensus.powLimitSHA = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
 		consensus.startingDifficulty = uint256S("00000003ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");

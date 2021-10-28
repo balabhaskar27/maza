@@ -155,7 +155,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -406,7 +406,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Error</source>
@@ -1020,7 +1020,7 @@
         <translation>Executar no fondo como un demo e aceptar comandos</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
+        <source>Maza Core</source>
         <translation>Core de Maza</translation>
     </message>
     <message>

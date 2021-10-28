@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -884,7 +884,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -2443,7 +2443,7 @@
     </message>
     <message>
         <source>The Maza address to sign the message with</source>
-        <translation>Litecoin Cash adresa pre podpísanie správy s</translation>
+        <translation>Maza adresa pre podpísanie správy s</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3195,8 +3195,8 @@
         <translation>Nepodarilo sa spustiť HTTP server. Pre viac detailov zobrazte debug log.</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
-        <translation>Litecoin Cash Core</translation>
+        <source>Maza Core</source>
+        <translation>Maza Core</translation>
     </message>
     <message>
         <source>The %s developers</source>

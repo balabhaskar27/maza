@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -872,7 +872,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1299,7 +1299,7 @@
     </message>
     <message>
         <source>Cannot start maza: click-to-pay handler</source>
-        <translation>Litecoin Cashia ei voi käynnistää: klikkaa-maksaaksesi -käsittelijän virhe</translation>
+        <translation>Mazaia ei voi käynnistää: klikkaa-maksaaksesi -käsittelijän virhe</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -2237,7 +2237,7 @@
     </message>
     <message>
         <source>The Maza address to send the payment to</source>
-        <translation>Litecoin Cash-osoite johon maksu lähetetään</translation>
+        <translation>Maza-osoite johon maksu lähetetään</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -2330,7 +2330,7 @@
     </message>
     <message>
         <source>The Maza address to sign the message with</source>
-        <translation>Litecoin Cash-osoite jolla viesti allekirjoitetaan</translation>
+        <translation>Maza-osoite jolla viesti allekirjoitetaan</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2386,7 +2386,7 @@
     </message>
     <message>
         <source>The Maza address the message was signed with</source>
-        <translation>Litecoin Cash-osoite jolla viesti on allekirjoitettu</translation>
+        <translation>Maza-osoite jolla viesti on allekirjoitettu</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Maza address</source>
@@ -3046,8 +3046,8 @@
         <translation>HTTP-palvelinta ei voitu käynnistää. Katso debug-lokista lisätietoja.</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
-        <translation>Litecoin Cash-ydin</translation>
+        <source>Maza Core</source>
+        <translation>Maza-ydin</translation>
     </message>
     <message>
         <source>The %s developers</source>

@@ -311,7 +311,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -375,7 +375,7 @@
     </message>
     <message>
         <source>Open a maza: URI or payment request</source>
-        <translation>Litecoin Cash: URI-ის ან გადახდის მოთხოვნის გახსნა</translation>
+        <translation>Maza: URI-ის ან გადახდის მოთხოვნის გახსნა</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -656,7 +656,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Error</source>
@@ -1506,8 +1506,8 @@
         <translation>რეზიდენტულად გაშვება და კომანდების მიღება</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
-        <translation>Litecoin Cash Core</translation>
+        <source>Maza Core</source>
+        <translation>Maza Core</translation>
     </message>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>

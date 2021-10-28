@@ -15,7 +15,7 @@
     <name>BitcoinGUI</name>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     </context>
 <context>
@@ -34,7 +34,7 @@
     <name>Intro</name>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     </context>
 <context>
@@ -160,8 +160,8 @@
 <context>
     <name>bitcoin-core</name>
     <message>
-        <source>Litecoin Cash Core</source>
-        <translation>Litecoin Cash Jezrga</translation>
+        <source>Maza Core</source>
+        <translation>Maza Jezrga</translation>
     </message>
     </context>
 </TS>

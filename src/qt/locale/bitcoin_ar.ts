@@ -2040,7 +2040,7 @@
         <translation>حدد مجلد المعلومات</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
+        <source>Maza Core</source>
         <translation>جوهر Maza</translation>
     </message>
     <message>

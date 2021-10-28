@@ -343,7 +343,7 @@
     </message>
     <message>
         <source>Send coins to a Maza address</source>
-        <translation>Litecoin Cash アドレスにコインを送る</translation>
+        <translation>Maza アドレスにコインを送る</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -431,7 +431,7 @@
     </message>
     <message>
         <source>Open a maza: URI or payment request</source>
-        <translation>Litecoin Cash: URIまたは支払いリクエストを開く</translation>
+        <translation>Maza: URIまたは支払いリクエストを開く</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -884,7 +884,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1335,7 +1335,7 @@
     </message>
     <message>
         <source>Cannot start maza: click-to-pay handler</source>
-        <translation>Litecoin Cash を起動できません: click-to-pay handler</translation>
+        <translation>Maza を起動できません: click-to-pay handler</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1453,7 +1453,7 @@
     </message>
     <message>
         <source>Enter a Maza address (e.g. %1)</source>
-        <translation>Litecoin Cashアドレスを入力してください (例 %1)</translation>
+        <translation>Mazaアドレスを入力してください (例 %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2385,7 +2385,7 @@
     </message>
     <message>
         <source>A message that was attached to the maza: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Maza network.</source>
-        <translation>Litecoin Cash: URIに添付されていたメッセージです。これは参照用としてトランザクションとともに保存されます。注意：このメッセージはMazaネットワークを通して送信されるわけではありません。</translation>
+        <translation>Maza: URIに添付されていたメッセージです。これは参照用としてトランザクションとともに保存されます。注意：このメッセージはMazaネットワークを通して送信されるわけではありません。</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -3190,8 +3190,8 @@
         <translation>HTTPサーバを開始できませんでした。詳細はデバッグログをご確認ください。</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
-        <translation>Litecoin Cash のコア</translation>
+        <source>Maza Core</source>
+        <translation>Maza のコア</translation>
     </message>
     <message>
         <source>The %s developers</source>

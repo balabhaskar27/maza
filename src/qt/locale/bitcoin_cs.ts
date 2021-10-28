@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -892,7 +892,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -2301,7 +2301,7 @@
     </message>
     <message>
         <source>The Maza address to send the payment to</source>
-        <translation>Litecoin Cashová adresa příjemce</translation>
+        <translation>Mazaová adresa příjemce</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -2394,7 +2394,7 @@
     </message>
     <message>
         <source>The Maza address to sign the message with</source>
-        <translation>Litecoin Cashová adresa, kterou se zpráva podepíše</translation>
+        <translation>Mazaová adresa, kterou se zpráva podepíše</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2450,7 +2450,7 @@
     </message>
     <message>
         <source>The Maza address the message was signed with</source>
-        <translation>Litecoin Cashová adresa, kterou je zpráva podepsána</translation>
+        <translation>Mazaová adresa, kterou je zpráva podepsána</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Maza address</source>
@@ -3142,8 +3142,8 @@
         <translation>Nemohu spustit HTTP server. Detaily viz v debug.log.</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
-        <translation>Litecoin Cash Core</translation>
+        <source>Maza Core</source>
+        <translation>Maza Core</translation>
     </message>
     <message>
         <source>The %s developers</source>

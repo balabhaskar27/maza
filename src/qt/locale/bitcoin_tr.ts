@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -560,7 +560,7 @@
     <name>CoinControlDialog</name>
     <message>
         <source>Coin Selection</source>
-        <translation>Litecoin Cash Seçimi</translation>
+        <translation>Maza Seçimi</translation>
     </message>
     <message>
         <source>Quantity:</source>
@@ -868,7 +868,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Approximately %1 GB of data will be stored in this directory.</source>
@@ -1093,7 +1093,7 @@
     </message>
     <message>
         <source>Connect to the Maza network through a SOCKS5 proxy.</source>
-        <translation>Litecoin Cash ağına bir SOCKS5 vekil sunucusu aracılığıyla bağlan.</translation>
+        <translation>Maza ağına bir SOCKS5 vekil sunucusu aracılığıyla bağlan.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1129,7 +1129,7 @@
     </message>
     <message>
         <source>Connect to the Maza network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Litecoin Cash ağına gizli Tor servisleri için ayrı bir SOCKS5 vekil sunucusu aracılığıyla bağlan.</translation>
+        <translation>Maza ağına gizli Tor servisleri için ayrı bir SOCKS5 vekil sunucusu aracılığıyla bağlan.</translation>
     </message>
     <message>
         <source>&amp;Window</source>
@@ -1165,7 +1165,7 @@
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Litecoin Cash gönderildiğinde arayüzde gösterilecek varsayılan alt birimi seçiniz.</translation>
+        <translation>Maza gönderildiğinde arayüzde gösterilecek varsayılan alt birimi seçiniz.</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1311,7 +1311,7 @@
     </message>
     <message>
         <source>Cannot start maza: click-to-pay handler</source>
-        <translation>Litecoin Cash başlatılamadı: tıkla-ve-öde yöneticisi</translation>
+        <translation>Maza başlatılamadı: tıkla-ve-öde yöneticisi</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -2014,7 +2014,7 @@
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>Litecoin Cash yolla</translation>
+        <translation>Maza yolla</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -2202,7 +2202,7 @@
     </message>
     <message>
         <source>Confirm send coins</source>
-        <translation>Litecoin Cash gönderimini onaylayın</translation>
+        <translation>Maza gönderimini onaylayın</translation>
     </message>
     <message>
         <source>The recipient address is not valid. Please recheck.</source>
@@ -3001,7 +3001,7 @@
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Litecoin Cashi Gönder</translation>
+        <translation>Mazai Gönder</translation>
     </message>
     <message>
         <source>Increasing transaction fee failed</source>
@@ -3130,8 +3130,8 @@
         <translation>HTTP sunucusu başlatılamadı. Ayrıntılar için debug.log dosyasına bakınız.</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
-        <translation>Litecoin Cash Çekirdeği</translation>
+        <source>Maza Core</source>
+        <translation>Maza Çekirdeği</translation>
     </message>
     <message>
         <source>The %s developers</source>

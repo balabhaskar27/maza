@@ -16,8 +16,8 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Litecoin Cash"
-            VALUE "FileDescription",    "maza-tx (CLI Litecoin Cash transaction editor utility)"
+            VALUE "CompanyName",        "Maza"
+            VALUE "FileDescription",    "maza-tx (CLI Maza transaction editor utility)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "maza-tx"
             VALUE "LegalCopyright",     COPYRIGHT_STR

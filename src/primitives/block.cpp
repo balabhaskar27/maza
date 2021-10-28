@@ -45,8 +45,7 @@ uint256 CBlockHeader::MinotaurHashString(std::string data) {
 // Maza: MinotaurX+Hive1.2: Get pow hash based on block type and UASF activation
 uint256 CBlockHeader::GetPoWHash() const
 {
-    // Maza: After powForkTime, the pow hash may be sha256 or MinotaurX
-    //if (nTime > Params().GetConsensus().powForkTime) {   //No scrypt blocks in MAZA
+    
         if (nVersion >= 0x20000000)                                 // Check for MinotaurX activation (Note: This is a safe check, so long as we are only considering blocks since LCC forked from LTC)
             return GetHash();                                       // MinotaurX not activated; definitely sha256
 
@@ -60,12 +59,7 @@ uint256 CBlockHeader::GetPoWHash() const
             default:                                                // Don't crash the client on invalid blockType, just return a bad hash
                 return HIGH_HASH;
         }
-    //}
     
-    // LCC not forked yet; still on Litecoin chain - definitely scrypt
-   // uint256 thash;
-    //scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
-    //return thash;
 }
 
 std::string CBlock::ToString() const

@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -876,7 +876,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -2329,7 +2329,7 @@
     </message>
     <message>
         <source>The Maza address to send the payment to</source>
-        <translation>Litecoin Cash-adresse, som betalingen skal sendes til</translation>
+        <translation>Maza-adresse, som betalingen skal sendes til</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -2426,7 +2426,7 @@
     </message>
     <message>
         <source>The Maza address to sign the message with</source>
-        <translation>Litecoin Cash-adresse, som beskeden skal signeres med</translation>
+        <translation>Maza-adresse, som beskeden skal signeres med</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2482,7 +2482,7 @@
     </message>
     <message>
         <source>The Maza address the message was signed with</source>
-        <translation>Litecoin Cash-adressen, som beskeden blev signeret med</translation>
+        <translation>Maza-adressen, som beskeden blev signeret med</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Maza address</source>
@@ -3178,8 +3178,8 @@
         <translation>Kunne ikke starte HTTP-server. Se fejlretningslog for detaljer.</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
-        <translation>Litecoin Cash Core</translation>
+        <source>Maza Core</source>
+        <translation>Maza Core</translation>
     </message>
     <message>
         <source>The %s developers</source>

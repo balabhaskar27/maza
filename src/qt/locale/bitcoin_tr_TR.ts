@@ -287,7 +287,7 @@
     </message>
     <message>
         <source>Send coins to a Maza address</source>
-        <translation>Litecoin Cash adresine madeni para gönderin</translation>
+        <translation>Maza adresine madeni para gönderin</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -303,7 +303,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -515,7 +515,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash
+        <translation>Maza
 </translation>
     </message>
     <message>
@@ -661,7 +661,7 @@
     <name>QObject</name>
     <message>
         <source>Enter a Maza address (e.g. %1)</source>
-        <translation>Litecoin Cash adresinizi girin (örneğin %1)</translation>
+        <translation>Maza adresinizi girin (örneğin %1)</translation>
     </message>
     <message>
         <source>N/A</source>
@@ -1342,8 +1342,8 @@
         <translation>JSON-RPC komutları ile komut satırını onaylayın</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
-        <translation>Litecoin Cash Çekirdeği</translation>
+        <source>Maza Core</source>
+        <translation>Maza Çekirdeği</translation>
     </message>
     <message>
         <source>&lt;category&gt; can be:</source>

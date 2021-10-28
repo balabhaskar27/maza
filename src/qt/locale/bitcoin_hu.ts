@@ -336,7 +336,7 @@ Kérem a kulcsmondatban használjon &lt;b&gt; tíz vagy több véletlenszerű ka
     </message>
     <message>
         <source>Send coins to a Maza address</source>
-        <translation>Litecoin Cash küldése megadott címre</translation>
+        <translation>Maza küldése megadott címre</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -360,7 +360,7 @@ Kérem a kulcsmondatban használjon &lt;b&gt; tíz vagy több véletlenszerű ka
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -865,7 +865,7 @@ Kérem a kulcsmondatban használjon &lt;b&gt; tíz vagy több véletlenszerű ka
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -2287,7 +2287,7 @@ Kérem a kulcsmondatban használjon &lt;b&gt; tíz vagy több véletlenszerű ka
     </message>
     <message>
         <source>The Maza address to sign the message with</source>
-        <translation>Litecoin Cash cím, amivel alá kívánja írni az üzenetet</translation>
+        <translation>Maza cím, amivel alá kívánja írni az üzenetet</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2335,7 +2335,7 @@ Kérem a kulcsmondatban használjon &lt;b&gt; tíz vagy több véletlenszerű ka
     </message>
     <message>
         <source>The Maza address the message was signed with</source>
-        <translation>Litecoin Cash cím, amivel aláírta az üzenetet</translation>
+        <translation>Maza cím, amivel aláírta az üzenetet</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Maza address</source>
@@ -2915,8 +2915,8 @@ Kérem a kulcsmondatban használjon &lt;b&gt; tíz vagy több véletlenszerű ka
 </translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
-        <translation>Litecoin Cash Core</translation>
+        <source>Maza Core</source>
+        <translation>Maza Core</translation>
     </message>
     <message>
         <source>The %s developers</source>

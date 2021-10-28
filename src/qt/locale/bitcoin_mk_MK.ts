@@ -590,7 +590,7 @@
         <translation>Опции:</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
+        <source>Maza Core</source>
         <translation>Биткоин Core</translation>
     </message>
     <message>

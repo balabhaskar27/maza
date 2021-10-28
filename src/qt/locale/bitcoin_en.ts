@@ -466,7 +466,7 @@
     <message>
         <location line="+517"/>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <location line="-743"/>
@@ -4101,8 +4101,8 @@
     </message>
     <message>
         <location line="-397"/>
-        <source>Litecoin Cash Core</source>
-        <translation type="unfinished">Litecoin Cash Core</translation>
+        <source>Maza Core</source>
+        <translation type="unfinished">Maza Core</translation>
     </message>
     <message>
         <location line="+1"/>

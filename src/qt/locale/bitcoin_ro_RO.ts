@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -888,7 +888,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1339,7 +1339,7 @@
     </message>
     <message>
         <source>Cannot start maza: click-to-pay handler</source>
-        <translation>Litecoin Cash nu poate porni: click-to-pay handler</translation>
+        <translation>Maza nu poate porni: click-to-pay handler</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -3198,7 +3198,7 @@
         <translation>Imposibil de pornit serverul HTTP. Pentru detalii vezi logul de depanare.</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
+        <source>Maza Core</source>
         <translation>Nucleul Maza</translation>
     </message>
     <message>

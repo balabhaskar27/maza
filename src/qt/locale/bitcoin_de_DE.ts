@@ -351,7 +351,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -596,7 +596,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Error</source>
@@ -649,7 +649,7 @@
     </message>
     <message>
         <source>Enter a Maza address (e.g. %1)</source>
-        <translation>Litecoin Cash Adresse eingeben (z.B. %1)</translation>
+        <translation>Maza Adresse eingeben (z.B. %1)</translation>
     </message>
     <message>
         <source>N/A</source>

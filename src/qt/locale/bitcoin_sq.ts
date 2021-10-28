@@ -231,7 +231,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -402,7 +402,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Error</source>
@@ -812,7 +812,7 @@
         <translation>Opsionet:</translation>
     </message>
     <message>
-        <source>Litecoin Cash Core</source>
+        <source>Maza Core</source>
         <translation>Berthama Maza</translation>
     </message>
     <message>

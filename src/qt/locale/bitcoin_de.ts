@@ -343,7 +343,7 @@
     </message>
     <message>
         <source>Send coins to a Maza address</source>
-        <translation>Litecoin Cash an eine Maza-Adresse überweisen</translation>
+        <translation>Maza an eine Maza-Adresse überweisen</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -880,7 +880,7 @@
     </message>
     <message>
         <source>Maza</source>
-        <translation>Litecoin Cash</translation>
+        <translation>Maza</translation>
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1445,7 +1445,7 @@
     </message>
     <message>
         <source>Enter a Maza address (e.g. %1)</source>
-        <translation>Litecoin Cash-Adresse eingeben (z.B. %1)</translation>
+        <translation>Maza-Adresse eingeben (z.B. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2030,7 +2030,7 @@
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>Litecoin Cash überweisen</translation>
+        <translation>Maza überweisen</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -3041,7 +3041,7 @@
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Litecoin Cash überweisen</translation>
+        <translation>Maza überweisen</translation>
     </message>
     <message>
         <source>Fee bump error</source>
