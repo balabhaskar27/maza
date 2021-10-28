@@ -232,7 +232,7 @@ public:
 
     std::string operator()(const CScriptID& id) const
     {
-        std::vector<unsigned char> data = m_params.Base58Prefix(CChainParams::SCRIPT_ADDRESS2);
+        std::vector<unsigned char> data = m_params.Base58Prefix(CChainParams::SCRIPT_ADDRESS);
         data.insert(data.end(), id.begin(), id.end());
         return EncodeBase58Check(data);
     }
@@ -287,11 +287,11 @@ CTxDestination DecodeDestination(const std::string& str, const CChainParams& par
 
         // Script-hash-addresses have version 5 for M prefix (or 196 testnet).
         // The data vector contains RIPEMD160(SHA256(cscript)), where cscript is the serialized redemption script.
-        const std::vector<unsigned char>& script_prefix2 = params.Base58Prefix(CChainParams::SCRIPT_ADDRESS2);
-        if (data.size() == hash.size() + script_prefix2.size() && std::equal(script_prefix2.begin(), script_prefix2.end(), data.begin())) {
-            std::copy(data.begin() + script_prefix2.size(), data.end(), hash.begin());
-            return CScriptID(hash);
-        }
+        //const std::vector<unsigned char>& script_prefix2 = params.Base58Prefix(CChainParams::SCRIPT_ADDRESS2);
+        //if (data.size() == hash.size() + script_prefix2.size() && std::equal(script_prefix2.begin(), script_prefix2.end(), data.begin())) {
+        //    std::copy(data.begin() + script_prefix2.size(), data.end(), hash.begin());
+        //    return CScriptID(hash);
+        //}
     }
     data.clear();
     auto bech = bech32::Decode(str);
