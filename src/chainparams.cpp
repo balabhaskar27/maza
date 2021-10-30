@@ -239,33 +239,33 @@ public:
 		consensus.nPowDGWHeight = 10;
 		consensus.nHiveStartHeight = 627012;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1635397102; 
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1635397102+ 315360; 
+        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1636781333; 
+        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1636781333+ 315360; 
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1635397102; 
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1635397102 + 315360; 
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1636781333; 
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1636781333 + 315360; 
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1635397102; 
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1635397102 + 315360; 
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1636781333; 
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1636781333 + 315360; 
 
         // Maza: Hive: Deployment
         consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].bit = 7;
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nStartTime = 1635397102; // Oct 28 2021 04:58:22
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nTimeout = 1635397102 + 31536000; // Start + 1 year
+        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nStartTime = 1636781333; // Oct 28 2021 04:58:22
+        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nTimeout = 1636781333 + 31536000; // Start + 1 year
 
         // Maza: Hive 1.1: Deployment
         consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].bit = 9;
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nStartTime = 1635397102;  // Oct 28 2021 04:58:22
+        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nStartTime = 1636781333;  // Oct 28 2021 04:58:22
         consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nTimeout = 1635397102 + 31536000;  // Start + 1 year
 
         // Maza: MinotaurX+Hive1.2: Deployment
         consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].bit = 7;
-        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nStartTime = 1635397202;  // Oct 28 2021  (later than above)
-        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nTimeout = 1635397102 + 31536000;  // Start + 1 year
+        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nStartTime = 1636782333;  // Oct 28 2021  (later than above)
+        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nTimeout = 1636781333 + 31536000;  // Start + 1 year
 
         
         // Maza: Hive: Consensus Fields
