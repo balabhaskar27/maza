@@ -237,7 +237,7 @@ public:
         consensus.nRuleChangeActivationThreshold = 15; // Require 75% of last 20 blocks to activate rulechanges
         consensus.nMinerConfirmationWindow = 20;
 		consensus.nPowDGWHeight = 10;
-		consensus.nHiveStartHeight = 627012;
+		consensus.nHiveStartHeight = 628000;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1636781333; 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1636781333+ 315360; 
