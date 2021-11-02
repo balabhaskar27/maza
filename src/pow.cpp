@@ -250,7 +250,6 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
 {
     if (params.fPowNoRetargeting)
         return pindexLast->nBits;
-	
 	int64_t nInterval = params.DifficultyAdjustmentInterval(); // 4 blocks
 	int64_t nAveragingInterval = nInterval * 20;
 	int64_t nAveragingTargetTimespan = nAveragingInterval * 120; 

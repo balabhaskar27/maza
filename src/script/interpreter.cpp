@@ -190,7 +190,7 @@ bool static IsDefinedHashtypeSignature(const valtype &vchSig) {
     if (vchSig.size() == 0) {
         return false;
     }
-    unsigned char nHashType = vchSig[vchSig.size() - 1] & (~(SIGHASH_ANYONECANPAY | SIGHASH_FORKID));   // Maza: Use SIGHASH_FORKID
+    unsigned char nHashType = vchSig[vchSig.size() - 1] & (~(SIGHASH_ANYONECANPAY));   //unsigned char nHashType = vchSig[vchSig.size() - 1] & (~(SIGHASH_ANYONECANPAY | SIGHASH_FORKID));  Maza: Use SIGHASH_FORKID
     if (nHashType < SIGHASH_ALL || nHashType > SIGHASH_SINGLE)
         return false;
 
@@ -198,19 +198,19 @@ bool static IsDefinedHashtypeSignature(const valtype &vchSig) {
 }
 
 // Maza: Drop the signature in scripts when SIGHASH_FORKID is not used
-static uint32_t GetHashType(const valtype &vchSig) {
-    if (vchSig.size() == 0)
-        return 0;
+//static uint32_t GetHashType(const valtype &vchSig) {
+//    if (vchSig.size() == 0)
+//        return 0;
 
-    return vchSig[vchSig.size() - 1];
-}
+//    return vchSig[vchSig.size() - 1];
+//}
 
 // Maza: Check fork ID before calling FindAndDelete
-static void CleanupScriptCode(CScript &scriptCode, const std::vector<uint8_t> &vchSig, uint32_t flags) {
-    uint32_t nHashType = GetHashType(vchSig);
-    if (!(flags & SCRIPT_ENABLE_SIGHASH_FORKID) || !(nHashType & SIGHASH_FORKID))
-        scriptCode.FindAndDelete(CScript(vchSig));
-}
+//static void CleanupScriptCode(CScript &scriptCode, const std::vector<uint8_t> &vchSig, uint32_t flags) {
+//    uint32_t nHashType = GetHashType(vchSig);
+//    if (!(flags & SCRIPT_ENABLE_SIGHASH_FORKID) || !(nHashType & SIGHASH_FORKID))
+//        scriptCode.FindAndDelete(CScript(vchSig));
+//}
 
 bool CheckSignatureEncoding(const std::vector<unsigned char> &vchSig, unsigned int flags, ScriptError* serror) {
     // Empty signature. Not strictly DER encoded, but allowed to provide a
@@ -227,14 +227,14 @@ bool CheckSignatureEncoding(const std::vector<unsigned char> &vchSig, unsigned i
         if (!IsDefinedHashtypeSignature(vchSig)) {
             return set_error(serror, SCRIPT_ERR_SIG_HASHTYPE);
         }
-        bool usesForkId = GetHashType(vchSig) & SIGHASH_FORKID;
-        bool forkIdEnabled = flags & SCRIPT_ENABLE_SIGHASH_FORKID;
-        if (!forkIdEnabled && usesForkId) {
-            return set_error(serror, SCRIPT_ERR_ILLEGAL_FORKID);
-        }
-        if (forkIdEnabled && !usesForkId) {
-            return set_error(serror, SCRIPT_ERR_MUST_USE_FORKID);
-        }
+        //bool usesForkId = GetHashType(vchSig) & SIGHASH_FORKID;
+        //bool forkIdEnabled = flags & SCRIPT_ENABLE_SIGHASH_FORKID;
+        //if (!forkIdEnabled && usesForkId) {
+        //    return set_error(serror, SCRIPT_ERR_ILLEGAL_FORKID);
+        //}
+        //if (forkIdEnabled && !usesForkId) {
+        //    return set_error(serror, SCRIPT_ERR_MUST_USE_FORKID);
+        //}
     }
     return true;
 }
@@ -914,7 +914,7 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& 
 
                     // Drop the signature in pre-segwit scripts but not segwit scripts
                     if (sigversion == SIGVERSION_BASE) {
-                        CleanupScriptCode(scriptCode, vchSig, flags);   // Maza: Check fork ID before calling FindAndDelete
+                        scriptCode.FindAndDelete(CScript(vchSig));   // Maza: Check fork ID before calling FindAndDelete
                     }
 
                     if (!CheckSignatureEncoding(vchSig, flags, serror) || !CheckPubKeyEncoding(vchPubKey, flags, sigversion, serror)) {
@@ -978,7 +978,7 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& 
                     {
                         valtype& vchSig = stacktop(-isig-k);
                         if (sigversion == SIGVERSION_BASE) {
-                            CleanupScriptCode(scriptCode, vchSig, flags);   // Maza: Check fork ID before calling FindAndDelete
+                            scriptCode.FindAndDelete(CScript(vchSig));   // Maza: Check fork ID before calling FindAndDelete
                         }
                     }
 

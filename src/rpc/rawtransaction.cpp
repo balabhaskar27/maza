@@ -1015,7 +1015,7 @@ UniValue signrawtransaction(const JSONRPCRequest& request)
     const CKeyStore& keystore = tempKeystore;
 #endif
 
-    int nHashType = SIGHASH_ALL | SIGHASH_FORKID;																// Maza: Replay attack protection
+    int nHashType = SIGHASH_ALL; // | SIGHASH_FORKID;																// Maza: Replay attack protection
     if (!request.params[3].isNull()) {
         static std::map<std::string, int> mapSigHashValues = {
             {std::string("ALL"), int(SIGHASH_ALL)},
@@ -1024,16 +1024,16 @@ UniValue signrawtransaction(const JSONRPCRequest& request)
             {std::string("NONE|ANYONECANPAY"), int(SIGHASH_NONE|SIGHASH_ANYONECANPAY)},
             {std::string("SINGLE"), int(SIGHASH_SINGLE)},
             {std::string("SINGLE|ANYONECANPAY"), int(SIGHASH_SINGLE|SIGHASH_ANYONECANPAY)},
-            {std::string("ALL|FORKID"), int(SIGHASH_ALL|SIGHASH_FORKID)},											// Maza: Replay attack protection
-            {std::string("NONE|FORKID"), int(SIGHASH_NONE|SIGHASH_FORKID)},											// Maza: Replay attack protection
-            {std::string("SINGLE|FORKID"), int(SIGHASH_SINGLE|SIGHASH_FORKID)},										// Maza: Replay attack protection
-            {std::string("ALL|FORKID|ANYONECANPAY"), int(SIGHASH_ALL|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},			// Maza: Replay attack protection
-            {std::string("NONE|FORKID|ANYONECANPAY"), int(SIGHASH_NONE|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},		// Maza: Replay attack protection
-            {std::string("SINGLE|FORKID|ANYONECANPAY"), int(SIGHASH_SINGLE|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},	// Maza: Replay attack protection            
+            {std::string("ALL"), int(SIGHASH_ALL)},											// {std::string("ALL|FORKID"), int(SIGHASH_ALL|SIGHASH_FORKID)},	Maza: Replay attack protection
+            {std::string("NONE"), int(SIGHASH_NONE)},											// {std::string("NONE|FORKID"), int(SIGHASH_NONE|SIGHASH_FORKID)},	Maza: Replay attack protection
+            {std::string("SINGLE"), int(SIGHASH_SINGLE)},										// {std::string("SINGLE|FORKID"), int(SIGHASH_SINGLE|SIGHASH_FORKID)},Maza: Replay attack protection
+            {std::string("ALL|ANYONECANPAY"), int(SIGHASH_ALL|SIGHASH_ANYONECANPAY)},			// {std::string("ALL|FORKID|ANYONECANPAY"), int(SIGHASH_ALL|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},	Maza: Replay attack protection
+            {std::string("NONE|ANYONECANPAY"), int(SIGHASH_NONE|SIGHASH_ANYONECANPAY)},		// {std::string("NONE|FORKID|ANYONECANPAY"), int(SIGHASH_NONE|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},Maza: Replay attack protection
+            {std::string("SINGLE|ANYONECANPAY"), int(SIGHASH_SINGLE|SIGHASH_ANYONECANPAY)},	// {std::string("SINGLE|FORKID|ANYONECANPAY"), int(SIGHASH_SINGLE|SIGHASH_FORKID|SIGHASH_ANYONECANPAY)},Maza: Replay attack protection            
         };
         std::string strHashType = request.params[3].get_str();
         if (mapSigHashValues.count(strHashType))
-            nHashType = mapSigHashValues[strHashType] | SIGHASH_FORKID;												// Maza: Replay attack protection
+            nHashType = mapSigHashValues[strHashType]; // | SIGHASH_FORKID;												// Maza: Replay attack protection
         else
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid sighash param");
     }

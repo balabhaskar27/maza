@@ -1785,12 +1785,14 @@ static unsigned int GetBlockScriptFlags(const CBlockIndex* pindex, const Consens
         flags |= SCRIPT_VERIFY_WITNESS;
         flags |= SCRIPT_VERIFY_NULLDUMMY;
     }
-
+	
+	if (pindex->nHeight > consensusparams.BIP66Height) {
+		flags |= SCRIPT_VERIFY_STRICTENC;
+	}
     // Maza: Enforce use of correct fork ID
-    if (pindex->nHeight > consensusparams.nHiveStartHeight) {
-        flags |= SCRIPT_VERIFY_STRICTENC;
-        flags |= SCRIPT_ENABLE_SIGHASH_FORKID;
-    }
+    //if (pindex->nHeight > consensusparams.nHiveStartHeight) {
+    //    flags |= SCRIPT_ENABLE_SIGHASH_FORKID;
+    //}
     return flags;
 }
 
