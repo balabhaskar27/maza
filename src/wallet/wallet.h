@@ -46,7 +46,7 @@ static const unsigned int DEFAULT_KEYPOOL_SIZE = 1000;
 //! -paytxfee default
 static const CAmount DEFAULT_TRANSACTION_FEE = 0;
 //! -fallbackfee default
-static const CAmount DEFAULT_FALLBACK_FEE = 2000000;
+static const CAmount DEFAULT_FALLBACK_FEE = 100000;
 //! -m_discard_rate default
 static const CAmount DEFAULT_DISCARD_FEE = 10000;             
 //! -mintxfee default
@@ -108,7 +108,7 @@ enum OutputType : int
     OUTPUT_TYPE_P2SH_SEGWIT,
     OUTPUT_TYPE_BECH32,
 
-    OUTPUT_TYPE_DEFAULT = OUTPUT_TYPE_P2SH_SEGWIT
+    OUTPUT_TYPE_DEFAULT = OUTPUT_TYPE_LEGACY
 };
 
 extern OutputType g_address_type;
