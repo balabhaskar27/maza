@@ -1,8 +1,8 @@
 <!-- This issue tracker is only for technical issues related to Maza Core.
 
-General maza questions and/or support requests and are best directed to the [mazatalk.io forums](https://mazatalk.io/).
+General maza questions and/or support requests and are best directed to Telegram https://t.me/mazatribe.
 
-For reporting security issues, please contact the Maza developers on the #maza-dev Freenode IRC channel or alternatively you can email us at info@litecoinca.sh.
+For reporting security issues, please contact the Maza developers on Telegram https://t.me/mazatribe or alternatively you can email us at contact@mazacoin.org.
 
 If the node is "stuck" during sync or giving "block checksum mismatch" errors, please ensure your hardware is stable by running memtest and observe CPU temperature with a load-test tool such as linpack before creating an issue! -->
 

@@ -956,8 +956,10 @@ std::string CopyrightHolders(const std::string& strPrefix)
     std::string strFirstPrefix = strPrefix;    
     strFirstPrefix.replace(strFirstPrefix.find("2011-"), sizeof("2011-")-1, "2018-");        
     std::string strCopyrightHolders = strFirstPrefix + strprintf(_(COPYRIGHT_HOLDERS), _(COPYRIGHT_HOLDERS_SUBSTITUTION));
-    
-    // Maza: Check for untranslated substitution to make sure Litecion Core copyright is not removed by accident
+    // Maza: Check for untranslated substitution to make sure Maza Core copyright is not removed by accident
+    if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION).find("Maza Core") == std::string::npos)
+        strCopyrightHolders += "\n" + strPrefix + "The Maza Core developers";
+    // Litecoin Cash: Check for untranslated substitution to make sure Litecion Core copyright is not removed by accident
     if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION).find("Litecoin Core") == std::string::npos)
         strCopyrightHolders += "\n" + strPrefix + "The Litecoin Core developers";
 
