@@ -2007,8 +2007,6 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
     if (IsMinotaurXEnabled(pindex->pprev, chainparams.GetConsensus())) {
         if (block.IsHiveMined(chainparams.GetConsensus()))
             blockReward += blockReward >> 1;
-        else
-            blockReward = blockReward >> 1;
     }
 
     blockReward += nFees;
