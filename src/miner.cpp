@@ -235,10 +235,9 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
         coinbaseTx.vout.resize(1);
         coinbaseTx.vout[0].scriptPubKey = scriptPubKeyIn;
 
-        // Maza: MinotaurX+Hive1.2: Pow rewards are 50% of base block reward
+        
         coinbaseTx.vout[0].nValue = GetBlockSubsidy(nHeight, chainparams.GetConsensus());
-        if (IsMinotaurXEnabled(pindexPrev, chainparams.GetConsensus()))
-            coinbaseTx.vout[0].nValue = coinbaseTx.vout[0].nValue >> 1;
+        
 
         coinbaseTx.vout[0].nValue += nFees;
 

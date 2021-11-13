@@ -127,7 +127,7 @@ public:
         // Maza: Hive: Consensus Fields
         consensus.minBeeCost = 10000;                       // Minimum cost of a bee, used when no more block rewards
         consensus.beeCostFactor = 2500;                     // Bee cost is block_reward/beeCostFactor
-        consensus.beeCreationAddress = "MCreateMaZaWorkerBee8D4z9uJxXYs19Y";        // Unspendable address for bee creation
+        consensus.beeCreationAddress = "MCreateBeeMainXXXXXXXXXXXXXXVQWqkH";        // Unspendable address for bee creation
         consensus.hiveCommunityAddress = "MJvspPS22vMuPdWRkdTRiSyKciRw9vAifv";      // Community fund address
         consensus.communityContribFactor = 10;              // Optionally, donate bct_value/maxCommunityContribFactor to community fund
         consensus.beeGestationBlocks = 48*24;               // The number of blocks for a new bee to mature
@@ -272,7 +272,7 @@ public:
         // Maza: Hive: Consensus Fields
         consensus.minBeeCost = 10000;                       // Minimum cost of a bee, used when no more block rewards
         consensus.beeCostFactor = 2500;                     // Bee cost is block_reward/beeCostFactor
-        consensus.beeCreationAddress = "tEstNetCreateMAZAWorkerBeeXXYq6T3r";        // Unspendable address for bee creation
+        consensus.beeCreationAddress = "ccReateBeetestnetXXXXXXXXXXXVPRtyV";        // Unspendable address for bee creation
         consensus.hiveCommunityAddress = "cUr9QKe9f7vk6174C45yyW6CLJ8Qq1MKLL";      // Community fund address
         consensus.communityContribFactor = 10;              // Optionally, donate bct_value/maxCommunityContribFactor to community fund
         consensus.beeGestationBlocks = 40;                  // The number of blocks for a new bee to mature
