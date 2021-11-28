@@ -19,16 +19,6 @@ const struct VBDeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION_B
         /*.name =*/ "segwit",
         /*.gbt_force =*/ true,
     },
-    // Maza: Hive: Deployment
-    {
-        /*.name =*/ "hive",
-        /*.gbt_force =*/ true,
-    },
-    // Maza: Hive: Deployment of 1.1
-    {
-        /*.name =*/ "hive_1_1",
-        /*.gbt_force =*/ true,
-    },
     // Maza: MinotaurX+Hive1.2: Deployment
     {
         /*.name =*/ "minotaurx_and_hive_1_2",

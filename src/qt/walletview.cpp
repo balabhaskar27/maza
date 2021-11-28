@@ -385,7 +385,7 @@ void WalletView::doRescan(CWallet* pwallet, int64_t startTime)
 void WalletView::importPrivateKey()
 {
     bool ok;
-    QString privKey = QInputDialog::getText(0, tr(PACKAGE_NAME), tr("Enter a Litecoin/Litecoin Cash private key to import into your wallet."), QLineEdit::Normal, "", &ok);
+    QString privKey = QInputDialog::getText(0, tr(PACKAGE_NAME), tr("Enter a MAZA private key to import into your wallet."), QLineEdit::Normal, "", &ok);
     if (ok && !privKey.isEmpty()) {
         CWallet* pwallet = GetWalletForQTKeyImport();
 
@@ -407,7 +407,7 @@ void WalletView::importPrivateKey()
 
         CBitcoinSecret vchSecret;
         if (!vchSecret.SetString(privKey.toStdString())) {
-            QMessageBox::critical(0, tr(PACKAGE_NAME), tr("This doesn't appear to be a Litecoin/Maza private key."));
+            QMessageBox::critical(0, tr(PACKAGE_NAME), tr("This doesn't appear to be a Maza private key."));
             return;
         }
 

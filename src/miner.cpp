@@ -148,7 +148,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     assert(pindexPrev != nullptr);
 
     // Maza: Hive: Make sure Hive is enabled if a Hive block is requested
-    if (hiveProofScript && !IsHiveEnabled(pindexPrev, chainparams.GetConsensus()))
+    if (hiveProofScript && !IsMinotaurXEnabled(pindexPrev, chainparams.GetConsensus()))
         throw std::runtime_error(
             "Error: The Hive is not yet enabled on the network"
         );
@@ -717,7 +717,7 @@ bool BusyBees(const Consensus::Params& consensusParams, int height) {
     assert(pindexPrev != nullptr);
 
     // Sanity checks
-    if (!IsHiveEnabled(pindexPrev, consensusParams)) {
+    if (!IsMinotaurXEnabled(pindexPrev, consensusParams)) {
         LogPrint(BCLog::HIVE, "BusyBees: Skipping hive check: The Hive is not enabled on the network\n");
         return false;
     }
@@ -735,7 +735,7 @@ bool BusyBees(const Consensus::Params& consensusParams, int height) {
     }
 
     // Maza: Hive 1.1: Check that there aren't too many consecutive Hive blocks
-    if (IsHive11Enabled(pindexPrev, consensusParams)) {
+    if (IsMinotaurXEnabled(pindexPrev, consensusParams)) {
         int hiveBlocksAtTip = 0;
         CBlockIndex* pindexTemp = pindexPrev;
         while (pindexTemp->GetBlockHeader().IsHiveMined(consensusParams)) {

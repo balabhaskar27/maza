@@ -21,8 +21,6 @@ enum DeploymentPos
     DEPLOYMENT_TESTDUMMY,
     DEPLOYMENT_CSV, // Deployment of BIP68, BIP112, and BIP113.
     DEPLOYMENT_SEGWIT, // Deployment of BIP141, BIP143, and BIP147.
-    DEPLOYMENT_HIVE,        // Maza: Hive: Deployment
-    DEPLOYMENT_HIVE_1_1,    // Maza: Hive: 1.1 Deployment
     DEPLOYMENT_MINOTAURX,   // Maza: MinotaurX+Hive1.2: Deployment
 
     // NOTE: Also add new deployments to VersionBitsDeploymentInfo in versionbits.cpp
@@ -86,7 +84,6 @@ struct Params {
     // Maza: General consensus params
     uint32_t powForkTime;               // Time of PoW hash method change
     int nPowDGWHeight;                // Height of last non DGW block
-	int nHiveStartHeight;				//Start of Hive for Maza
     uint256 powLimitSHA;                // Initial hash target at fork
 	uint256 startingDifficulty;
   
@@ -102,13 +99,11 @@ struct Params {
     uint256 powLimitHive;               // Highest (easiest) bee hash target
     uint32_t hiveNonceMarker;           // Nonce marker for hivemined blocks
     int minHiveCheckBlock;              // Don't bother checking below this height for Hive blocks (not used for consensus/validation checks, just efficiency when looking for potential BCTs)
-    int hiveTargetAdjustAggression;     // Snap speed for bee hash target adjustment EMA
     int hiveBlockSpacingTarget;         // Target Hive block frequency (1 out of this many blocks should be Hive)
-    int hiveBlockSpacingTargetTypical;  // Observed Hive block frequency (1 out of this many blocks are observed to be Hive)
     int hiveBlockSpacingTargetTypical_1_1; // Observed Hive block frequency in Hive 1.1 (1 out of this many blocks are observed to be Hive)
 
     // Maza: Hive 1.1-related consensus fields
-    int minK;                           // Minimum chainwork scale for Hive blocks (see Hive whitepaper section 5)
+	int minK;                           // Minimum chainwork scale for Hive blocks (see Hive whitepaper section 5)
     int maxK;                           // Maximum chainwork scale for Hive blocks (see Hive whitepaper section 5)
     double maxHiveDiff;                 // Hive difficulty at which max chainwork bonus is awarded
     int maxKPow;                        // Maximum chainwork scale for PoW blocks

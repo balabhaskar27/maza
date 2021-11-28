@@ -559,7 +559,7 @@ UniValue getbeecost(const JSONRPCRequest& request)
 
     CBlockIndex* pindexPrev = chainActive.Tip();
     assert(pindexPrev != nullptr);
-    if (!IsHiveEnabled(pindexPrev, consensusParams))
+    if (!IsMinotaurXEnabled(pindexPrev, consensusParams))
         throw std::runtime_error(
             "Error: The Hive is not yet enabled on the network"
         );
@@ -569,7 +569,7 @@ UniValue getbeecost(const JSONRPCRequest& request)
         return NullUniValue;
 
     int height = !request.params[0].isNull() ? request.params[0].get_int() : chainActive.Height();
-    if(!IsHiveEnabled(chainActive[height], consensusParams))
+    if(!IsMinotaurXEnabled(chainActive[height], consensusParams))
         throw std::runtime_error(
             "Error: The Hive is not enabled at the requested height"
         );
@@ -678,7 +678,7 @@ UniValue getnetworkhiveinfo(const JSONRPCRequest& request)
     CBlockIndex* pindexPrev = chainActive.Tip();
     assert(pindexPrev != nullptr);
 
-    if (!IsHiveEnabled(pindexPrev, consensusParams))
+    if (!IsMinotaurXEnabled(pindexPrev, consensusParams))
         throw std::runtime_error("Error: The Hive is not yet enabled on the network");
 
     bool includeGraph = false;
@@ -888,7 +888,7 @@ UniValue gethiveinfo(const JSONRPCRequest& request)
     const Consensus::Params& consensusParams = Params().GetConsensus();
     CBlockIndex* pindexPrev = chainActive.Tip();
     assert(pindexPrev != nullptr);
-    if (!IsHiveEnabled(pindexPrev, consensusParams))
+    if (!IsMinotaurXEnabled(pindexPrev, consensusParams))
         throw std::runtime_error(
             "Error: The Hive is not yet enabled on the network"
         );

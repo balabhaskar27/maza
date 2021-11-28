@@ -79,20 +79,15 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, bool ge
         }
     } else {
         // Maza: MinotaurX+Hive1.2: Skip over incorrect powTypes
-        if (IsMinotaurXEnabled(blockindex, consensusParams)) {
-            while (blockindex->GetBlockHeader().IsHiveMined(consensusParams) || blockindex->GetBlockHeader().GetPoWType() != powType) {
-                assert (blockindex->pprev);
-                blockindex = blockindex->pprev;
-                if (!IsMinotaurXEnabled(blockindex, consensusParams)) {
-                    return 0;
-                }
-            }
-        } else {
-            while (blockindex->GetBlockHeader().IsHiveMined(consensusParams)) {
-                assert (blockindex->pprev);
-                blockindex = blockindex->pprev;
+        
+        while (blockindex->GetBlockHeader().IsHiveMined(consensusParams) || blockindex->GetBlockHeader().GetPoWType() != powType) {
+            assert (blockindex->pprev);
+            blockindex = blockindex->pprev;
+            if (!IsMinotaurXEnabled(blockindex, consensusParams)) {
+                return 0;
             }
         }
+        
     }
     
 
@@ -452,7 +447,7 @@ UniValue gethivedifficulty(const JSONRPCRequest& request)
 
     CBlockIndex* pindexPrev = chainActive.Tip();
     assert(pindexPrev != nullptr);
-    if (!IsHiveEnabled(pindexPrev, Params().GetConsensus()))
+    if (!IsMinotaurXEnabled(pindexPrev, Params().GetConsensus()))
         throw std::runtime_error(
             "Error: The Hive is not yet enabled on the network"
         );

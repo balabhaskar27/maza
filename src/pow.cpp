@@ -129,14 +129,7 @@ unsigned int DarkGravityWave(const CBlockIndex* pindexLast, const CBlockHeader *
     //if (params.fPowAllowMinDifficultyBlocks && pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing * 10)
     //    return bnPowLimit.GetCompact();
 
-    // Maza: Hive 1.1: Skip over Hivemined blocks at tip
-    if (IsHive11Enabled(pindexLast, params)) {
-        while (pindexLast->GetBlockHeader().IsHiveMined(params)) {
-            //LogPrintf("DarkGravityWave: Skipping hivemined block at %i\n", pindex->nHeight);
-            assert(pindexLast->pprev); // should never fail
-            pindexLast = pindexLast->pprev;
-        }
-    }
+    
 
 	// make sure we have at least (nPastBlocks + 1) blocks, otherwise just return powLimit
     if (!pindexLast || pindexLast->nHeight < nPastBlocks) 
@@ -147,11 +140,7 @@ unsigned int DarkGravityWave(const CBlockIndex* pindexLast, const CBlockHeader *
 
     for (unsigned int nCountBlocks = 1; nCountBlocks <= nPastBlocks; nCountBlocks++) {
         // Maza: Hive: Skip over Hivemined blocks; we only want to consider PoW blocks
-        while (pindex->GetBlockHeader().IsHiveMined(params)) {
-            //LogPrintf("DarkGravityWave: Skipping hivemined block at %i\n", pindex->nHeight);
-            assert(pindex->pprev); // should never fail
-            pindex = pindex->pprev;
-        }
+       
 
         arith_uint256 bnTarget = arith_uint256().SetCompact(pindex->nBits);
         if (nCountBlocks == 1) {
@@ -304,44 +293,10 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&
     return true;
 }
 
-// Maza: Hive 1.1: SMA Hive Difficulty Adjust
-unsigned int GetNextHive11WorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params) {
-    const arith_uint256 bnPowLimit = UintToArith256(params.powLimitHive);
 
-    arith_uint256 beeHashTarget = 0;
-    int hiveBlockCount = 0;
-    int totalBlockCount = 0;
-
-    // Step back till we have found 24 hive blocks, or we ran out...
-    while (hiveBlockCount < params.hiveDifficultyWindow && pindexLast->pprev && pindexLast->nHeight >= params.minHiveCheckBlock) {
-        if (pindexLast->GetBlockHeader().IsHiveMined(params)) {
-            beeHashTarget += arith_uint256().SetCompact(pindexLast->nBits);
-            hiveBlockCount++;
-        }
-        totalBlockCount++;
-        pindexLast = pindexLast->pprev;
-    }
-
-    if (hiveBlockCount == 0) {          // Should only happen when chain is starting
-        LogPrintf("GetNextHive11WorkRequired: No previous hive blocks found.\n");
-        return bnPowLimit.GetCompact();
-    }
-
-    beeHashTarget /= hiveBlockCount;    // Average the bee hash targets in window
-
-    // Retarget based on totalBlockCount
-    int targetTotalBlockCount = hiveBlockCount * params.hiveBlockSpacingTarget;
-    beeHashTarget *= totalBlockCount;
-    beeHashTarget /= targetTotalBlockCount;
-
-    if (beeHashTarget > bnPowLimit)
-        beeHashTarget = bnPowLimit;
-
-    return beeHashTarget.GetCompact();
-}
-
-// Maza: MinotaurX+Hive1.2: Reset Hive difficulty after MinotaurX enable
-unsigned int GetNextHive12WorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params) {
+// Maza: Hive: Get the current Bee Hash Target (Hive 1.0)
+unsigned int GetNextHiveWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params) {
+    // Maza: MinotaurX+Hive1.2
     const arith_uint256 bnPowLimit = UintToArith256(params.powLimitHive);
 
     arith_uint256 beeHashTarget = 0;
@@ -376,60 +331,6 @@ unsigned int GetNextHive12WorkRequired(const CBlockIndex* pindexLast, const Cons
     return beeHashTarget.GetCompact();
 }
 
-// Maza: Hive: Get the current Bee Hash Target (Hive 1.0)
-unsigned int GetNextHiveWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params) {
-    // Maza: MinotaurX+Hive1.2
-    if (IsMinotaurXEnabled(pindexLast, params))
-        return GetNextHive12WorkRequired(pindexLast, params);
-    // Maza: Hive 1.1: Use SMA diff adjust
-    if (IsHive11Enabled(pindexLast, params))
-        return GetNextHive11WorkRequired(pindexLast, params);
-
-    const arith_uint256 bnPowLimit = UintToArith256(params.powLimitHive);
-    const arith_uint256 bnImpossible = 0;
-    arith_uint256 beeHashTarget;
-
-    //LogPrintf("GetNextHiveWorkRequired: Height     = %i\n", pindexLast->nHeight);
-
-    int numPowBlocks = 0;
-    CBlockHeader block;
-    while (true) {
-        if (!pindexLast->pprev || pindexLast->nHeight < params.minHiveCheckBlock) {   // Ran out of blocks without finding a Hive block? Return min target
-            LogPrintf("GetNextHiveWorkRequired: No hivemined blocks found in history\n");
-            //LogPrintf("GetNextHiveWorkRequired: This target= %s\n", bnPowLimit.ToString());
-            return bnPowLimit.GetCompact();
-        }
-
-        block = pindexLast->GetBlockHeader();
-        if (block.IsHiveMined(params)) {  // Found the last Hive block; pick up its bee hash target
-            beeHashTarget.SetCompact(block.nBits);
-            break;
-        }
-
-        pindexLast = pindexLast->pprev;
-        numPowBlocks++;
-    }
-
-    //LogPrintf("GetNextHiveWorkRequired: powBlocks  = %i\n", numPowBlocks);
-    if (numPowBlocks == 0)
-        return bnImpossible.GetCompact();
-
-    //LogPrintf("GetNextHiveWorkRequired: Last target= %s\n", beeHashTarget.ToString());
-
-	// Apply EMA
-	int interval = params.hiveTargetAdjustAggression / params.hiveBlockSpacingTarget;
-	beeHashTarget *= (interval - 1) * params.hiveBlockSpacingTarget + numPowBlocks + numPowBlocks;
-	beeHashTarget /= (interval + 1) * params.hiveBlockSpacingTarget;
-
-	// Clamp to min difficulty
-	if (beeHashTarget > bnPowLimit)
-		beeHashTarget = bnPowLimit;
-
-    //LogPrintf("GetNextHiveWorkRequired: This target= %s\n", beeHashTarget.ToString());
-
-    return beeHashTarget.GetCompact();
-}
-
 // Maza: Hive: Get count of all live and gestating BCTs on the network
 bool GetNetworkHiveInfo(int& immatureBees, int& immatureBCTs, int& matureBees, int& matureBCTs, CAmount& potentialLifespanRewards, const Consensus::Params& consensusParams, bool recalcGraph) {
     int totalBeeLifespan = consensusParams.beeLifespanBlocks + consensusParams.beeGestationBlocks;
@@ -441,15 +342,12 @@ bool GetNetworkHiveInfo(int& immatureBees, int& immatureBCTs, int& matureBees, i
 
     // Maza: MinotaurX+Hive1.2: Get correct hive block reward
     auto blockReward = GetBlockSubsidy(pindexPrev->nHeight, consensusParams);
-    if (IsMinotaurXEnabled(pindexPrev, consensusParams))
-        blockReward += blockReward >> 1;
+    blockReward += blockReward >> 1;
 
-    // Maza: Hive 1.1: Use correct typical spacing
-    if (IsHive11Enabled(pindexPrev, consensusParams))
-        potentialLifespanRewards = (consensusParams.beeLifespanBlocks * blockReward) / consensusParams.hiveBlockSpacingTargetTypical_1_1;
-    else
-        potentialLifespanRewards = (consensusParams.beeLifespanBlocks * blockReward) / consensusParams.hiveBlockSpacingTargetTypical;
-
+    
+    
+    potentialLifespanRewards = (consensusParams.beeLifespanBlocks * blockReward) / consensusParams.hiveBlockSpacingTargetTypical_1_1;
+    
     if (recalcGraph) {
         for (int i = 0; i < totalBeeLifespan; i++) {
             beePopGraph[i].immaturePop = 0;
@@ -566,13 +464,13 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
         LogPrintf("CheckHiveProof: nHeight             = %i\n", blockHeight);
 
     // Check hive is enabled on network
-    if (!IsHiveEnabled(pindexPrev, consensusParams)) {
+    if (!IsMinotaurXEnabled(pindexPrev, consensusParams)) {
         LogPrintf("CheckHiveProof: Can't accept a Hive block; Hive is not yet enabled on the network.\n");
         return false;
     }
 
     // Maza: Hive 1.1: Check that there aren't too many consecutive Hive blocks
-    if (IsHive11Enabled(pindexPrev, consensusParams)) {
+    if (IsMinotaurXEnabled(pindexPrev, consensusParams)) {
         int hiveBlocksAtTip = 0;
         CBlockIndex* pindexTemp = pindexPrev;
         while (pindexTemp->GetBlockHeader().IsHiveMined(consensusParams)) {
@@ -657,24 +555,15 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
         LogPrintf("CheckHiveProof: beeHashTarget       = %s\n", beeHashTarget.ToString());
     
     // Maza: MinotaurX+Hive1.2: Use the correct inner Hive hash
-    if (!IsMinotaurXEnabled(pindexPrev, consensusParams)) {
-        std::string hashHex = (CHashWriter(SER_GETHASH, 0) << deterministicRandString << txidStr << beeNonce).GetHash().GetHex();
-        arith_uint256 beeHash = arith_uint256(hashHex);
-        if (verbose)
-            LogPrintf("CheckHiveProof: beeHash             = %s\n", beeHash.GetHex());
-        if (beeHash >= beeHashTarget) {
-            LogPrintf("CheckHiveProof: Bee does not meet hash target!\n");
-            return false;
-        }
-    } else {
-        arith_uint256 beeHash(CBlockHeader::MinotaurHashArbitrary(std::string(deterministicRandString + txidStr + std::to_string(beeNonce)).c_str()).ToString());
-        if (verbose)
-            LogPrintf("CheckHive12Proof: beeHash           = %s\n", beeHash.GetHex());
-        if (beeHash >= beeHashTarget) {
-            LogPrintf("CheckHive12Proof: Bee does not meet hash target!\n");
-            return false;
-        }
+    
+    arith_uint256 beeHash(CBlockHeader::MinotaurHashArbitrary(std::string(deterministicRandString + txidStr + std::to_string(beeNonce)).c_str()).ToString());
+    if (verbose)
+      LogPrintf("CheckHive12Proof: beeHash           = %s\n", beeHash.GetHex());
+    if (beeHash >= beeHashTarget) {
+      LogPrintf("CheckHive12Proof: Bee does not meet hash target!\n");
+      return false;
     }
+    
     
     // Grab the message sig (bytes 79-end; byte 78 is size)
     std::vector<unsigned char> messageSig(&txCoinbase->vout[0].scriptPubKey[79], &txCoinbase->vout[0].scriptPubKey[79 + 65]);
@@ -719,6 +608,7 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
     CAmount bctValue;
     CScript bctScriptPubKey;
     bool bctWasMinotaurXEnabled;    // Maza: MinotaurX+Hive1.2: Track whether Hive 1.2 was enabled at BCT creation time
+
     {
         LOCK(cs_main);
 
@@ -734,7 +624,8 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
             bctValue = coin.out.nValue;
             bctScriptPubKey = coin.out.scriptPubKey;
             bctFoundHeight = coin.nHeight;
-            bctWasMinotaurXEnabled = IsMinotaurXEnabled(chainActive[bctFoundHeight], consensusParams);  // Maza: MinotaurX+Hive1.2: Track whether Hive 1.2 was enabled at BCT creation time
+			bctWasMinotaurXEnabled = IsMinotaurXEnabled(chainActive[bctFoundHeight], consensusParams);  // Maza: MinotaurX+Hive1.2: Track whether Hive 1.2 was enabled at BCT creation time
+
         } else {                                                            // UTXO set isn't available when eg reindexing, so drill into block db (not too bad, since Alice put her BCT height in the coinbase tx)
             if (verbose)
                 LogPrintf("! CheckHiveProof: Warn: Using deep drill for outBeeCreation\n");
@@ -747,6 +638,8 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
             bctValue = bct->vout[0].nValue;
             bctScriptPubKey = bct->vout[0].scriptPubKey;
             bctWasMinotaurXEnabled = IsMinotaurXEnabled(&foundAt, consensusParams); // Maza: MinotaurX+Hive1.2: Track whether Hive 1.2 was enabled at BCT creation time
+
+            
         }
 
         if (communityContrib) {
@@ -782,10 +675,7 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
 
             // Check for valid donation amount
             CAmount expectedDonationAmount = (bctValue + donationAmount) / consensusParams.communityContribFactor;
-
-            // Maza: MinotaurX+Hive1.2
-            if (bctWasMinotaurXEnabled)
-                expectedDonationAmount += expectedDonationAmount >> 1;
+            expectedDonationAmount += expectedDonationAmount >> 1;
 
             if (donationAmount != expectedDonationAmount) {
                 LogPrintf("CheckHiveProof: BCT pays community fund incorrect amount %i (expected %i)\n", donationAmount, expectedDonationAmount);
@@ -831,6 +721,7 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
         LogPrintf("CheckHiveProof: BCT's honey address does not match claimed honey address!\n");
         return false;
     }
+
 
     // Find bee count
     CAmount beeCost = GetBeeCost(bctFoundHeight, consensusParams);

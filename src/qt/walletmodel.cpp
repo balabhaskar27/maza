@@ -403,12 +403,12 @@ HiveTableModel *WalletModel::getHiveTableModel()
 }
 
 // Maza: Hive
-bool WalletModel::isHiveEnabled()
+bool WalletModel::isMinotaurXEnabled()
 {
     if (!wallet)
         return false;
 
-    return IsHiveEnabled(chainActive.Tip(), Params().GetConsensus());
+    return IsMinotaurXEnabled(chainActive.Tip(), Params().GetConsensus());
 }
 
 WalletModel::EncryptionStatus WalletModel::getEncryptionStatus() const

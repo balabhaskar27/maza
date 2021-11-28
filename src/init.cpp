@@ -530,7 +530,7 @@ std::string HelpMessage(HelpMessageMode mode)
 std::string LicenseInfo()
 {
     const std::string URL_SOURCE_CODE = "<https://github.com/mazacoin/maza>";
-    const std::string URL_WEBSITE = "<https://litecoinca.sh>";
+    const std::string URL_WEBSITE = "<https://mazacoin.org>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2011, COPYRIGHT_YEAR) + " ") + "\n" +
            "\n" +

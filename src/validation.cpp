@@ -3089,19 +3089,9 @@ bool IsWitnessEnabled(const CBlockIndex* pindexPrev, const Consensus::Params& pa
     return (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_SEGWIT, versionbitscache) == THRESHOLD_ACTIVE);
 }
 
-// Maza: Hive: Check if Hive is activated at given point
-bool IsHiveEnabled(const CBlockIndex* pindexPrev, const Consensus::Params& params)
-{
-    LOCK(cs_main);
-    return (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_HIVE, versionbitscache) == THRESHOLD_ACTIVE);
-}
 
-// Maza: Hive: Check if Hive 1.1 is activated at given point
-bool IsHive11Enabled(const CBlockIndex* pindexPrev, const Consensus::Params& params)
-{
-    LOCK(cs_main);
-    return (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_HIVE_1_1, versionbitscache) == THRESHOLD_ACTIVE);
-}
+
+
 
 // Maza: MinotaurX+Hive1.2: Check if MinotaurX is activated at given point
 bool IsMinotaurXEnabled(const CBlockIndex* pindexPrev, const Consensus::Params& params)

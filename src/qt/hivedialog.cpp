@@ -198,7 +198,7 @@ void HiveDialog::updateData(bool forceGlobalSummaryUpdate) {
         if (clientModel && clientModel->getNumConnections() == 0) {
             tooltip = "Maza is not connected";
             icon = ":/icons/hivestatus_disabled";
-        } else if (!model->isHiveEnabled()) {
+        } else if (!model->isMinotaurXEnabled()) {
             tooltip = "The Hive is not enabled on the network";
             icon = ":/icons/hivestatus_disabled";
         } else {

@@ -57,7 +57,7 @@ UniValue GetNetworkHashPS(int lookup, int height, POW_TYPE powType) {
 
     // If lookup is -1, then use blocks since last difficulty change.
     if (lookup <= 0)
-        lookup = IsHive11Enabled(pb, Params().GetConsensus()) ? 1 : pb->nHeight % Params().GetConsensus().DifficultyAdjustmentInterval() + 1;   // Maza: Hive 1.1: Taking the opportunity to provide a more sensible default.
+        lookup = IsMinotaurXEnabled(pb, Params().GetConsensus()) ? 1 : pb->nHeight % Params().GetConsensus().DifficultyAdjustmentInterval() + 1;   // Maza: Hive 1.1: Taking the opportunity to provide a more sensible default.
 
     // If lookup is larger than chain, then set it to chain length.
     if (lookup > pb->nHeight)

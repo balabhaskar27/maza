@@ -213,7 +213,7 @@ public:
 
     void getBCTs(std::vector<CBeeCreationTransactionInfo>& vBeeCreationTransactions, bool includeDeadBees);     // Maza: Hive
     bool createBees(int beeCount, bool communityContrib, QWidget *parent, double beePopIndex);                  // Maza: Hive
-    bool isHiveEnabled();                                                                                       // Maza: Hive
+    bool isMinotaurXEnabled();                                                                                       // Maza: Hive
 
     bool transactionCanBeAbandoned(uint256 hash) const;
     bool abandonTransaction(uint256 hash) const;

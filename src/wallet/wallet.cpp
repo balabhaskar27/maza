@@ -2843,7 +2843,7 @@ bool CWallet::CreateBeeTransaction(int beeCount, CWalletTx& wtxNew, CReserveKey&
     CBlockIndex* pindexPrev = chainActive.Tip();
     assert(pindexPrev != nullptr);
 
-    if (!IsHiveEnabled(pindexPrev, consensusParams)) {
+    if (!IsMinotaurXEnabled(pindexPrev, consensusParams)) {
         strFailReason = "Error: The Hive has not yet been activated on the network";
         return false;
     }
@@ -2871,11 +2871,8 @@ bool CWallet::CreateBeeTransaction(int beeCount, CWalletTx& wtxNew, CReserveKey&
         blockReward += blockReward >> 1;
 
     CAmount totalPotentialReward;
-    if (IsHive11Enabled(pindexPrev, consensusParams))
-        totalPotentialReward = (consensusParams.beeLifespanBlocks * blockReward) / consensusParams.hiveBlockSpacingTargetTypical_1_1;
-    else
-        totalPotentialReward = (consensusParams.beeLifespanBlocks * blockReward) / consensusParams.hiveBlockSpacingTargetTypical;
-
+    totalPotentialReward = (consensusParams.beeLifespanBlocks * blockReward) / consensusParams.hiveBlockSpacingTargetTypical_1_1;
+    
     if (totalPotentialReward < beeCost) {
         strFailReason = "Error: Bee creation would cost more than possible rewards";
         return false;

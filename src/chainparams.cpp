@@ -81,7 +81,7 @@ public:
         consensus.BIP16Height = 1; 
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0x000000003302fe58f139f1d45f3a0a67601d39e63b82bc4918f48b8cd5df6ab0");
-        consensus.BIP65Height = 2045000; 
+        consensus.BIP65Height = 2140400;  // future block predicted sometime in March 2022
         consensus.BIP66Height = 700000; 
         consensus.powLimitSHA = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
 		consensus.startingDifficulty = uint256S("00000003ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
@@ -93,35 +93,35 @@ public:
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing * 4
 		consensus.nPowDGWHeight = 100000;
 		//consensus.nHiveStartHeight = 2045000;
-		consensus.powForkTime = 1635292702;
+		consensus.powForkTime = 1649566800; //set to minotaurx start time for MAZA
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1638338400; // December 1, 2021
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1638338400 + 2628000; // Start + 1 month
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1649566800; // April 10, 2022
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1649566800 + 2628000; // Start + 1 month
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1638338400; // December 1, 2021
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1638338400 + 2628000; // Start + 1 month
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1649566800; // April 10, 2022
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1649566800 + 2628000; // Start + 1 month
 
         // Maza: Hive: Deployment
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].bit = 7;
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nStartTime = 1545782400; // Dec 26, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nTimeout = 1577318400; // Dec 26, 2019
+        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].bit = 7;
+        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nStartTime = 1545782400; // Dec 26, 2018
+        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nTimeout = 1577318400; // Dec 26, 2019
 
         // Maza: Hive 1.1: Deployment
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].bit = 9;
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nStartTime = 1568937600;  // Sept 20, 2019
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nTimeout = 1600560000;    // Sept 20, 2020
+        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].bit = 9;
+       // consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nStartTime = 1568937600;  // Sept 20, 2019
+        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nTimeout = 1600560000;    // Sept 20, 2020
 
         // Maza: MinotaurX+Hive1.2: Deployment
         consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].bit = 7;
-        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nStartTime = 1638338400;  // December 1, 2021
-        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nTimeout = 1638338400 + 31536000;  // Start + 1 year
+        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nStartTime = 1649566800;  // April 10, 2022
+        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nTimeout = 1649566800 + 31536000;  // Start + 1 year
 
         
         // Maza: Hive: Consensus Fields
@@ -130,13 +130,13 @@ public:
         consensus.beeCreationAddress = "MCreateBeeMainXXXXXXXXXXXXXXVQWqkH";        // Unspendable address for bee creation
         consensus.hiveCommunityAddress = "MJvspPS22vMuPdWRkdTRiSyKciRw9vAifv";      // Community fund address
         consensus.communityContribFactor = 10;              // Optionally, donate bct_value/maxCommunityContribFactor to community fund
-        consensus.beeGestationBlocks = 48*24;               // The number of blocks for a new bee to mature
-        consensus.beeLifespanBlocks = 48*24*14;             // The number of blocks a bee lives for after maturation
+        consensus.beeGestationBlocks = 30*24;               // The number of blocks for a new bee to mature
+        consensus.beeLifespanBlocks = 30*24*14;             // The number of blocks a bee lives for after maturation
         consensus.powLimitHive = uint256S("0fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");  // Highest (easiest) bee hash target
-        consensus.minHiveCheckBlock = 2037500;              // Don't bother checking below this height for Hive blocks (not used for consensus/validation checks, just efficiency when looking for potential BCTs)
-        consensus.hiveTargetAdjustAggression = 30;          // Snap speed for bee hash target adjustment EMA
+        consensus.minHiveCheckBlock = 2140400;              // Don't bother checking below this height for Hive blocks (not used for consensus/validation checks, just efficiency when looking for potential BCTs)
+        //consensus.hiveTargetAdjustAggression = 30;          // Snap speed for bee hash target adjustment EMA
         consensus.hiveBlockSpacingTarget = 2;               // Target Hive block frequency (1 out of this many blocks should be Hivemined)
-        consensus.hiveBlockSpacingTargetTypical = 3;        // Observed Hive block frequency (1 out of this many blocks are observed to be Hive)
+        //consensus.hiveBlockSpacingTargetTypical = 3;        // Observed Hive block frequency (1 out of this many blocks are observed to be Hive)
         consensus.hiveBlockSpacingTargetTypical_1_1 = 2;    // Observed Hive block frequency in Hive 1.1 (1 out of this many blocks are observed to be Hive)
         consensus.hiveNonceMarker = 192;                    // Nonce marker for hivemined blocks
 
@@ -250,23 +250,23 @@ public:
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1636781333; 
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1636781333 + 315360; 
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1638252000; 
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1638252000 + 315360; 
 
         // Maza: Hive: Deployment
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].bit = 7;
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nStartTime = 1636781333; // Oct 28 2021 04:58:22
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nTimeout = 1636781333 + 31536000; // Start + 1 year
+        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].bit = 7;
+        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nStartTime = 1636781333; // Oct 28 2021 04:58:22
+        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nTimeout = 1636781333 + 31536000; // Start + 1 year
 
         // Maza: Hive 1.1: Deployment
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].bit = 9;
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nStartTime = 1636781333;  // Oct 28 2021 04:58:22
-        consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nTimeout = 1635397102 + 31536000;  // Start + 1 year
+        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].bit = 9;
+        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nStartTime = 1636781333;  // Oct 28 2021 04:58:22
+        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nTimeout = 1635397102 + 31536000;  // Start + 1 year
 
         // Maza: MinotaurX+Hive1.2: Deployment
         consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].bit = 7;
-        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nStartTime = 1636782333;  // Oct 28 2021  (later than above)
-        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nTimeout = 1636781333 + 31536000;  // Start + 1 year
+        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nStartTime = 1638252000;  // Nov 30 2021  (later than above)
+        consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nTimeout = 1638252000 + 31536000;  // Start + 1 year
 
         
         // Maza: Hive: Consensus Fields
@@ -278,10 +278,10 @@ public:
         consensus.beeGestationBlocks = 40;                  // The number of blocks for a new bee to mature
         consensus.beeLifespanBlocks = 48*24*14;             // The number of blocks a bee lives for after maturation
         consensus.powLimitHive = uint256S("0fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");  // Highest (easiest) bee hash target
-        consensus.minHiveCheckBlock = 50;                   // Don't bother checking below this height for Hive blocks (not used for consensus/validation checks, just efficiency when looking for potential BCTs)
-        consensus.hiveTargetAdjustAggression = 30;          // Snap speed for bee hash target adjustment EMA
+        consensus.minHiveCheckBlock = 630000;                   // Don't bother checking below this height for Hive blocks (not used for consensus/validation checks, just efficiency when looking for potential BCTs)
+        //consensus.hiveTargetAdjustAggression = 30;          // Snap speed for bee hash target adjustment EMA
         consensus.hiveBlockSpacingTarget = 2;               // Target Hive block frequency (1 out of this many blocks should be Hivemined)
-        consensus.hiveBlockSpacingTargetTypical = 3;        // Observed Hive block frequency (1 out of this many blocks are observed to be Hive)
+        //consensus.hiveBlockSpacingTargetTypical = 3;        // Observed Hive block frequency (1 out of this many blocks are observed to be Hive)
         consensus.hiveBlockSpacingTargetTypical_1_1 = 2;    // Observed Hive block frequency in Hive 1.1 (1 out of this many blocks are observed to be Hive)
         consensus.hiveNonceMarker = 192;                    // Nonce marker for hivemined blocks
 

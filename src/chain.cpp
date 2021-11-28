@@ -160,7 +160,7 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
         bnTargetScaled += (~bnPreviousTarget / (bnPreviousTarget + 1)) + 1;
 
         // Hive 1.1: Enable bonus chainwork for Hive blocks
-        if (IsHive11Enabled(&block, consensusParams)) {
+        if (IsMinotaurXEnabled(&block, consensusParams)) {
             if (verbose) {
                 LogPrintf("**** HIVE-1.1: ENABLING BONUS CHAINWORK ON HIVE BLOCK %s\n", block.GetBlockHash().ToString());
                 LogPrintf("**** Initial block chainwork = %s\n", bnTargetScaled.ToString());
@@ -177,7 +177,7 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
             }
         }
     // Hive 1.1: Enable bonus chainwork for PoW blocks
-    } else if (IsHive11Enabled(&block, consensusParams)) {
+    } else if (IsMinotaurXEnabled(&block, consensusParams)) {
         if (verbose) {
             LogPrintf("**** HIVE-1.1: CHECKING FOR BONUS CHAINWORK ON POW BLOCK %s\n", block.GetBlockHash().ToString());
             LogPrintf("**** Initial block chainwork = %s\n", bnTargetScaled.ToString());
