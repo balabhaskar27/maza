@@ -1,5 +1,5 @@
 ---
-name: "maza-win-0.10"
+name: "maza-win-0.16"
 enable_cache: true
 suites:
 - "trusty"
@@ -22,7 +22,7 @@ packages:
 - "ca-certificates"
 - "python"
 remotes:
-- "url": "https://github.com/mazacoin/mazacoin-new.git"
+- "url": "https://github.com/mazacoin/maza.git"
   "dir": "maza"
 files: []
 script: |
