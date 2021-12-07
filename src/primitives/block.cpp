@@ -9,7 +9,6 @@
 #include <tinyformat.h>
 #include <utilstrencodings.h>
 #include <crypto/common.h>
-#include <crypto/scrypt.h>
 #include <chainparams.h>    // Maza: Hive
 
 #include <crypto/minotaurx/minotaur.h>  // Maza: MinotaurX+Hive1.2
