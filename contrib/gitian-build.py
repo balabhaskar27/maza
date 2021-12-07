@@ -29,7 +29,7 @@ def setup():
     if not os.path.isdir('gitian-builder'):
         subprocess.check_call(['git', 'clone', 'https://github.com/devrandom/gitian-builder.git'])
     if not os.path.isdir('maza'):
-        subprocess.check_call(['git', 'clone', 'https://github.com/owlhooter/mazacoin-new.git'] , 'maza')
+        subprocess.check_call(['git', 'clone', 'https://github.com/owlhooter/mazacoin-new.git'])
     os.chdir('gitian-builder')
     make_image_prog = ['bin/make-base-vm', '--suite', 'bionic', '--arch', 'amd64']
     if args.docker:
@@ -46,7 +46,7 @@ def setup():
 def build():
     global args, workdir
 
-    os.makedirs('mazacore-binaries/' + args.version, exist_ok=True)
+    os.makedirs('maza-binaries/' + args.version, exist_ok=True)
     print('\nBuilding Dependencies\n')
     os.chdir('gitian-builder')
     os.makedirs('inputs', exist_ok=True)
@@ -59,14 +59,14 @@ def build():
         print('\nCompiling ' + args.version + ' Linux')
         subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'maza='+args.commit, '--url', 'maza='+args.url, '../maza/contrib/gitian-descriptors/gitian-linux.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-linux', '--destination', '../gitian.sigs/', '../maza/contrib/gitian-descriptors/gitian-linux.yml'])
-        subprocess.check_call('mv build/out/mazacore-*.tar.gz build/out/src/mazacore-*.tar.gz ../mazacore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/maza-*.tar.gz build/out/src/maza-*.tar.gz ../maza-binaries/'+args.version, shell=True)
 
     if args.windows:
         print('\nCompiling ' + args.version + ' Windows')
         subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'maza='+args.commit, '--url', 'maza='+args.url, '../maza/contrib/gitian-descriptors/gitian-win.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-unsigned', '--destination', '../gitian.sigs/', '../maza/contrib/gitian-descriptors/gitian-win.yml'])
-        subprocess.check_call('mv build/out/mazacore-*-win-unsigned.tar.gz inputs/mazacore-win-unsigned.tar.gz', shell=True)
-        subprocess.check_call('mv build/out/mazacore-*.zip build/out/mazacore-*.exe ../mazacore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/maza-*-win-unsigned.tar.gz inputs/maza-win-unsigned.tar.gz', shell=True)
+        subprocess.check_call('mv build/out/maza-*.zip build/out/maza-*.exe ../maza-binaries/'+args.version, shell=True)
 
     if args.macos:
         print('\nCompiling ' + args.version + ' MacOS')
@@ -74,8 +74,8 @@ def build():
         subprocess.check_output(["echo 'bec9d089ebf2e2dd59b1a811a38ec78ebd5da18cbbcd6ab39d1e59f64ac5033f inputs/MacOSX10.11.sdk.tar.gz' | sha256sum -c"], shell=True)
         subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'maza='+args.commit, '--url', 'maza='+args.url, '../maza/contrib/gitian-descriptors/gitian-osx.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-unsigned', '--destination', '../gitian.sigs/', '../maza/contrib/gitian-descriptors/gitian-osx.yml'])
-        subprocess.check_call('mv build/out/mazacore-*-osx-unsigned.tar.gz inputs/mazacore-osx-unsigned.tar.gz', shell=True)
-        subprocess.check_call('mv build/out/mazacore-*.tar.gz build/out/mazacore-*.dmg ../mazacore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/maza-*-osx-unsigned.tar.gz inputs/maza-osx-unsigned.tar.gz', shell=True)
+        subprocess.check_call('mv build/out/maza-*.tar.gz build/out/maza-*.dmg ../maza-binaries/'+args.version, shell=True)
 
     os.chdir(workdir)
 
@@ -96,14 +96,14 @@ def sign():
         print('\nSigning ' + args.version + ' Windows')
         subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../maza/contrib/gitian-descriptors/gitian-win-signer.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-signed', '--destination', '../gitian.sigs/', '../maza/contrib/gitian-descriptors/gitian-win-signer.yml'])
-        subprocess.check_call('mv build/out/mazacore-*win64-setup.exe ../mazacore-binaries/'+args.version, shell=True)
-        subprocess.check_call('mv build/out/mazacore-*win32-setup.exe ../mazacore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/maza-*win64-setup.exe ../maza-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/maza-*win32-setup.exe ../maza-binaries/'+args.version, shell=True)
 
     if args.macos:
         print('\nSigning ' + args.version + ' MacOS')
         subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../maza/contrib/gitian-descriptors/gitian-osx-signer.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-signed', '--destination', '../gitian.sigs/', '../maza/contrib/gitian-descriptors/gitian-osx-signer.yml'])
-        subprocess.check_call('mv build/out/mazacore-osx-signed.dmg ../mazacore-binaries/'+args.version+'/mazacore-'+args.version+'-osx.dmg', shell=True)
+        subprocess.check_call('mv build/out/maza-osx-signed.dmg ../maza-binaries/'+args.version+'/maza-'+args.version+'-osx.dmg', shell=True)
 
     os.chdir(workdir)
 
