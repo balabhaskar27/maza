@@ -1,13 +1,13 @@
 ---
 name: "maza-dmg-signer"
 suites:
-- "trusty"
+- "bionic"
 architectures:
 - "amd64"
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/mazacoin/maza-detached-sigs.git"
+- "url": "https://github.com/owlhooter/maza-detached-sigs.git"
   "dir": "signature"
 files:
 - "maza-osx-unsigned.tar.gz"

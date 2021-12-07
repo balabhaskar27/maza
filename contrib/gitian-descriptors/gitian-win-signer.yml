@@ -1,14 +1,14 @@
 ---
 name: "maza-win-signer"
 suites:
-- "trusty"
+- "bionic"
 architectures:
 - "amd64"
 packages:
 - "libssl-dev"
 - "autoconf"
 remotes:
-- "url": "https://github.com/mazacoin/maza-detached-sigs.git"
+- "url": "https://github.com/owlhooter/maza-detached-sigs.git"
   "dir": "signature"
 files:
 - "osslsigncode-1.7.1.tar.gz"
