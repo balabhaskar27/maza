@@ -92,7 +92,6 @@ public:
         consensus.nRuleChangeActivationThreshold = 6048; // 75% of 8064
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing * 4
 		consensus.nPowDGWHeight = 100000;
-		//consensus.nHiveStartHeight = 2045000;
 		consensus.powForkTime = 1649566800; //set to minotaurx start time for MAZA
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
@@ -107,16 +106,6 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1649566800; // April 10, 2022
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1649566800 + 2628000; // Start + 1 month
-
-        // Maza: Hive: Deployment
-        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].bit = 7;
-        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nStartTime = 1545782400; // Dec 26, 2018
-        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nTimeout = 1577318400; // Dec 26, 2019
-
-        // Maza: Hive 1.1: Deployment
-        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].bit = 9;
-       // consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nStartTime = 1568937600;  // Sept 20, 2019
-        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nTimeout = 1600560000;    // Sept 20, 2020
 
         // Maza: MinotaurX+Hive1.2: Deployment
         consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].bit = 7;
@@ -134,9 +123,7 @@ public:
         consensus.beeLifespanBlocks = 30*24*14;             // The number of blocks a bee lives for after maturation
         consensus.powLimitHive = uint256S("0fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");  // Highest (easiest) bee hash target
         consensus.minHiveCheckBlock = 2140400;              // Don't bother checking below this height for Hive blocks (not used for consensus/validation checks, just efficiency when looking for potential BCTs)
-        //consensus.hiveTargetAdjustAggression = 30;          // Snap speed for bee hash target adjustment EMA
         consensus.hiveBlockSpacingTarget = 2;               // Target Hive block frequency (1 out of this many blocks should be Hivemined)
-        //consensus.hiveBlockSpacingTargetTypical = 3;        // Observed Hive block frequency (1 out of this many blocks are observed to be Hive)
         consensus.hiveBlockSpacingTargetTypical_1_1 = 2;    // Observed Hive block frequency in Hive 1.1 (1 out of this many blocks are observed to be Hive)
         consensus.hiveNonceMarker = 192;                    // Nonce marker for hivemined blocks
 
@@ -183,7 +170,6 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,50);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,9);
-        //base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,110);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1,224);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
@@ -238,7 +224,6 @@ public:
         consensus.nRuleChangeActivationThreshold = 15; // Require 75% of last 20 blocks to activate rulechanges
         consensus.nMinerConfirmationWindow = 20;
 		consensus.nPowDGWHeight = 10;
-		//consensus.nHiveStartHeight = 628000;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1636781333; 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1636781333+ 315360; 
@@ -253,22 +238,11 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1638252000; 
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1638252000 + 315360; 
 
-        // Maza: Hive: Deployment
-        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].bit = 7;
-        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nStartTime = 1636781333; // Oct 28 2021 04:58:22
-        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE].nTimeout = 1636781333 + 31536000; // Start + 1 year
-
-        // Maza: Hive 1.1: Deployment
-        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].bit = 9;
-        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nStartTime = 1636781333;  // Oct 28 2021 04:58:22
-        //consensus.vDeployments[Consensus::DEPLOYMENT_HIVE_1_1].nTimeout = 1635397102 + 31536000;  // Start + 1 year
-
         // Maza: MinotaurX+Hive1.2: Deployment
         consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].bit = 7;
         consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nStartTime = 1638252000;  // Nov 30 2021  (later than above)
         consensus.vDeployments[Consensus::DEPLOYMENT_MINOTAURX].nTimeout = 1638252000 + 31536000;  // Start + 1 year
-
-        
+ 
         // Maza: Hive: Consensus Fields
         consensus.minBeeCost = 10000;                       // Minimum cost of a bee, used when no more block rewards
         consensus.beeCostFactor = 2500;                     // Bee cost is block_reward/beeCostFactor
@@ -279,9 +253,7 @@ public:
         consensus.beeLifespanBlocks = 48*24*14;             // The number of blocks a bee lives for after maturation
         consensus.powLimitHive = uint256S("0fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");  // Highest (easiest) bee hash target
         consensus.minHiveCheckBlock = 630000;                   // Don't bother checking below this height for Hive blocks (not used for consensus/validation checks, just efficiency when looking for potential BCTs)
-        //consensus.hiveTargetAdjustAggression = 30;          // Snap speed for bee hash target adjustment EMA
         consensus.hiveBlockSpacingTarget = 2;               // Target Hive block frequency (1 out of this many blocks should be Hivemined)
-        //consensus.hiveBlockSpacingTargetTypical = 3;        // Observed Hive block frequency (1 out of this many blocks are observed to be Hive)
         consensus.hiveBlockSpacingTargetTypical_1_1 = 2;    // Observed Hive block frequency in Hive 1.1 (1 out of this many blocks are observed to be Hive)
         consensus.hiveNonceMarker = 192;                    // Nonce marker for hivemined blocks
 
@@ -323,7 +295,6 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,88);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,188);
-        //base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,116);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
@@ -428,7 +399,6 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
-        //base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,58);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
