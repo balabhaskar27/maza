@@ -1,5 +1,5 @@
 ---
-name: "maza-win-0.17"
+name: "maza-win-0.16"
 enable_cache: true
 suites:
 - "bionic"
