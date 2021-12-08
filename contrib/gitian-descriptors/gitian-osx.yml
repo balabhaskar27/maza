@@ -19,6 +19,7 @@ packages:
 - "faketime"
 - "bsdmainutils"
 - "imagemagick"
+- "cmake"
 - "libcap-dev"
 - "libz-dev"
 - "libbz2-dev"
