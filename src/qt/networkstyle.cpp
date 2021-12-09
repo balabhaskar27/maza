@@ -27,22 +27,53 @@ NetworkStyle::NetworkStyle(const QString &_appName, const int iconColorHueShift,
     titleAddText(qApp->translate("SplashScreen", _titleAddText))
 {
     // load pixmap
-    QPixmap pixmap(":/icons/bitcoin");
+    QPixmap appIconPixmap(":/icons/bitcoin");
+    QPixmap splashImagePixmap(":/icons/maza_splash");
 
     if(iconColorHueShift != 0 && iconColorSaturationReduction != 0)
     {
         // generate QImage from QPixmap
-        QImage img = pixmap.toImage();
+        QImage appIconImg = appIconPixmap.toImage();
+        QImage splashImageImg = splashImagePixmap.toImage();
 
         int h,s,l,a;
 
         // traverse though lines
-        for(int y=0;y<img.height();y++)
+        for(int y=0;y<appIconImg.height();y++)
         {
-            QRgb *scL = reinterpret_cast< QRgb *>( img.scanLine( y ) );
+            QRgb *scL = reinterpret_cast< QRgb *>( appIconImg.scanLine( y ) );
 
             // loop through pixels
-            for(int x=0;x<img.width();x++)
+            for(int x=0;x<appIconImg.width();x++)
+            {
+                // preserve alpha because QColor::getHsl doesn't return the alpha value
+                a = qAlpha(scL[x]);
+                QColor col(scL[x]);
+
+                // get hue value
+                col.getHsl(&h,&s,&l);
+
+                // rotate color on RGB color circle
+                // 70° should end up with the typical "testnet" green
+                h+=iconColorHueShift;
+
+                // change saturation value
+                if(s>iconColorSaturationReduction)
+                {
+                    s -= iconColorSaturationReduction;
+                }
+                col.setHsl(h,s,l,a);
+
+                // set the pixel
+                scL[x] = col.rgba();
+            }
+        }
+		for(int y=0;y<splashImageImg.height();y++)
+        {
+            QRgb *scL = reinterpret_cast< QRgb *>( splashImageImg.scanLine( y ) );
+
+            // loop through pixels
+            for(int x=0;x<splashImageImg.width();x++)
             {
                 // preserve alpha because QColor::getHsl doesn't return the alpha value
                 a = qAlpha(scL[x]);
@@ -69,14 +100,17 @@ NetworkStyle::NetworkStyle(const QString &_appName, const int iconColorHueShift,
 
         //convert back to QPixmap
 #if QT_VERSION >= 0x040700
-        pixmap.convertFromImage(img);
+		appIconPixmap.convertFromImage(appIconImg);
+        splashImagePixmap.convertFromImage(splashImageImg);
 #else
-        pixmap = QPixmap::fromImage(img);
+        appIconPixmap = QPixmap::fromImage(appIconImg);
+        splashImagePixmap = QPixmap::fromImage(splashImageImg);
 #endif
     }
 
-    appIcon             = QIcon(pixmap);
-    trayAndWindowIcon   = QIcon(pixmap.scaled(QSize(256,256)));
+    appIcon             = QIcon(appIconPixmap);
+    trayAndWindowIcon   = QIcon(appIconPixmap.scaled(QSize(256,256)));
+    splashImage         = splashImagePixmap;
 }
 
 const NetworkStyle *NetworkStyle::instantiate(const QString &networkId)

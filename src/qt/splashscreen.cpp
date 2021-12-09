@@ -73,7 +73,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     QRect rectIcon(QPoint(20,20), QSize(256,256));
     const QSize requiredSize(256,256);
 
-    QPixmap icon(networkStyle->getAppIcon().pixmap(requiredSize));
+    QPixmap icon(networkStyle->getSplashImage());
 
     pixPaint.drawPixmap(rectIcon, icon);
 
