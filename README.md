@@ -9,17 +9,16 @@ We are reorganizing this code so that it:
 Maza Core integration/staging tree
 =====================================
 
-What is Litecoin Cash?
+What is MAZA?
 ----------------------
 
-Litecoin Cash is a fork of Litecoin supporting SHA256 PoW and Hive Mining. For full details, as well as prebuilt binaries for Windows, Mac and Linux, please visit our website at https://litecoinca.sh.
 
-Litecoin Cash Core is the full node software that makes up the backbone of the LCC network.
+MAZA Core is the full node software that makes up the backbone of the MAZA network.
 
 License
 -------
 
-Litecoin Cash Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
+MAZA Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 Development Process
@@ -27,7 +26,7 @@ Development Process
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
 completely stable. [Tags](https://github.com/mazacoin/maza/tags) are created
-regularly to indicate new official, stable release versions of Litecoin Cash Core.
+regularly to indicate new official, stable release versions of MAZA Core.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
