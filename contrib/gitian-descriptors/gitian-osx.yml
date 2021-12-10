@@ -32,7 +32,7 @@ packages:
 - "fonts-tuffy"
 - "ccache"
 remotes:
-- "url": "https://github.com/owlhooter/mazacoin-new.git"
+- "url": "https://github.com/mazacoin/maza.git"
   "dir": "maza"
 files:
 - "MacOSX10.11.sdk.tar.gz"
