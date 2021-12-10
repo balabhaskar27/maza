@@ -1,23 +1,29 @@
-// Copyright (c) 2011-2014 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2011-2017 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_WALLETMODEL_H
 #define BITCOIN_QT_WALLETMODEL_H
 
-#include "paymentrequestplus.h"
-#include "walletmodeltransaction.h"
+#include <qt/paymentrequestplus.h>
+#include <qt/walletmodeltransaction.h>
 
-#include "allocators.h" /* for SecureString */
+#include <support/allocators/secure.h>
+
+#include <wallet/wallet.h>  // Maza: Hive
 
 #include <map>
 #include <vector>
 
 #include <QObject>
 
+enum OutputType : int;
+
 class AddressTableModel;
 class OptionsModel;
+class PlatformStyle;
 class RecentRequestsTableModel;
+class HiveTableModel;               // Maza: Hive
 class TransactionTableModel;
 class WalletModelTransaction;
 
@@ -36,11 +42,11 @@ QT_END_NAMESPACE
 class SendCoinsRecipient
 {
 public:
-    explicit SendCoinsRecipient() : amount(0), nVersion(SendCoinsRecipient::CURRENT_VERSION) { }
-    explicit SendCoinsRecipient(const QString &addr, const QString &label, const CAmount& amount, const QString &message):
-        address(addr), label(label), amount(amount), message(message), nVersion(SendCoinsRecipient::CURRENT_VERSION) {}
+    explicit SendCoinsRecipient() : amount(0), fSubtractFeeFromAmount(false), nVersion(SendCoinsRecipient::CURRENT_VERSION) { }
+    explicit SendCoinsRecipient(const QString &addr, const QString &_label, const CAmount& _amount, const QString &_message):
+        address(addr), label(_label), amount(_amount), message(_message), fSubtractFeeFromAmount(false), nVersion(SendCoinsRecipient::CURRENT_VERSION) {}
 
-    // If from an insecure payment request, this is used for storing
+    // If from an unauthenticated payment request, this is used for storing
     // the addresses, e.g. address-A<br />address-B<br />address-C.
     // Info: As we don't need to process addresses in here when using
     // payment requests, we can abuse it for displaying an address list.
@@ -56,13 +62,15 @@ public:
     // Empty if no authentication or invalid signature/cert/etc.
     QString authenticatedMerchant;
 
+    bool fSubtractFeeFromAmount; // memory only
+
     static const int CURRENT_VERSION = 1;
     int nVersion;
 
     ADD_SERIALIZE_METHODS;
 
     template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+    inline void SerializationOp(Stream& s, Operation ser_action) {
         std::string sAddress = address.toStdString();
         std::string sLabel = label.toStdString();
         std::string sMessage = message.toStdString();
@@ -72,7 +80,6 @@ public:
         std::string sAuthenticatedMerchant = authenticatedMerchant.toStdString();
 
         READWRITE(this->nVersion);
-        nVersion = this->nVersion;
         READWRITE(sAddress);
         READWRITE(sLabel);
         READWRITE(amount);
@@ -98,7 +105,7 @@ class WalletModel : public QObject
     Q_OBJECT
 
 public:
-    explicit WalletModel(CWallet *wallet, OptionsModel *optionsModel, QObject *parent = 0);
+    explicit WalletModel(const PlatformStyle *platformStyle, CWallet *wallet, OptionsModel *optionsModel, QObject *parent = 0);
     ~WalletModel();
 
     enum StatusCode // Returned by sendCoins
@@ -111,7 +118,8 @@ public:
         DuplicateAddress,
         TransactionCreationFailed, // Error returned when wallet is still locked
         TransactionCommitFailed,
-        InsaneFee
+        AbsurdFee,
+        PaymentRequestExpired
     };
 
     enum EncryptionStatus
@@ -125,8 +133,9 @@ public:
     AddressTableModel *getAddressTableModel();
     TransactionTableModel *getTransactionTableModel();
     RecentRequestsTableModel *getRecentRequestsTableModel();
+    HiveTableModel *getHiveTableModel();    // Maza: Hive
 
-    CAmount getBalance(const CCoinControl *coinControl = NULL) const;
+    CAmount getBalance(const CCoinControl *coinControl = nullptr) const;
     CAmount getUnconfirmedBalance() const;
     CAmount getImmatureBalance() const;
     bool haveWatchOnly() const;
@@ -141,13 +150,17 @@ public:
     // Return status record for SendCoins, contains error id + information
     struct SendCoinsReturn
     {
-        SendCoinsReturn(StatusCode status = OK):
-            status(status) {}
+        SendCoinsReturn(StatusCode _status = OK, QString _reasonCommitFailed = "")
+            : status(_status),
+              reasonCommitFailed(_reasonCommitFailed)
+        {
+        }
         StatusCode status;
+        QString reasonCommitFailed;
     };
 
     // prepare transaction for getting txfee before sending coins
-    SendCoinsReturn prepareTransaction(WalletModelTransaction &transaction, const CCoinControl *coinControl = NULL);
+    SendCoinsReturn prepareTransaction(WalletModelTransaction &transaction, const CCoinControl& coinControl);
 
     // Send coins to a list of recipients
     SendCoinsReturn sendCoins(WalletModelTransaction &transaction);
@@ -180,9 +193,12 @@ public:
         void CopyFrom(const UnlockContext& rhs);
     };
 
-    UnlockContext requestUnlock();
+    // Maza: Hive: Locked wallet support
+    UnlockContext requestUnlock(bool hiveOnly=false);
 
     bool getPubKey(const CKeyID &address, CPubKey& vchPubKeyOut) const;
+    bool IsSpendable(const CTxDestination& dest) const;
+    bool getPrivKey(const CKeyID &address, CKey& vchPrivKeyOut) const;
     void getOutputs(const std::vector<COutPoint>& vOutpoints, std::vector<COutput>& vOutputs);
     bool isSpent(const COutPoint& outpoint) const;
     void listCoins(std::map<QString, std::vector<COutput> >& mapCoins) const;
@@ -194,6 +210,24 @@ public:
 
     void loadReceiveRequests(std::vector<std::string>& vReceiveRequests);
     bool saveReceiveRequest(const std::string &sAddress, const int64_t nId, const std::string &sRequest);
+
+    void getBCTs(std::vector<CBeeCreationTransactionInfo>& vBeeCreationTransactions, bool includeDeadBees);     // Maza: Hive
+    bool createBees(int beeCount, bool communityContrib, QWidget *parent, double beePopIndex);                  // Maza: Hive
+    bool isMinotaurXEnabled();                                                                                       // Maza: Hive
+
+    bool transactionCanBeAbandoned(uint256 hash) const;
+    bool abandonTransaction(uint256 hash) const;
+
+    bool transactionCanBeBumped(uint256 hash) const;
+    bool bumpFee(uint256 hash);
+
+    static bool isWalletEnabled();
+
+    bool hdEnabled() const;
+
+    OutputType getDefaultAddressType() const;
+
+    int getDefaultConfirmTarget() const;
 
 private:
     CWallet *wallet;
@@ -207,6 +241,7 @@ private:
     AddressTableModel *addressTableModel;
     TransactionTableModel *transactionTableModel;
     RecentRequestsTableModel *recentRequestsTableModel;
+    HiveTableModel *hiveTableModel; // Maza: Hive
 
     // Cache some values to be able to detect changes
     CAmount cachedBalance;
@@ -224,7 +259,7 @@ private:
     void unsubscribeFromCoreSignals();
     void checkBalanceChanged();
 
-signals:
+Q_SIGNALS:
     // Signal that balance in wallet changed
     void balanceChanged(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance,
                         const CAmount& watchOnlyBalance, const CAmount& watchUnconfBalance, const CAmount& watchImmatureBalance);
@@ -236,6 +271,9 @@ signals:
     // It is valid behaviour for listeners to keep the wallet locked after this signal;
     // this means that the unlocking failed or was cancelled.
     void requireUnlock();
+
+	// Maza: Hive: Signal emitted when a wallet needs to be unlocked for hive only
+	void requireUnlockHive();
 
     // Fired when a message should be reported to the user
     void message(const QString &title, const QString &message, unsigned int style);
@@ -249,7 +287,10 @@ signals:
     // Watch-only address added
     void notifyWatchonlyChanged(bool fHaveWatchonly);
 
-public slots:
+    // Maza: Fired when new hive summary available
+    void newHiveSummaryAvailable();
+
+public Q_SLOTS:
     /* Wallet status might have changed */
     void updateStatus();
     /* New transaction, or transaction changed status */

@@ -1,11 +1,11 @@
-// Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2009-2017 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "uritests.h"
+#include <qt/test/uritests.h>
 
-#include "guiutil.h"
-#include "walletmodel.h"
+#include <qt/guiutil.h>
+#include <qt/walletmodel.h>
 
 #include <QUrl>
 
@@ -32,13 +32,13 @@ void URITests::uriTests()
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
     QVERIFY(rv.address == QString("MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr"));
     QVERIFY(rv.label == QString());
-    QVERIFY(rv.amount == 100000);
+    QVERIFY(rv.amount == 10000);
 
     uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=1.001"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
     QVERIFY(rv.address == QString("MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr"));
     QVERIFY(rv.label == QString());
-    QVERIFY(rv.amount == 100100000);
+    QVERIFY(rv.amount == 10010000);
 
     uri.setUrl(QString("maza:MLgiAgLZp7C4eJEscF6mUUJ33W8aFa94wr?amount=100&label=Wikipedia Example"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));

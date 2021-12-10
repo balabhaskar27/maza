@@ -1,22 +1,26 @@
-// Copyright (c) 2011-2013 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2011-2017 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_WALLETVIEW_H
 #define BITCOIN_QT_WALLETVIEW_H
 
-#include "amount.h"
+#include <amount.h>
+#include <wallet/wallet.h>  // Maza: Key import helper
 
 #include <QStackedWidget>
 
 class BitcoinGUI;
 class ClientModel;
 class OverviewPage;
+class HiveDialog;     // Maza: Hive page
+class PlatformStyle;
 class ReceiveCoinsDialog;
 class SendCoinsDialog;
 class SendCoinsRecipient;
 class TransactionView;
 class WalletModel;
+class AddressBookPage;
 
 QT_BEGIN_NAMESPACE
 class QModelIndex;
@@ -34,7 +38,7 @@ class WalletView : public QStackedWidget
     Q_OBJECT
 
 public:
-    explicit WalletView(QWidget *parent);
+    explicit WalletView(const PlatformStyle *platformStyle, QWidget *parent);
     ~WalletView();
 
     void setBitcoinGUI(BitcoinGUI *gui);
@@ -51,21 +55,27 @@ public:
     bool handlePaymentRequest(const SendCoinsRecipient& recipient);
 
     void showOutOfSyncWarning(bool fShow);
+    
+    static void doRescan(CWallet* pwallet, int64_t startTime);  // Maza: Key import helper
 
 private:
     ClientModel *clientModel;
     WalletModel *walletModel;
 
     OverviewPage *overviewPage;
+    HiveDialog *hivePage;     // Maza: Hive page
     QWidget *transactionsPage;
     ReceiveCoinsDialog *receiveCoinsPage;
     SendCoinsDialog *sendCoinsPage;
+    AddressBookPage *usedSendingAddressesPage;
+    AddressBookPage *usedReceivingAddressesPage;
 
     TransactionView *transactionView;
 
     QProgressDialog *progressDialog;
+    const PlatformStyle *platformStyle;
 
-public slots:
+public Q_SLOTS:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
     /** Switch to history (transactions) page */
@@ -74,6 +84,9 @@ public slots:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
+
+    // Maza: Hive: Switch to hive page
+    void gotoHivePage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
@@ -93,6 +106,12 @@ public slots:
     void changePassphrase();
     /** Ask for passphrase to unlock wallet temporarily */
     void unlockWallet();
+	
+	// Maza: Hive: Unlock wallet just for hive
+	void unlockWalletHive();
+
+    // Maza: Key import helper
+    void importPrivateKey();
 
     /** Show used sending addresses */
     void usedSendingAddresses();
@@ -105,15 +124,22 @@ public slots:
     /** Show progress dialog e.g. for rescan */
     void showProgress(const QString &title, int nProgress);
 
-signals:
+    /** User has requested more information about the out of sync state */
+    void requestedSyncWarningInfo();
+
+Q_SIGNALS:
     /** Signal that we want to show the main window */
     void showNormalIfMinimized();
     /**  Fired when a message should be reported to the user */
     void message(const QString &title, const QString &message, unsigned int style);
     /** Encryption status of wallet changed */
     void encryptionStatusChanged(int status);
+    /** HD-Enabled status of wallet changed (only possible during startup) */
+    void hdEnabledStatusChanged(int hdEnabled);
     /** Notify that a new transaction appeared */
-    void incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address);
+    void incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address, const QString& label);
+    /** Notify that the out of sync warning icon has been pressed */
+    void outOfSyncWarningClicked();
 };
 
 #endif // BITCOIN_QT_WALLETVIEW_H

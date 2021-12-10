@@ -1,34 +1,219 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2017 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_MINER_H
 #define BITCOIN_MINER_H
 
+#include <primitives/block.h>
+#include <txmempool.h>
+
 #include <stdint.h>
+#include <memory>
+#include <boost/multi_index_container.hpp>
+#include <boost/multi_index/ordered_index.hpp>
 
-class CBlock;
-class CBlockHeader;
 class CBlockIndex;
-class CReserveKey;
+class CChainParams;
 class CScript;
-class CWallet;
 
-struct CBlockTemplate;
+class arith_uint256;    // Maza: Hive: Mining optimisations
+struct CBeeRange;       // Maza: Hive: Mining optimisations
 
-/** Run the miner threads */
-void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads);
+namespace Consensus { struct Params; };
+
+static const bool DEFAULT_PRINTPRIORITY = false;
+
+// Maza: Hive: Mining optimisations: Defaults for new hive check parameters
+static const int DEFAULT_HIVE_CHECK_DELAY = 1;
+static const int DEFAULT_HIVE_THREADS = -2;
+static const bool DEFAULT_HIVE_EARLY_OUT = true;
+
+// Maza: MinotaurX+Hive1.2
+static const bool DEFAULT_HIVE_CONTRIB_CF = true;
+
+struct CBlockTemplate
+{
+    CBlock block;
+    std::vector<CAmount> vTxFees;
+    std::vector<int64_t> vTxSigOpsCost;
+    std::vector<unsigned char> vchCoinbaseCommitment;
+};
+
+// Container for tracking updates to ancestor feerate as we include (parent)
+// transactions in a block
+struct CTxMemPoolModifiedEntry {
+    explicit CTxMemPoolModifiedEntry(CTxMemPool::txiter entry)
+    {
+        iter = entry;
+        nSizeWithAncestors = entry->GetSizeWithAncestors();
+        nModFeesWithAncestors = entry->GetModFeesWithAncestors();
+        nSigOpCostWithAncestors = entry->GetSigOpCostWithAncestors();
+    }
+
+    int64_t GetModifiedFee() const { return iter->GetModifiedFee(); }
+    uint64_t GetSizeWithAncestors() const { return nSizeWithAncestors; }
+    CAmount GetModFeesWithAncestors() const { return nModFeesWithAncestors; }
+    size_t GetTxSize() const { return iter->GetTxSize(); }
+    const CTransaction& GetTx() const { return iter->GetTx(); }
+
+    CTxMemPool::txiter iter;
+    uint64_t nSizeWithAncestors;
+    CAmount nModFeesWithAncestors;
+    int64_t nSigOpCostWithAncestors;
+};
+
+/** Comparator for CTxMemPool::txiter objects.
+ *  It simply compares the internal memory address of the CTxMemPoolEntry object
+ *  pointed to. This means it has no meaning, and is only useful for using them
+ *  as key in other indexes.
+ */
+struct CompareCTxMemPoolIter {
+    bool operator()(const CTxMemPool::txiter& a, const CTxMemPool::txiter& b) const
+    {
+        return &(*a) < &(*b);
+    }
+};
+
+struct modifiedentry_iter {
+    typedef CTxMemPool::txiter result_type;
+    result_type operator() (const CTxMemPoolModifiedEntry &entry) const
+    {
+        return entry.iter;
+    }
+};
+
+// A comparator that sorts transactions based on number of ancestors.
+// This is sufficient to sort an ancestor package in an order that is valid
+// to appear in a block.
+struct CompareTxIterByAncestorCount {
+    bool operator()(const CTxMemPool::txiter &a, const CTxMemPool::txiter &b) const
+    {
+        if (a->GetCountWithAncestors() != b->GetCountWithAncestors())
+            return a->GetCountWithAncestors() < b->GetCountWithAncestors();
+        return CTxMemPool::CompareIteratorByHash()(a, b);
+    }
+};
+
+typedef boost::multi_index_container<
+    CTxMemPoolModifiedEntry,
+    boost::multi_index::indexed_by<
+        boost::multi_index::ordered_unique<
+            modifiedentry_iter,
+            CompareCTxMemPoolIter
+        >,
+        // sorted by modified ancestor fee rate
+        boost::multi_index::ordered_non_unique<
+            // Reuse same tag from CTxMemPool's similar index
+            boost::multi_index::tag<ancestor_score>,
+            boost::multi_index::identity<CTxMemPoolModifiedEntry>,
+            CompareTxMemPoolEntryByAncestorFee
+        >
+    >
+> indexed_modified_transaction_set;
+
+typedef indexed_modified_transaction_set::nth_index<0>::type::iterator modtxiter;
+typedef indexed_modified_transaction_set::index<ancestor_score>::type::iterator modtxscoreiter;
+
+struct update_for_parent_inclusion
+{
+    explicit update_for_parent_inclusion(CTxMemPool::txiter it) : iter(it) {}
+
+    void operator() (CTxMemPoolModifiedEntry &e)
+    {
+        e.nModFeesWithAncestors -= iter->GetFee();
+        e.nSizeWithAncestors -= iter->GetTxSize();
+        e.nSigOpCostWithAncestors -= iter->GetSigOpCost();
+    }
+
+    CTxMemPool::txiter iter;
+};
+
 /** Generate a new block, without valid proof-of-work */
-CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn);
-CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey);
-/** Modify the extranonce in a block */
-void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& nExtraNonce);
-/** Check mined block */
-bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey);
-void UpdateTime(CBlockHeader* block, const CBlockIndex* pindexPrev);
+class BlockAssembler
+{
+private:
+    // The constructed block template
+    std::unique_ptr<CBlockTemplate> pblocktemplate;
+    // A convenience pointer that always refers to the CBlock in pblocktemplate
+    CBlock* pblock;
 
-extern double dHashesPerSec;
-extern int64_t nHPSTimerStart;
+    // Configuration parameters for the block size
+    bool fIncludeWitness;
+    bool fIncludeBCTs;              // Maza: Hive: Allow BCTs in block?
+    unsigned int nBlockMaxWeight;
+    CFeeRate blockMinFeeRate;
+    
+    // Information on the current status of the block
+    uint64_t nBlockWeight;
+    uint64_t nBlockTx;
+    uint64_t nBlockSigOpsCost;
+    CAmount nFees;
+    CTxMemPool::setEntries inBlock;
+
+    // Chain context for the block
+    int nHeight;
+    int64_t nLockTimeCutoff;
+    const CChainParams& chainparams;
+
+public:
+    struct Options {
+        Options();
+        size_t nBlockMaxWeight;
+        CFeeRate blockMinFeeRate;
+    };
+
+    explicit BlockAssembler(const CChainParams& params);
+    BlockAssembler(const CChainParams& params, const Options& options);
+
+    /** Construct a new block template with coinbase to scriptPubKeyIn */
+    // Maza: Hive: If hiveProofScript is passed, create a Hive block instead of a PoW block
+    // Maza: MinotaurX+Hive1.2: Accept POW_TYPE arg
+    std::unique_ptr<CBlockTemplate> CreateNewBlock(const CScript& scriptPubKeyIn, bool fMineWitnessTx=true, const CScript* hiveProofScript=nullptr, const POW_TYPE powType=POW_TYPE_SHA256);
+
+private:
+    // utility functions
+    /** Clear the block's state and prepare for assembling a new block */
+    void resetBlock();
+    /** Add a tx to the block */
+    void AddToBlock(CTxMemPool::txiter iter);
+
+    // Methods for how to add transactions to a block.
+    /** Add transactions based on feerate including unconfirmed ancestors
+      * Increments nPackagesSelected / nDescendantsUpdated with corresponding
+      * statistics from the package selection (for logging statistics). */
+    void addPackageTxs(int &nPackagesSelected, int &nDescendantsUpdated);
+
+    // helper functions for addPackageTxs()
+    /** Remove confirmed (inBlock) entries from given set */
+    void onlyUnconfirmed(CTxMemPool::setEntries& testSet);
+    /** Test if a new package would "fit" in the block */
+    bool TestPackage(uint64_t packageSize, int64_t packageSigOpsCost) const;
+    /** Perform checks on each transaction in a package:
+      * locktime, premature-witness, serialized size (if necessary)
+      * These checks should always succeed, and they're here
+      * only as an extra check in case of suboptimal node configuration */
+    bool TestPackageTransactions(const CTxMemPool::setEntries& package);
+    /** Return true if given transaction from mapTx has already been evaluated,
+      * or if the transaction's cached data in mapTx is incorrect. */
+    bool SkipMapTxEntry(CTxMemPool::txiter it, indexed_modified_transaction_set &mapModifiedTx, CTxMemPool::setEntries &failedTx);
+    /** Sort the package in an order that is valid to appear in a block */
+    void SortForBlock(const CTxMemPool::setEntries& package, CTxMemPool::txiter entry, std::vector<CTxMemPool::txiter>& sortedEntries);
+    /** Add descendants of given transactions to mapModifiedTx with ancestor
+      * state updated assuming given transactions are inBlock. Returns number
+      * of updated descendants. */
+    int UpdatePackagesForAdded(const CTxMemPool::setEntries& alreadyAdded, indexed_modified_transaction_set &mapModifiedTx);
+};
+
+/** Modify the extranonce in a block */
+void IncrementExtraNonce(CBlock* pblock, const CBlockIndex* pindexPrev, unsigned int& nExtraNonce);
+int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev);
+
+void BeeKeeper(const CChainParams& chainparams);                        // Maza: Hive: Bee management thread
+bool BusyBees(const Consensus::Params& consensusParams, int height);    // Maza: Hive: Attempt to mint the next block
+void CheckBin(int threadID, std::vector<CBeeRange> bin, std::string deterministicRandString, arith_uint256 beeHashTarget); // Maza: Hive: Mining optimisations: Thread to process a bin of beeranges
+void CheckBinMinotaurX(int threadID, std::vector<CBeeRange> bin, std::string deterministicRandString, arith_uint256 beeHashTarget); // Maza: MinotaurX+Hive1.2: Use minotaur inner hash for hive
+void AbortWatchThread(int height);                                      // Maza: Hive: Mining optimisations: Thread to watch for abort conditions
 
 #endif // BITCOIN_MINER_H
