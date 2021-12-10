@@ -9,18 +9,14 @@
     <name>AskPassphraseDialog</name>
     </context>
 <context>
-    <name>BitcoinGUI</name>
-    <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
-    </message>
-    <message>
-        <source>Bitcoin Core</source>
-        <translation>Bitcoin Jezrga</translation>
-    </message>
+    <name>BanTableModel</name>
     </context>
 <context>
-    <name>ClientModel</name>
+    <name>BitcoinGUI</name>
+    <message>
+        <source>Maza</source>
+        <translation>Maza</translation>
+    </message>
     </context>
 <context>
     <name>CoinControlDialog</name>
@@ -33,17 +29,16 @@
     </context>
 <context>
     <name>HelpMessageDialog</name>
-    <message>
-        <source>Bitcoin Core</source>
-        <translation>Bitcoin Jezrga</translation>
-    </message>
     </context>
 <context>
     <name>Intro</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Bitcoin Jezrga</translation>
+        <source>Maza</source>
+        <translation>Maza</translation>
     </message>
+    </context>
+<context>
+    <name>ModalOverlay</name>
     </context>
 <context>
     <name>OpenURIDialog</name>
@@ -62,6 +57,9 @@
     </context>
 <context>
     <name>QObject</name>
+    </context>
+<context>
+    <name>QObject::QObject</name>
     </context>
 <context>
     <name>QRImageWidget</name>
@@ -93,6 +91,9 @@
     </message>
     </context>
 <context>
+    <name>SendConfirmationDialog</name>
+    </context>
+<context>
     <name>ShutdownWindow</name>
     </context>
 <context>
@@ -108,10 +109,6 @@
     </context>
 <context>
     <name>SplashScreen</name>
-    <message>
-        <source>Bitcoin Core</source>
-        <translation>Bitcoin Jezrga</translation>
-    </message>
     </context>
 <context>
     <name>TrafficGraphWidget</name>
@@ -162,5 +159,9 @@
     </context>
 <context>
     <name>bitcoin-core</name>
+    <message>
+        <source>Maza Core</source>
+        <translation>Maza Jezrga</translation>
+    </message>
     </context>
 </TS>

@@ -1,5 +1,5 @@
-// Copyright (c) 2011-2013 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2011-2015 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_ADDRESSTABLEMODEL_H
@@ -7,6 +7,8 @@
 
 #include <QAbstractTableModel>
 #include <QStringList>
+
+enum OutputType : int;
 
 class AddressTablePriv;
 class WalletModel;
@@ -61,7 +63,7 @@ public:
     /* Add an address to the model.
        Returns the added address on success, and an empty string otherwise.
      */
-    QString addRow(const QString &type, const QString &label, const QString &address);
+    QString addRow(const QString &type, const QString &label, const QString &address, const OutputType address_type);
 
     /* Look up label for address in address book, if not found return empty string.
      */
@@ -84,7 +86,7 @@ private:
     /** Notify listeners that data changed. */
     void emitDataChanged(int index);
 
-public slots:
+public Q_SLOTS:
     /* Update address list from core.
      */
     void updateEntry(const QString &address, const QString &label, bool isMine, const QString &purpose, int status);

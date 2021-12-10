@@ -1,5 +1,5 @@
-// Copyright (c) 2011-2013 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2011-2017 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_ASKPASSPHRASEDIALOG_H
@@ -21,10 +21,11 @@ class AskPassphraseDialog : public QDialog
 
 public:
     enum Mode {
-        Encrypt,    /**< Ask passphrase twice and encrypt */
-        Unlock,     /**< Ask passphrase and unlock */
-        ChangePass, /**< Ask old passphrase + new passphrase twice */
-        Decrypt     /**< Ask passphrase and decrypt wallet */
+        Encrypt,            /**< Ask passphrase twice and encrypt */
+        UnlockHiveMining,   /** <Ask passphrase and unlock */     // Maza: Hive: Support locked wallets
+        Unlock,             /**< Ask passphrase and unlock */
+        ChangePass,         /**< Ask old passphrase + new passphrase twice */
+        Decrypt             /**< Ask passphrase and decrypt wallet */
     };
 
     explicit AskPassphraseDialog(Mode mode, QWidget *parent);
@@ -39,9 +40,12 @@ private:
     Mode mode;
     WalletModel *model;
     bool fCapsLock;
+	bool fHiveOnly;     // Maza: Hive: Locked wallet support
 
-private slots:
+private Q_SLOTS:
     void textChanged();
+    void secureClearPassFields();
+    void toggleShowPassword(bool);
 
 protected:
     bool event(QEvent *event);

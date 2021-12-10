@@ -1,24 +1,84 @@
-// Copyright (c) 2014 The Bitcoin Core developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2014-2017 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "primitives/transaction.h"
-#include "main.h"
+#include <chainparams.h>
+#include <validation.h>
+#include <net.h>
 
+#include <test/test_bitcoin.h>
+
+#include <boost/signals2/signal.hpp>
 #include <boost/test/unit_test.hpp>
 
-BOOST_AUTO_TEST_SUITE(main_tests)
+BOOST_FIXTURE_TEST_SUITE(main_tests, TestingSetup)
 
-BOOST_AUTO_TEST_CASE(subsidy_limit_test)
+static void TestBlockSubsidyHalvings(const Consensus::Params& consensusParams)
 {
-    CAmount nSum = 0;
-    for (int nHeight = 0; nHeight < 2000000; nHeight += 1000) {
-        CAmount nSubsidy = GetBlockValue(nHeight, 0);
-        BOOST_CHECK(nSubsidy <= 5000 * COIN);
-        nSum += nSubsidy * 1000;
-        BOOST_CHECK(MoneyRange(nSum));
+    int maxHalvings = 64;
+    CAmount nInitialSubsidy = 50 * COIN;
+
+    CAmount nPreviousSubsidy = nInitialSubsidy * 2; // for height == 0
+    BOOST_CHECK_EQUAL(nPreviousSubsidy, nInitialSubsidy * 2);
+    for (int nHalvings = 0; nHalvings < maxHalvings; nHalvings++) {
+        int nHeight = nHalvings * consensusParams.nSubsidyHalvingInterval;
+        CAmount nSubsidy = GetBlockSubsidy(nHeight, consensusParams);
+        if(nHeight >= 6164768) {	// Maza: Money issue has finished by this point
+			BOOST_CHECK(nSubsidy == 0);
+		} else {
+			BOOST_CHECK(nSubsidy <= nInitialSubsidy);
+			BOOST_CHECK_EQUAL(nSubsidy, nPreviousSubsidy / 2);
+			nPreviousSubsidy = nSubsidy;
+        }
     }
-    BOOST_CHECK(nSum == 192500000000000000ULL);
+    BOOST_CHECK_EQUAL(GetBlockSubsidy(maxHalvings * consensusParams.nSubsidyHalvingInterval, consensusParams), 0);
 }
 
+static void TestBlockSubsidyHalvings(int nSubsidyHalvingInterval)
+{
+    const auto chainParams = CreateChainParams(CBaseChainParams::MAIN);
+	const Consensus::Params mainConsensusParams = chainParams->GetConsensus();	
+    Consensus::Params consensusParams;
+    consensusParams.nSubsidyHalvingInterval = nSubsidyHalvingInterval;
+   
+    TestBlockSubsidyHalvings(consensusParams);
+}
+
+BOOST_AUTO_TEST_CASE(block_subsidy_test)
+{
+    const auto chainParams = CreateChainParams(CBaseChainParams::MAIN);
+    TestBlockSubsidyHalvings(chainParams->GetConsensus()); // As in main
+    TestBlockSubsidyHalvings(150); // As in regtest
+    TestBlockSubsidyHalvings(1000); // Just another interval
+}
+
+BOOST_AUTO_TEST_CASE(block_subsidy_money_limit)	// Maza: Change money limit test
+{
+    const auto chainParams = CreateChainParams(CBaseChainParams::MAIN);
+    const Consensus::Params consensusParams = chainParams->GetConsensus();
+	CAmount nSum = 0;
+    for (int nHeight = 0; nHeight < 6215971; nHeight += 1) {	// Test a few blocks past money limit block
+        CAmount nSubsidy = GetBlockSubsidy(nHeight, chainParams->GetConsensus());
+        nSum += nSubsidy;
+        BOOST_CHECK(MoneyRange(nSum));
+	}
+    BOOST_CHECK_EQUAL(nSum, 8399999998750000ULL);
+}
+
+bool ReturnFalse() { return false; }
+bool ReturnTrue() { return true; }
+
+BOOST_AUTO_TEST_CASE(test_combiner_all)
+{
+    boost::signals2::signal<bool (), CombinerAll> Test;
+    BOOST_CHECK(Test());
+    Test.connect(&ReturnFalse);
+    BOOST_CHECK(!Test());
+    Test.connect(&ReturnTrue);
+    BOOST_CHECK(!Test());
+    Test.disconnect(&ReturnFalse);
+    BOOST_CHECK(Test());
+    Test.disconnect(&ReturnTrue);
+    BOOST_CHECK(Test());
+}
 BOOST_AUTO_TEST_SUITE_END()
