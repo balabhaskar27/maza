@@ -237,8 +237,8 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 // for DIFF_BTC only!
 unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params& params)
 {
-    if (params.fPowNoRetargeting)
-        return pindexLast->nBits;
+	if (params.fPowNoRetargeting)
+		return pindexLast->nBits;
 	int64_t nInterval = params.DifficultyAdjustmentInterval(); // 4 blocks
 	int64_t nAveragingInterval = nInterval * 20;
 	int64_t nAveragingTargetTimespan = nAveragingInterval * 120; 
@@ -607,7 +607,6 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
     uint32_t bctFoundHeight;
     CAmount bctValue;
     CScript bctScriptPubKey;
-    bool bctWasMinotaurXEnabled;    // Maza: MinotaurX+Hive1.2: Track whether Hive 1.2 was enabled at BCT creation time
 
     {
         LOCK(cs_main);
@@ -624,7 +623,6 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
             bctValue = coin.out.nValue;
             bctScriptPubKey = coin.out.scriptPubKey;
             bctFoundHeight = coin.nHeight;
-			bctWasMinotaurXEnabled = IsMinotaurXEnabled(chainActive[bctFoundHeight], consensusParams);  // Maza: MinotaurX+Hive1.2: Track whether Hive 1.2 was enabled at BCT creation time
 
         } else {                                                            // UTXO set isn't available when eg reindexing, so drill into block db (not too bad, since Alice put her BCT height in the coinbase tx)
             if (verbose)
@@ -637,7 +635,6 @@ bool CheckHiveProof(const CBlock* pblock, const Consensus::Params& consensusPara
             bctFoundHeight = foundAt.nHeight;
             bctValue = bct->vout[0].nValue;
             bctScriptPubKey = bct->vout[0].scriptPubKey;
-            bctWasMinotaurXEnabled = IsMinotaurXEnabled(&foundAt, consensusParams); // Maza: MinotaurX+Hive1.2: Track whether Hive 1.2 was enabled at BCT creation time
 
             
         }
