@@ -45,7 +45,7 @@ uint256 CBlockHeader::MinotaurHashString(std::string data) {
 uint256 CBlockHeader::GetPoWHash() const
 {
     
-        if (nVersion >= 0x20000000)                                 // Check for MinotaurX activation (Note: This is a safe check, so long as we are only considering blocks since LCC forked from LTC)
+        if (nTime <= Params().GetConsensus().powForkTime)                                 // Check for MinotaurX activation (Note: This is a safe check, so long as we are only considering blocks since LCC forked from LTC)
             return GetHash();                                       // MinotaurX not activated; definitely sha256
 
         switch (GetPoWType()) {                                     // Call appropriate hash for blockType
