@@ -82,7 +82,7 @@ public:
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0x000000003302fe58f139f1d45f3a0a67601d39e63b82bc4918f48b8cd5df6ab0");
         consensus.BIP65Height = 2105603;  // future block predicted beginning February 2022
-        consensus.BIP66Height = 700000; 
+        consensus.BIP66Height = 800000; 
         consensus.powLimitSHA = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
 		consensus.startingDifficulty = uint256S("00000003ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 8 * 60; // Maza: 8 minutes
