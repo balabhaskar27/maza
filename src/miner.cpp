@@ -1,28 +1,48 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2017 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "miner.h"
+#include <miner.h>
 
-#include "amount.h"
-#include "primitives/block.h"
-#include "primitives/transaction.h"
-#include "hash.h"
-#include "main.h"
-#include "net.h"
-#include "pow.h"
-#include "timedata.h"
-#include "util.h"
-#include "utilmoneystr.h"
-#ifdef ENABLE_WALLET
-#include "wallet.h"
-#endif
+#include <amount.h>
+#include <chain.h>
+#include <chainparams.h>
+#include <coins.h>
+#include <consensus/consensus.h>
+#include <consensus/tx_verify.h>
+#include <consensus/merkle.h>
+#include <consensus/validation.h>
+#include <hash.h>
+#include <validation.h>
+#include <net.h>
+#include <policy/feerate.h>
+#include <policy/policy.h>
+#include <pow.h>
+#include <primitives/transaction.h>
+#include <script/standard.h>
+#include <timedata.h>
+#include <util.h>
+#include <utilmoneystr.h>
+#include <validationinterface.h>
 
-#include <boost/thread.hpp>
-#include <boost/tuple/tuple.hpp>
+#include <algorithm>
+#include <queue>
+#include <utility>
 
-using namespace std;
+#include <wallet/wallet.h>  // Maza: Hive
+#include <rpc/server.h>     // Maza: Hive
+#include <base58.h>         // Maza: Hive
+#include <sync.h>           // Maza: Hive
+#include <boost/thread.hpp> // Maza: Hive: Mining optimisations
+#include <crypto/minotaurx/yespower/yespower.h>  // Maza: MinotaurX+Hive1.2
+
+
+static CCriticalSection cs_solution_vars;
+std::atomic<bool> solutionFound;            // Maza: Hive: Mining optimisations: Thread-safe atomic flag to signal solution found (saves a slow mutex)
+std::atomic<bool> earlyAbort;               // Maza: Hive: Mining optimisations: Thread-safe atomic flag to signal early abort needed
+CBeeRange solvingRange;                     // Maza: Hive: Mining optimisations: The solving range (protected by mutex)
+uint32_t solvingBee;                        // Maza: Hive: Mining optimisations: The solving bee (protected by mutex)
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -32,315 +52,492 @@ using namespace std;
 //
 // Unconfirmed transactions in the memory pool often depend on other
 // transactions in the memory pool. When we select transactions from the
-// pool, we select by highest priority or fee rate, so we might consider
-// transactions that depend on transactions that aren't yet in the block.
-// The COrphan class keeps track of these 'temporary orphans' while
-// CreateBlock is figuring out which transactions to include.
-//
-class COrphan
-{
-public:
-    const CTransaction* ptx;
-    set<uint256> setDependsOn;
-    CFeeRate feeRate;
-    double dPriority;
-
-    COrphan(const CTransaction* ptxIn) : ptx(ptxIn), feeRate(0), dPriority(0)
-    {
-    }
-};
+// pool, we select by highest fee rate of a transaction combined with all
+// its ancestors.
 
 uint64_t nLastBlockTx = 0;
-uint64_t nLastBlockSize = 0;
+uint64_t nLastBlockWeight = 0;
 
-// We want to sort transactions by priority and fee rate, so:
-typedef boost::tuple<double, CFeeRate, const CTransaction*> TxPriority;
-class TxPriorityCompare
+int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev)
 {
-    bool byFee;
+    int64_t nOldTime = pblock->nTime;
+    int64_t nNewTime = std::max(pindexPrev->GetMedianTimePast()+1, GetAdjustedTime());
 
-public:
-    TxPriorityCompare(bool _byFee) : byFee(_byFee) { }
-
-    bool operator()(const TxPriority& a, const TxPriority& b)
-    {
-        if (byFee)
-        {
-            if (a.get<1>() == b.get<1>())
-                return a.get<0>() < b.get<0>();
-            return a.get<1>() < b.get<1>();
-        }
-        else
-        {
-            if (a.get<0>() == b.get<0>())
-                return a.get<1>() < b.get<1>();
-            return a.get<0>() < b.get<0>();
-        }
-    }
-};
-
-void UpdateTime(CBlockHeader* pblock, const CBlockIndex* pindexPrev)
-{
-    pblock->nTime = std::max(pindexPrev->GetMedianTimePast()+1, GetAdjustedTime());
+    if (nOldTime < nNewTime)
+        pblock->nTime = nNewTime;
 
     // Updating time can change work required on testnet:
-    if (Params().AllowMinDifficultyBlocks())
-        pblock->nBits = GetNextWorkRequired(pindexPrev, pblock);
+    // Maza: Hive: Don't do this
+    /*
+    if (consensusParams.fPowAllowMinDifficultyBlocks)
+        pblock->nBits = GetNextWorkRequired(pindexPrev, pblock, consensusParams);
+    */
+
+    return nNewTime - nOldTime;
 }
 
-CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
+BlockAssembler::Options::Options() {
+    blockMinFeeRate = CFeeRate(DEFAULT_BLOCK_MIN_TX_FEE);
+    nBlockMaxWeight = DEFAULT_BLOCK_MAX_WEIGHT;
+}
+
+BlockAssembler::BlockAssembler(const CChainParams& params, const Options& options) : chainparams(params)
 {
-    // Create new block
-    auto_ptr<CBlockTemplate> pblocktemplate(new CBlockTemplate());
+    blockMinFeeRate = options.blockMinFeeRate;
+    // Limit weight to between 4K and MAX_BLOCK_WEIGHT-4K for sanity:
+    nBlockMaxWeight = std::max<size_t>(4000, std::min<size_t>(MAX_BLOCK_WEIGHT - 4000, options.nBlockMaxWeight));
+}
+
+static BlockAssembler::Options DefaultOptions(const CChainParams& params)
+{
+    // Block resource limits
+    // If neither -blockmaxsize or -blockmaxweight is given, limit to DEFAULT_BLOCK_MAX_*
+    // If only one is given, only restrict the specified resource.
+    // If both are given, restrict both.
+    BlockAssembler::Options options;
+    options.nBlockMaxWeight = gArgs.GetArg("-blockmaxweight", DEFAULT_BLOCK_MAX_WEIGHT);
+    if (gArgs.IsArgSet("-blockmintxfee")) {
+        CAmount n = 0;
+        ParseMoney(gArgs.GetArg("-blockmintxfee", ""), n);
+        options.blockMinFeeRate = CFeeRate(n);
+    } else {
+        options.blockMinFeeRate = CFeeRate(DEFAULT_BLOCK_MIN_TX_FEE);
+    }
+    return options;
+}
+
+BlockAssembler::BlockAssembler(const CChainParams& params) : BlockAssembler(params, DefaultOptions(params)) {}
+
+void BlockAssembler::resetBlock()
+{
+    inBlock.clear();
+
+    // Reserve space for coinbase tx
+    nBlockWeight = 4000;
+    nBlockSigOpsCost = 400;
+    fIncludeWitness = false;
+    fIncludeBCTs = true;    // Maza: Hive
+
+    // These counters do not include coinbase tx
+    nBlockTx = 0;
+    nFees = 0;
+}
+
+// Maza: Hive: If hiveProofScript is passed, create a Hive block instead of a PoW block
+// Maza: MinotaurX+Hive1.2: Accept POW_TYPE arg
+std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn, bool fMineWitnessTx, const CScript* hiveProofScript, const POW_TYPE powType)
+{
+    int64_t nTimeStart = GetTimeMicros();
+
+    resetBlock();
+
+    pblocktemplate.reset(new CBlockTemplate());
+
     if(!pblocktemplate.get())
-        return NULL;
-    CBlock *pblock = &pblocktemplate->block; // pointer for convenience
+        return nullptr;
+    pblock = &pblocktemplate->block; // pointer for convenience
+
+    // Add dummy coinbase tx as first transaction
+    pblock->vtx.emplace_back();
+    pblocktemplate->vTxFees.push_back(-1); // updated at end
+    pblocktemplate->vTxSigOpsCost.push_back(-1); // updated at end
+
+    LOCK2(cs_main, mempool.cs);
+    CBlockIndex* pindexPrev = chainActive.Tip();
+    assert(pindexPrev != nullptr);
+
+    // Maza: Hive: Make sure Hive is enabled if a Hive block is requested
+    if (hiveProofScript && !IsMinotaurXEnabled(pindexPrev, chainparams.GetConsensus()))
+        throw std::runtime_error(
+            "Error: The Hive is not yet enabled on the network"
+        );
+
+    nHeight = pindexPrev->nHeight + 1;
+
+    pblock->nVersion = ComputeBlockVersion(pindexPrev, chainparams.GetConsensus());
+
+    // Maza: MinotaurX+Hive1.2: Refuse to attempt to create a non-sha256 block before activation
+    if (!IsMinotaurXEnabled(pindexPrev, chainparams.GetConsensus()) && powType != 0)
+        throw std::runtime_error("Error: Won't attempt to create a non-sha256 block before MinotaurX activation");
+
+    // Maza: MinotaurX+Hive1.2: If MinotaurX is enabled, and we're not creating a Hive block, encode desired pow type.
+    if (!hiveProofScript && IsMinotaurXEnabled(pindexPrev, chainparams.GetConsensus())) {
+        if (powType >= NUM_BLOCK_TYPES)
+            throw std::runtime_error("Error: Unrecognised pow type requested");
+        pblock->nVersion |= powType << 16;
+    }
 
     // -regtest only: allow overriding block.nVersion with
     // -blockversion=N to test forking scenarios
-    if (Params().MineBlocksOnDemand())
-        pblock->nVersion = GetArg("-blockversion", pblock->nVersion);
+    if (chainparams.MineBlocksOnDemand())
+        pblock->nVersion = gArgs.GetArg("-blockversion", pblock->nVersion);
 
-    // Create coinbase tx
-    CMutableTransaction txNew;
-    txNew.vin.resize(1);
-    txNew.vin[0].prevout.SetNull();
-    txNew.vout.resize(1);
-    txNew.vout[0].scriptPubKey = scriptPubKeyIn;
+    pblock->nTime = GetAdjustedTime();
+    const int64_t nMedianTimePast = pindexPrev->GetMedianTimePast();
 
-    // Add dummy coinbase tx as first transaction
-    pblock->vtx.push_back(CTransaction());
-    pblocktemplate->vTxFees.push_back(-1); // updated at end
-    pblocktemplate->vTxSigOps.push_back(-1); // updated at end
+    nLockTimeCutoff = (STANDARD_LOCKTIME_VERIFY_FLAGS & LOCKTIME_MEDIAN_TIME_PAST)
+                       ? nMedianTimePast
+                       : pblock->GetBlockTime();
 
-    // Largest block you're willing to create:
-    unsigned int nBlockMaxSize = GetArg("-blockmaxsize", DEFAULT_BLOCK_MAX_SIZE);
-    // Limit to betweeen 1K and MAX_BLOCK_SIZE-1K for sanity:
-    nBlockMaxSize = std::max((unsigned int)1000, std::min((unsigned int)(MAX_BLOCK_SIZE-1000), nBlockMaxSize));
+    // Decide whether to include witness transactions
+    // This is only needed in case the witness softfork activation is reverted
+    // (which would require a very deep reorganization) or when
+    // -promiscuousmempoolflags is used.
+    // TODO: replace this with a call to main to assess validity of a mempool
+    // transaction (which in most cases can be a no-op).
+    fIncludeWitness = IsWitnessEnabled(pindexPrev, chainparams.GetConsensus()) && fMineWitnessTx;
 
-    // How much of the block should be dedicated to high-priority transactions,
-    // included regardless of the fees they pay
-    unsigned int nBlockPrioritySize = GetArg("-blockprioritysize", DEFAULT_BLOCK_PRIORITY_SIZE);
-    nBlockPrioritySize = std::min(nBlockMaxSize, nBlockPrioritySize);
+    int nPackagesSelected = 0;
+    int nDescendantsUpdated = 0;
+    // Maza: Don't include BCTs in hivemined blocks
+    if (hiveProofScript)
+        fIncludeBCTs = false;
 
-    // Minimum block size you want to create; block will be filled with free transactions
-    // until there are no more or the block reaches this size:
-    unsigned int nBlockMinSize = GetArg("-blockminsize", DEFAULT_BLOCK_MIN_SIZE);
-    nBlockMinSize = std::min(nBlockMaxSize, nBlockMinSize);
+    addPackageTxs(nPackagesSelected, nDescendantsUpdated);
 
-    // Collect memory pool transactions into the block
-    CAmount nFees = 0;
+    int64_t nTime1 = GetTimeMicros();
 
-    {
-        LOCK2(cs_main, mempool.cs);
-        CBlockIndex* pindexPrev = chainActive.Tip();
-        const int nHeight = pindexPrev->nHeight + 1;
-        CCoinsViewCache view(pcoinsTip);
+    nLastBlockTx = nBlockTx;
+    nLastBlockWeight = nBlockWeight;
 
-        // Priority order to process transactions
-        list<COrphan> vOrphan; // list memory doesn't move
-        map<uint256, vector<COrphan*> > mapDependers;
-        bool fPrintPriority = GetBoolArg("-printpriority", false);
+    // Maza: Hive: Create appropriate coinbase tx for pow or Hive block
+    if (hiveProofScript) {
+        CMutableTransaction coinbaseTx;
 
-        // This vector will be sorted into a priority queue:
-        vector<TxPriority> vecPriority;
-        vecPriority.reserve(mempool.mapTx.size());
-        for (map<uint256, CTxMemPoolEntry>::iterator mi = mempool.mapTx.begin();
-             mi != mempool.mapTx.end(); ++mi)
-        {
-            const CTransaction& tx = mi->second.GetTx();
-            if (tx.IsCoinBase() || !IsFinalTx(tx, nHeight))
-                continue;
+        // 1 vin with empty prevout
+        coinbaseTx.vin.resize(1);
+        coinbaseTx.vin[0].prevout.SetNull();
+        coinbaseTx.vin[0].scriptSig = CScript() << nHeight << OP_0;
 
-            COrphan* porphan = NULL;
-            double dPriority = 0;
-            CAmount nTotalIn = 0;
-            bool fMissingInputs = false;
-            BOOST_FOREACH(const CTxIn& txin, tx.vin)
-            {
-                // Read prev transaction
-                if (!view.HaveCoins(txin.prevout.hash))
-                {
-                    // This should never happen; all transactions in the memory
-                    // pool should connect to either transactions in the chain
-                    // or other transactions in the memory pool.
-                    if (!mempool.mapTx.count(txin.prevout.hash))
-                    {
-                        LogPrintf("ERROR: mempool transaction missing input\n");
-                        if (fDebug) assert("mempool transaction missing input" == 0);
-                        fMissingInputs = true;
-                        if (porphan)
-                            vOrphan.pop_back();
-                        break;
-                    }
+        // vout[0]: Hive proof
+        coinbaseTx.vout.resize(2);
+        coinbaseTx.vout[0].scriptPubKey = *hiveProofScript;
+        coinbaseTx.vout[0].nValue = 0;
 
-                    // Has to wait for dependencies
-                    if (!porphan)
-                    {
-                        // Use list for automatic deletion
-                        vOrphan.push_back(COrphan(&tx));
-                        porphan = &vOrphan.back();
-                    }
-                    mapDependers[txin.prevout.hash].push_back(porphan);
-                    porphan->setDependsOn.insert(txin.prevout.hash);
-                    nTotalIn += mempool.mapTx[txin.prevout.hash].GetTx().vout[txin.prevout.n].nValue;
-                    continue;
-                }
-                const CCoins* coins = view.AccessCoins(txin.prevout.hash);
-                assert(coins);
+        // vout[1]: Honey :)
+        coinbaseTx.vout[1].scriptPubKey = scriptPubKeyIn;
 
-                CAmount nValueIn = coins->vout[txin.prevout.n].nValue;
-                nTotalIn += nValueIn;
+        // Maza: MinotaurX+Hive1.2: Hive rewards are 150% of base block reward
+        coinbaseTx.vout[1].nValue = GetBlockSubsidy(nHeight, chainparams.GetConsensus());
+        if (IsMinotaurXEnabled(pindexPrev, chainparams.GetConsensus()))
+            coinbaseTx.vout[1].nValue += coinbaseTx.vout[1].nValue >> 1;
+        coinbaseTx.vout[1].nValue += nFees;
 
-                int nConf = nHeight - coins->nHeight;
-
-                dPriority += (double)nValueIn * nConf;
-            }
-            if (fMissingInputs) continue;
-
-            // Priority is sum(valuein * age) / modified_txsize
-            unsigned int nTxSize = ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION);
-            dPriority = tx.ComputePriority(dPriority, nTxSize);
-
-            uint256 hash = tx.GetHash();
-            mempool.ApplyDeltas(hash, dPriority, nTotalIn);
-
-            CFeeRate feeRate(nTotalIn-tx.GetValueOut(), nTxSize);
-
-            if (porphan)
-            {
-                porphan->dPriority = dPriority;
-                porphan->feeRate = feeRate;
-            }
-            else
-                vecPriority.push_back(TxPriority(dPriority, feeRate, &mi->second.GetTx()));
-        }
-
-        // Collect transactions into block
-        uint64_t nBlockSize = 1000;
-        uint64_t nBlockTx = 0;
-        int nBlockSigOps = 100;
-        bool fSortedByFee = (nBlockPrioritySize <= 0);
-
-        TxPriorityCompare comparer(fSortedByFee);
-        std::make_heap(vecPriority.begin(), vecPriority.end(), comparer);
-
-        while (!vecPriority.empty())
-        {
-            // Take highest priority transaction off the priority queue:
-            double dPriority = vecPriority.front().get<0>();
-            CFeeRate feeRate = vecPriority.front().get<1>();
-            const CTransaction& tx = *(vecPriority.front().get<2>());
-
-            std::pop_heap(vecPriority.begin(), vecPriority.end(), comparer);
-            vecPriority.pop_back();
-
-            // Size limits
-            unsigned int nTxSize = ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION);
-            if (nBlockSize + nTxSize >= nBlockMaxSize)
-                continue;
-
-            // Legacy limits on sigOps:
-            unsigned int nTxSigOps = GetLegacySigOpCount(tx);
-            if (nBlockSigOps + nTxSigOps >= MAX_BLOCK_SIGOPS)
-                continue;
-
-            // Skip free transactions if we're past the minimum block size:
-            const uint256& hash = tx.GetHash();
-            double dPriorityDelta = 0;
-            CAmount nFeeDelta = 0;
-            mempool.ApplyDeltas(hash, dPriorityDelta, nFeeDelta);
-            if (fSortedByFee && (dPriorityDelta <= 0) && (nFeeDelta <= 0) && (feeRate < ::minRelayTxFee) && (nBlockSize + nTxSize >= nBlockMinSize))
-                continue;
-
-            // Prioritise by fee once past the priority size or we run out of high-priority
-            // transactions:
-            if (!fSortedByFee &&
-                ((nBlockSize + nTxSize >= nBlockPrioritySize) || !AllowFree(dPriority)))
-            {
-                fSortedByFee = true;
-                comparer = TxPriorityCompare(fSortedByFee);
-                std::make_heap(vecPriority.begin(), vecPriority.end(), comparer);
-            }
-
-            if (!view.HaveInputs(tx))
-                continue;
-
-            CAmount nTxFees = view.GetValueIn(tx)-tx.GetValueOut();
-
-            nTxSigOps += GetP2SHSigOpCount(tx, view);
-            if (nBlockSigOps + nTxSigOps >= MAX_BLOCK_SIGOPS)
-                continue;
-
-            // Note that flags: we don't want to set mempool/IsStandard()
-            // policy here, but we still have to ensure that the block we
-            // create only contains transactions that are valid in new blocks.
-            CValidationState state;
-            if (!CheckInputs(tx, state, view, true, MANDATORY_SCRIPT_VERIFY_FLAGS, true))
-                continue;
-
-            CTxUndo txundo;
-            UpdateCoins(tx, state, view, txundo, nHeight);
-
-            // Added
-            pblock->vtx.push_back(tx);
-            pblocktemplate->vTxFees.push_back(nTxFees);
-            pblocktemplate->vTxSigOps.push_back(nTxSigOps);
-            nBlockSize += nTxSize;
-            ++nBlockTx;
-            nBlockSigOps += nTxSigOps;
-            nFees += nTxFees;
-
-            if (fPrintPriority)
-            {
-                LogPrintf("priority %.1f fee %s txid %s\n",
-                    dPriority, feeRate.ToString(), tx.GetHash().ToString());
-            }
-
-            // Add transactions that depend on this one to the priority queue
-            if (mapDependers.count(hash))
-            {
-                BOOST_FOREACH(COrphan* porphan, mapDependers[hash])
-                {
-                    if (!porphan->setDependsOn.empty())
-                    {
-                        porphan->setDependsOn.erase(hash);
-                        if (porphan->setDependsOn.empty())
-                        {
-                            vecPriority.push_back(TxPriority(porphan->dPriority, porphan->feeRate, porphan->ptx));
-                            std::push_heap(vecPriority.begin(), vecPriority.end(), comparer);
-                        }
-                    }
-                }
-            }
-        }
-
-        nLastBlockTx = nBlockTx;
-        nLastBlockSize = nBlockSize;
-        LogPrintf("CreateNewBlock(): total size %u\n", nBlockSize);
-
-        // Compute final coinbase transaction.
-        txNew.vout[0].nValue = GetBlockValue(nHeight, nFees);
-        txNew.vin[0].scriptSig = CScript() << nHeight << OP_0;
-        pblock->vtx[0] = txNew;
+        // vout[2]: Coinbase commitment
+        pblock->vtx[0] = MakeTransactionRef(std::move(coinbaseTx));
+        pblocktemplate->vchCoinbaseCommitment = GenerateCoinbaseCommitment(*pblock, pindexPrev, chainparams.GetConsensus());
         pblocktemplate->vTxFees[0] = -nFees;
+    } else {
+        CMutableTransaction coinbaseTx;
+        coinbaseTx.vin.resize(1);
+        coinbaseTx.vin[0].prevout.SetNull();
+        coinbaseTx.vout.resize(1);
+        coinbaseTx.vout[0].scriptPubKey = scriptPubKeyIn;
 
-        // Fill in header
-        pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
-        UpdateTime(pblock, pindexPrev);
-        pblock->nBits          = GetNextWorkRequired(pindexPrev, pblock);
-        pblock->nNonce         = 0;
-        pblocktemplate->vTxSigOps[0] = GetLegacySigOpCount(pblock->vtx[0]);
+        
+        coinbaseTx.vout[0].nValue = GetBlockSubsidy(nHeight, chainparams.GetConsensus());
+        
 
-        CValidationState state;
-        if (!TestBlockValidity(state, *pblock, pindexPrev, false, false))
-            throw std::runtime_error("CreateNewBlock() : TestBlockValidity failed");
+        coinbaseTx.vout[0].nValue += nFees;
+
+        coinbaseTx.vin[0].scriptSig = CScript() << nHeight << OP_0;
+        pblock->vtx[0] = MakeTransactionRef(std::move(coinbaseTx));
+        pblocktemplate->vchCoinbaseCommitment = GenerateCoinbaseCommitment(*pblock, pindexPrev, chainparams.GetConsensus());
+        pblocktemplate->vTxFees[0] = -nFees;
     }
 
-    return pblocktemplate.release();
+    // Change debug level BEGIN
+    // LogPrintf("CreateNewBlock(): block weight: %u txs: %u fees: %ld sigops %d\n", GetBlockWeight(*pblock), nBlockTx, nFees, nBlockSigOpsCost);
+    LogPrint(BCLog::ALL, "CreateNewBlock(): block weight: %u txs: %u fees: %ld sigops %d\n", GetBlockWeight(*pblock), nBlockTx, nFees, nBlockSigOpsCost);
+    // Change debug level END
+
+    // Fill in header
+    pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
+    UpdateTime(pblock, chainparams.GetConsensus(), pindexPrev);
+
+    // Maza: Hive: Choose correct nBits depending on whether a Hive block is requested
+    if (hiveProofScript)
+        pblock->nBits = GetNextHiveWorkRequired(pindexPrev, chainparams.GetConsensus());
+    else {
+        // Maza: MinotaurX+Hive1.2: If MinotaurX is enabled, handle nBits with pow-specific diff algo
+        if (IsMinotaurXEnabled(pindexPrev, chainparams.GetConsensus()))
+            pblock->nBits = GetNextWorkRequiredLWMA(pindexPrev, pblock, chainparams.GetConsensus(), powType);
+        else
+            pblock->nBits = GetNextWorkRequired(pindexPrev, pblock, chainparams.GetConsensus());
+    }
+
+    // Maza: Hive: Set nonce marker for hivemined blocks
+    pblock->nNonce = hiveProofScript ? chainparams.GetConsensus().hiveNonceMarker : 0;
+    pblocktemplate->vTxSigOpsCost[0] = WITNESS_SCALE_FACTOR * GetLegacySigOpCount(*pblock->vtx[0]);
+
+    CValidationState state;
+    if (!TestBlockValidity(state, chainparams, *pblock, pindexPrev, false, false)) {
+        throw std::runtime_error(strprintf("%s: TestBlockValidity failed: %s", __func__, FormatStateMessage(state)));
+    }
+
+    int64_t nTime2 = GetTimeMicros();
+
+    LogPrint(BCLog::BENCH, "CreateNewBlock() packages: %.2fms (%d packages, %d updated descendants), validity: %.2fms (total %.2fms)\n", 0.001 * (nTime1 - nTimeStart), nPackagesSelected, nDescendantsUpdated, 0.001 * (nTime2 - nTime1), 0.001 * (nTime2 - nTimeStart));
+
+    return std::move(pblocktemplate);
 }
 
-void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& nExtraNonce)
+void BlockAssembler::onlyUnconfirmed(CTxMemPool::setEntries& testSet)
+{
+    for (CTxMemPool::setEntries::iterator iit = testSet.begin(); iit != testSet.end(); ) {
+        // Only test txs not already in the block
+        if (inBlock.count(*iit)) {
+            testSet.erase(iit++);
+        }
+        else {
+            iit++;
+        }
+    }
+}
+
+bool BlockAssembler::TestPackage(uint64_t packageSize, int64_t packageSigOpsCost) const
+{
+    // TODO: switch to weight-based accounting for packages instead of vsize-based accounting.
+    if (nBlockWeight + WITNESS_SCALE_FACTOR * packageSize >= nBlockMaxWeight)
+        return false;
+    if (nBlockSigOpsCost + packageSigOpsCost >= MAX_BLOCK_SIGOPS_COST)
+        return false;
+    return true;
+}
+
+// Perform transaction-level checks before adding to block:
+// - transaction finality (locktime)
+// - premature witness (in case segwit transactions are added to mempool before
+//   segwit activation)
+bool BlockAssembler::TestPackageTransactions(const CTxMemPool::setEntries& package)
+{
+    const Consensus::Params& consensusParams = Params().GetConsensus(); // Maza: Hive
+
+    for (const CTxMemPool::txiter it : package) {
+        if (!IsFinalTx(it->GetTx(), nHeight, nLockTimeCutoff))
+            return false;
+        if (!fIncludeWitness && it->GetTx().HasWitness())
+            return false;
+        // Maza: Hive: Inhibit BCTs if required
+        if (!fIncludeBCTs && it->GetTx().IsBCT(consensusParams, GetScriptForDestination(DecodeDestination(consensusParams.beeCreationAddress))))
+            return false;
+    }
+    return true;
+}
+
+void BlockAssembler::AddToBlock(CTxMemPool::txiter iter)
+{
+    pblock->vtx.emplace_back(iter->GetSharedTx());
+    pblocktemplate->vTxFees.push_back(iter->GetFee());
+    pblocktemplate->vTxSigOpsCost.push_back(iter->GetSigOpCost());
+    nBlockWeight += iter->GetTxWeight();
+    ++nBlockTx;
+    nBlockSigOpsCost += iter->GetSigOpCost();
+    nFees += iter->GetFee();
+    inBlock.insert(iter);
+
+    bool fPrintPriority = gArgs.GetBoolArg("-printpriority", DEFAULT_PRINTPRIORITY);
+    if (fPrintPriority) {
+        LogPrintf("fee %s txid %s\n",
+                  CFeeRate(iter->GetModifiedFee(), iter->GetTxSize()).ToString(),
+                  iter->GetTx().GetHash().ToString());
+    }
+}
+
+int BlockAssembler::UpdatePackagesForAdded(const CTxMemPool::setEntries& alreadyAdded,
+        indexed_modified_transaction_set &mapModifiedTx)
+{
+    int nDescendantsUpdated = 0;
+    for (const CTxMemPool::txiter it : alreadyAdded) {
+        CTxMemPool::setEntries descendants;
+        mempool.CalculateDescendants(it, descendants);
+        // Insert all descendants (not yet in block) into the modified set
+        for (CTxMemPool::txiter desc : descendants) {
+            if (alreadyAdded.count(desc))
+                continue;
+            ++nDescendantsUpdated;
+            modtxiter mit = mapModifiedTx.find(desc);
+            if (mit == mapModifiedTx.end()) {
+                CTxMemPoolModifiedEntry modEntry(desc);
+                modEntry.nSizeWithAncestors -= it->GetTxSize();
+                modEntry.nModFeesWithAncestors -= it->GetModifiedFee();
+                modEntry.nSigOpCostWithAncestors -= it->GetSigOpCost();
+                mapModifiedTx.insert(modEntry);
+            } else {
+                mapModifiedTx.modify(mit, update_for_parent_inclusion(it));
+            }
+        }
+    }
+    return nDescendantsUpdated;
+}
+
+// Skip entries in mapTx that are already in a block or are present
+// in mapModifiedTx (which implies that the mapTx ancestor state is
+// stale due to ancestor inclusion in the block)
+// Also skip transactions that we've already failed to add. This can happen if
+// we consider a transaction in mapModifiedTx and it fails: we can then
+// potentially consider it again while walking mapTx.  It's currently
+// guaranteed to fail again, but as a belt-and-suspenders check we put it in
+// failedTx and avoid re-evaluation, since the re-evaluation would be using
+// cached size/sigops/fee values that are not actually correct.
+bool BlockAssembler::SkipMapTxEntry(CTxMemPool::txiter it, indexed_modified_transaction_set &mapModifiedTx, CTxMemPool::setEntries &failedTx)
+{
+    assert (it != mempool.mapTx.end());
+    return mapModifiedTx.count(it) || inBlock.count(it) || failedTx.count(it);
+}
+
+void BlockAssembler::SortForBlock(const CTxMemPool::setEntries& package, CTxMemPool::txiter entry, std::vector<CTxMemPool::txiter>& sortedEntries)
+{
+    // Sort package by ancestor count
+    // If a transaction A depends on transaction B, then A's ancestor count
+    // must be greater than B's.  So this is sufficient to validly order the
+    // transactions for block inclusion.
+    sortedEntries.clear();
+    sortedEntries.insert(sortedEntries.begin(), package.begin(), package.end());
+    std::sort(sortedEntries.begin(), sortedEntries.end(), CompareTxIterByAncestorCount());
+}
+
+// This transaction selection algorithm orders the mempool based
+// on feerate of a transaction including all unconfirmed ancestors.
+// Since we don't remove transactions from the mempool as we select them
+// for block inclusion, we need an alternate method of updating the feerate
+// of a transaction with its not-yet-selected ancestors as we go.
+// This is accomplished by walking the in-mempool descendants of selected
+// transactions and storing a temporary modified state in mapModifiedTxs.
+// Each time through the loop, we compare the best transaction in
+// mapModifiedTxs with the next transaction in the mempool to decide what
+// transaction package to work on next.
+void BlockAssembler::addPackageTxs(int &nPackagesSelected, int &nDescendantsUpdated)
+{
+    // mapModifiedTx will store sorted packages after they are modified
+    // because some of their txs are already in the block
+    indexed_modified_transaction_set mapModifiedTx;
+    // Keep track of entries that failed inclusion, to avoid duplicate work
+    CTxMemPool::setEntries failedTx;
+
+    // Start by adding all descendants of previously added txs to mapModifiedTx
+    // and modifying them for their already included ancestors
+    UpdatePackagesForAdded(inBlock, mapModifiedTx);
+
+    CTxMemPool::indexed_transaction_set::index<ancestor_score>::type::iterator mi = mempool.mapTx.get<ancestor_score>().begin();
+    CTxMemPool::txiter iter;
+
+    // Limit the number of attempts to add transactions to the block when it is
+    // close to full; this is just a simple heuristic to finish quickly if the
+    // mempool has a lot of entries.
+    const int64_t MAX_CONSECUTIVE_FAILURES = 1000;
+    int64_t nConsecutiveFailed = 0;
+
+    while (mi != mempool.mapTx.get<ancestor_score>().end() || !mapModifiedTx.empty())
+    {
+        // First try to find a new transaction in mapTx to evaluate.
+        if (mi != mempool.mapTx.get<ancestor_score>().end() &&
+                SkipMapTxEntry(mempool.mapTx.project<0>(mi), mapModifiedTx, failedTx)) {
+            ++mi;
+            continue;
+        }
+
+        // Now that mi is not stale, determine which transaction to evaluate:
+        // the next entry from mapTx, or the best from mapModifiedTx?
+        bool fUsingModified = false;
+
+        modtxscoreiter modit = mapModifiedTx.get<ancestor_score>().begin();
+        if (mi == mempool.mapTx.get<ancestor_score>().end()) {
+            // We're out of entries in mapTx; use the entry from mapModifiedTx
+            iter = modit->iter;
+            fUsingModified = true;
+        } else {
+            // Try to compare the mapTx entry to the mapModifiedTx entry
+            iter = mempool.mapTx.project<0>(mi);
+            if (modit != mapModifiedTx.get<ancestor_score>().end() &&
+                    CompareTxMemPoolEntryByAncestorFee()(*modit, CTxMemPoolModifiedEntry(iter))) {
+                // The best entry in mapModifiedTx has higher score
+                // than the one from mapTx.
+                // Switch which transaction (package) to consider
+                iter = modit->iter;
+                fUsingModified = true;
+            } else {
+                // Either no entry in mapModifiedTx, or it's worse than mapTx.
+                // Increment mi for the next loop iteration.
+                ++mi;
+            }
+        }
+
+        // We skip mapTx entries that are inBlock, and mapModifiedTx shouldn't
+        // contain anything that is inBlock.
+        assert(!inBlock.count(iter));
+
+        uint64_t packageSize = iter->GetSizeWithAncestors();
+        CAmount packageFees = iter->GetModFeesWithAncestors();
+        int64_t packageSigOpsCost = iter->GetSigOpCostWithAncestors();
+        if (fUsingModified) {
+            packageSize = modit->nSizeWithAncestors;
+            packageFees = modit->nModFeesWithAncestors;
+            packageSigOpsCost = modit->nSigOpCostWithAncestors;
+        }
+
+        if (packageFees < blockMinFeeRate.GetFee(packageSize)) {
+            // Everything else we might consider has a lower fee rate
+            return;
+        }
+
+        if (!TestPackage(packageSize, packageSigOpsCost)) {
+            if (fUsingModified) {
+                // Since we always look at the best entry in mapModifiedTx,
+                // we must erase failed entries so that we can consider the
+                // next best entry on the next loop iteration
+                mapModifiedTx.get<ancestor_score>().erase(modit);
+                failedTx.insert(iter);
+            }
+
+            ++nConsecutiveFailed;
+
+            if (nConsecutiveFailed > MAX_CONSECUTIVE_FAILURES && nBlockWeight >
+                    nBlockMaxWeight - 4000) {
+                // Give up if we're close to full and haven't succeeded in a while
+                break;
+            }
+            continue;
+        }
+
+        CTxMemPool::setEntries ancestors;
+        uint64_t nNoLimit = std::numeric_limits<uint64_t>::max();
+        std::string dummy;
+        mempool.CalculateMemPoolAncestors(*iter, ancestors, nNoLimit, nNoLimit, nNoLimit, nNoLimit, dummy, false);
+
+        onlyUnconfirmed(ancestors);
+        ancestors.insert(iter);
+
+        // Test if all tx's are Final
+        if (!TestPackageTransactions(ancestors)) {
+            if (fUsingModified) {
+                mapModifiedTx.get<ancestor_score>().erase(modit);
+                failedTx.insert(iter);
+            }
+            continue;
+        }
+
+        // This transaction will make it in; reset the failed counter.
+        nConsecutiveFailed = 0;
+
+        // Package can be added. Sort the entries in a valid order.
+        std::vector<CTxMemPool::txiter> sortedEntries;
+        SortForBlock(ancestors, iter, sortedEntries);
+
+        for (size_t i=0; i<sortedEntries.size(); ++i) {
+            AddToBlock(sortedEntries[i]);
+            // Erase from the modified set, if present
+            mapModifiedTx.erase(sortedEntries[i]);
+        }
+
+        ++nPackagesSelected;
+
+        // Update transactions that depend on each of these
+        nDescendantsUpdated += UpdatePackagesForAdded(ancestors, mapModifiedTx);
+    }
+}
+
+void IncrementExtraNonce(CBlock* pblock, const CBlockIndex* pindexPrev, unsigned int& nExtraNonce)
 {
     // Update nExtraNonce
     static uint256 hashPrevBlock;
@@ -351,265 +548,451 @@ void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& 
     }
     ++nExtraNonce;
     unsigned int nHeight = pindexPrev->nHeight+1; // Height first in coinbase required for block.version=2
-    CMutableTransaction txCoinbase(pblock->vtx[0]);
+    CMutableTransaction txCoinbase(*pblock->vtx[0]);
     txCoinbase.vin[0].scriptSig = (CScript() << nHeight << CScriptNum(nExtraNonce)) + COINBASE_FLAGS;
     assert(txCoinbase.vin[0].scriptSig.size() <= 100);
 
-    pblock->vtx[0] = txCoinbase;
-    pblock->hashMerkleRoot = pblock->BuildMerkleTree();
+    pblock->vtx[0] = MakeTransactionRef(std::move(txCoinbase));
+    pblock->hashMerkleRoot = BlockMerkleRoot(*pblock);
 }
 
-#ifdef ENABLE_WALLET
-//////////////////////////////////////////////////////////////////////////////
-//
-// Internal miner
-//
-double dHashesPerSec = 0.0;
-int64_t nHPSTimerStart = 0;
+// Maza: Hive: Bee management thread
+void BeeKeeper(const CChainParams& chainparams) {
+    const Consensus::Params& consensusParams = chainparams.GetConsensus();
 
-//
-// ScanHash scans nonces looking for a hash with at least some zero bits.
-// The nonce is usually preserved between calls, but periodically or if the
-// nonce is 0xffff0000 or above, the block is rebuilt and nNonce starts over at
-// zero.
-//
-bool static ScanHash(const CBlockHeader *pblock, uint32_t& nNonce, uint256 *phash)
-{
-    // Write the first 76 bytes of the block header to a double-SHA256 state.
-    CHash256 hasher;
-    CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
-    ss << *pblock;
-    assert(ss.size() == 80);
-    hasher.Write((unsigned char*)&ss[0], 76);
+    LogPrintf("BeeKeeper: Thread started\n");
+    RenameThread("hive-beekeeper");
 
-    while (true) {
-        nNonce++;
-
-        // Write the last 4 bytes of the block header (the nonce) to a copy of
-        // the double-SHA256 state, and compute the result.
-        CHash256(hasher).Write((unsigned char*)&nNonce, 4).Finalize((unsigned char*)phash);
-
-        // Return the nonce if the hash has at least some zero bits,
-        // caller will check if it has enough to reach the target
-        if (((uint16_t*)phash)[15] == 0)
-            return true;
-
-        // If nothing found after trying for a while, return -1
-        if ((nNonce & 0xffff) == 0)
-            return false;
-        if ((nNonce & 0xfff) == 0)
-            boost::this_thread::interruption_point();
-    }
-}
-
-CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey)
-{
-    CPubKey pubkey;
-    if (!reservekey.GetReservedKey(pubkey))
-        return NULL;
-
-    CScript scriptPubKey = CScript() << ToByteVector(pubkey) << OP_CHECKSIG;
-    return CreateNewBlock(scriptPubKey);
-}
-
-bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
-{
-    LogPrintf("%s\n", pblock->ToString());
-    LogPrintf("generated %s\n", FormatMoney(pblock->vtx[0].vout[0].nValue));
-
-    // Found a solution
+    int height;
     {
         LOCK(cs_main);
-        if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash())
-            return error("MazaMiner : generated block is stale");
+        height = chainActive.Tip()->nHeight;
     }
-
-    // Remove key from key pool
-    reservekey.KeepKey();
-
-    // Track how many getdata requests this block gets
-    {
-        LOCK(wallet.cs_wallet);
-        wallet.mapRequestCount[pblock->GetHash()] = 0;
-    }
-
-    // Process this block the same as if we had received it from another node
-    CValidationState state;
-    if (!ProcessNewBlock(state, NULL, pblock))
-        return error("MazaMiner : ProcessNewBlock, block not accepted");
-
-    return true;
-}
-
-void static BitcoinMiner(CWallet *pwallet)
-{
-    LogPrintf("MazaMiner started\n");
-    SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("bitcoin-miner");
-
-    // Each thread has its own key and counter
-    CReserveKey reservekey(pwallet);
-    unsigned int nExtraNonce = 0;
 
     try {
         while (true) {
-            if (Params().MiningRequiresPeers()) {
-                // Busy-wait for the network to come online so we don't waste time mining
-                // on an obsolete chain. In regtest mode we expect to fly solo.
-                do {
-                    bool fvNodesEmpty;
-                    {
-                        LOCK(cs_vNodes);
-                        fvNodesEmpty = vNodes.empty();
-                    }
-                    if (!fvNodesEmpty && !IsInitialBlockDownload())
-                        break;
-                    MilliSleep(1000);
-                } while (true);
-            }
+            // Maza: Hive: Mining optimisations: Parameterised sleep time
+            int sleepTime = std::max((int64_t) 1, gArgs.GetArg("-hivecheckdelay", DEFAULT_HIVE_CHECK_DELAY));
+            MilliSleep(sleepTime);
 
-            //
-            // Create new block
-            //
-            unsigned int nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
-            CBlockIndex* pindexPrev = chainActive.Tip();
-
-            auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey));
-            if (!pblocktemplate.get())
+            int newHeight;
             {
-                LogPrintf("Error in MazaMiner: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
-                return;
+                LOCK(cs_main);
+                newHeight = chainActive.Tip()->nHeight;
             }
-            CBlock *pblock = &pblocktemplate->block;
-            IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
-
-            LogPrintf("Running MazaMiner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
-                ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
-
-            //
-            // Search
-            //
-            int64_t nStart = GetTime();
-            uint256 hashTarget = uint256().SetCompact(pblock->nBits);
-            uint256 hash;
-            uint32_t nNonce = 0;
-            uint32_t nOldNonce = 0;
-            while (true) {
-                bool fFound = ScanHash(pblock, nNonce, &hash);
-                uint32_t nHashesDone = nNonce - nOldNonce;
-                nOldNonce = nNonce;
-
-                // Check if something found
-                if (fFound)
-                {
-                    if (hash <= hashTarget)
-                    {
-                        // Found a solution
-                        pblock->nNonce = nNonce;
-                        assert(hash == pblock->GetHash());
-
-                        SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                        LogPrintf("MazaMiner:\n");
-                        LogPrintf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
-                        ProcessBlockFound(pblock, *pwallet, reservekey);
-                        SetThreadPriority(THREAD_PRIORITY_LOWEST);
-
-                        // In regression test mode, stop mining after a block is found.
-                        if (Params().MineBlocksOnDemand())
-                            throw boost::thread_interrupted();
-
-                        break;
-                    }
-                }
-
-                // Meter hashes/sec
-                static int64_t nHashCounter;
-                if (nHPSTimerStart == 0)
-                {
-                    nHPSTimerStart = GetTimeMillis();
-                    nHashCounter = 0;
-                }
-                else
-                    nHashCounter += nHashesDone;
-                if (GetTimeMillis() - nHPSTimerStart > 4000)
-                {
-                    static CCriticalSection cs;
-                    {
-                        LOCK(cs);
-                        if (GetTimeMillis() - nHPSTimerStart > 4000)
-                        {
-                            dHashesPerSec = 1000.0 * nHashCounter / (GetTimeMillis() - nHPSTimerStart);
-                            nHPSTimerStart = GetTimeMillis();
-                            nHashCounter = 0;
-                            static int64_t nLogTime;
-                            if (GetTime() - nLogTime > 30 * 60)
-                            {
-                                nLogTime = GetTime();
-                                LogPrintf("hashmeter %6.0f khash/s\n", dHashesPerSec/1000.0);
-                            }
-                        }
-                    }
-                }
-
-                // Check for stop or if block needs to be rebuilt
-                boost::this_thread::interruption_point();
-                // Regtest mode doesn't require peers
-                if (vNodes.empty() && Params().MiningRequiresPeers())
-                    break;
-                if (nNonce >= 0xffff0000)
-                    break;
-                if (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 60)
-                    break;
-                if (pindexPrev != chainActive.Tip())
-                    break;
-
-                // Update nTime every few seconds
-                UpdateTime(pblock, pindexPrev);
-                if (Params().AllowMinDifficultyBlocks())
-                {
-                    // Changing pblock->nTime can change work required on testnet:
-                    hashTarget.SetCompact(pblock->nBits);
+            if (newHeight != height) {
+                // Height changed; release the bees!
+                height = newHeight;
+                try {
+                    BusyBees(consensusParams, height);
+                } catch (const std::runtime_error &e) {
+                    LogPrintf("! BeeKeeper: Error: %s\n", e.what());
                 }
             }
         }
-    }
-    catch (boost::thread_interrupted)
-    {
-        LogPrintf("MazaMiner terminated\n");
+    } catch (const boost::thread_interrupted&) {
+        LogPrintf("!!! BeeKeeper: FATAL: Thread interrupted\n");
         throw;
     }
-    catch (const std::runtime_error &e)
-    {
-        LogPrintf("BitcoinMiner runtime error: %s\n", e.what());
-        return;
+}
+
+// Maza: Hive: Mining optimisations: Thread to signal abort on new block
+void AbortWatchThread(int height) {
+    // Loop until any exit condition
+    while (true) {
+        // Yield to OS
+        MilliSleep(1);
+
+        // Check pre-existing abort conditions
+        if (solutionFound.load() || earlyAbort.load())
+            return;
+
+        // Get tip height, keeping lock scope as short as possible
+        int newHeight;
+        {
+            LOCK(cs_main);
+            newHeight = chainActive.Tip()->nHeight;
+        }
+
+        // Check for abort from tip height change
+        if (newHeight != height) {
+            //LogPrintf("*** ABORT FIRE\n");
+            earlyAbort.store(true);
+            return;
+        }
     }
 }
 
-void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads)
-{
-    static boost::thread_group* minerThreads = NULL;
+// Maza: Hive: Mining optimisations: Thread to check a single bin
+void CheckBin(int threadID, std::vector<CBeeRange> bin, std::string deterministicRandString, arith_uint256 beeHashTarget) {
+    // Iterate over ranges in this bin
+    int checkCount = 0;
+    for (std::vector<CBeeRange>::const_iterator it = bin.begin(); it != bin.end(); it++) {
+        CBeeRange beeRange = *it;
+        //LogPrintf("THREAD #%i: Checking %i-%i in %s\n", threadID, beeRange.offset, beeRange.offset + beeRange.count - 1, beeRange.txid);
+        // Iterate over bees in this range
+        for (int i = beeRange.offset; i < beeRange.offset + beeRange.count; i++) {
+            // Check abort conditions (Only every N bees. The atomic load is expensive, but much cheaper than a mutex - esp on Windows, see https://www.arangodb.com/2015/02/comparing-atomic-mutex-rwlocks/)
+            if(checkCount++ % 1000 == 0) {
+                if (solutionFound.load() || earlyAbort.load()) {
+                    //LogPrintf("THREAD #%i: Solution found elsewhere or early abort requested, ending early\n", threadID);
+                    return;
+                }
+            }
+            // Hash the bee
+            std::string hashHex = (CHashWriter(SER_GETHASH, 0) << deterministicRandString << beeRange.txid << i).GetHash().GetHex();
+            arith_uint256 beeHash = arith_uint256(hashHex);
+            // Compare to target and write out result if successful
+            if (beeHash < beeHashTarget) {
+                //LogPrintf("THREAD #%i: Solution found, returning\n", threadID);
+                LOCK(cs_solution_vars);                                 // Expensive mutex only happens at write-out
+                solutionFound.store(true);
+                solvingRange = beeRange;
+                solvingBee = i;
+                return;
+            }
+        }
+    }
+    //LogPrintf("THREAD #%i: Out of tasks\n", threadID);
+}
 
-    if (nThreads < 0) {
-        // In regtest threads defaults to 1
-        if (Params().DefaultMinerThreads())
-            nThreads = Params().DefaultMinerThreads();
+// Maza: MinotaurX+Hive1.2: Thread to check a single bee bin
+void CheckBinMinotaur(int threadID, std::vector<CBeeRange> bin, std::string deterministicRandString, arith_uint256 beeHashTarget) {
+    // Create yespower thread-local storage
+    /*
+    static __thread yespower_local_t local;
+    yespower_init_local(&local);
+    */
+
+    // Iterate over ranges in this bin
+    int checkCount = 0;
+    for (std::vector<CBeeRange>::const_iterator it = bin.begin(); it != bin.end(); it++) {
+        CBeeRange beeRange = *it;
+        //LogPrintf("THREAD #%i: Checking %i-%i in %s\n", threadID, beeRange.offset, beeRange.offset + beeRange.count - 1, beeRange.txid);
+        // Iterate over bees in this range
+        for (int i = beeRange.offset; i < beeRange.offset + beeRange.count; i++) {
+            // Check abort conditions (Only every N bees. The atomic load is expensive, but much cheaper than a mutex - esp on Windows, see https://www.arangodb.com/2015/02/comparing-atomic-mutex-rwlocks/)
+            if(checkCount++ % 1000 == 0) {
+                if (solutionFound.load() || earlyAbort.load()) {
+                    //LogPrintf("THREAD #%i: Solution found elsewhere or early abort requested, ending early\n", threadID);
+                    //yespower_free_local(&local);
+                    return;
+                }
+            }
+
+            // Hash the bee
+            std::stringstream buf;
+            buf << deterministicRandString;
+            buf << beeRange.txid;
+            buf << i;
+            std::string hashString = buf.str();
+
+            uint256 beeHashUint = CBlockHeader::MinotaurHashString(hashString);
+            arith_uint256 beeHash(beeHashUint.ToString());
+
+            // Compare to target and write out result if successful
+            if (beeHash < beeHashTarget) {
+                //LogPrintf("THREAD #%i: Solution found, returning\n", threadID);
+                LOCK(cs_solution_vars);     // Expensive mutex only happens at write-out
+                solutionFound.store(true);
+                solvingRange = beeRange;
+                solvingBee = i;
+                //yespower_free_local(&local);
+                return;
+            }
+
+            boost::this_thread::yield();
+        }
+    }
+    //LogPrintf("THREAD #%i: Out of tasks\n", threadID);
+    //yespower_free_local(&local);
+}
+
+// Maza: Hive: Attempt to mint the next block
+bool BusyBees(const Consensus::Params& consensusParams, int height) {
+    bool verbose = LogAcceptCategory(BCLog::HIVE);
+
+    CBlockIndex* pindexPrev = chainActive.Tip();
+    assert(pindexPrev != nullptr);
+
+    // Sanity checks
+    if (!IsMinotaurXEnabled(pindexPrev, consensusParams)) {
+        LogPrint(BCLog::HIVE, "BusyBees: Skipping hive check: The Hive is not enabled on the network\n");
+        return false;
+    }
+    if(!g_connman) {
+        LogPrint(BCLog::HIVE, "BusyBees: Skipping hive check: Peer-to-peer functionality missing or disabled\n");
+        return false;
+    }
+    if (g_connman->GetNodeCount(CConnman::CONNECTIONS_ALL) == 0) {
+        LogPrint(BCLog::HIVE, "BusyBees: Skipping hive check (not connected)\n");
+        return false;
+    }
+    if (IsInitialBlockDownload()) {
+        LogPrint(BCLog::HIVE, "BusyBees: Skipping hive check (in initial block download)\n");
+        return false;
+    }
+
+    // Maza: Hive 1.1: Check that there aren't too many consecutive Hive blocks
+    if (IsMinotaurXEnabled(pindexPrev, consensusParams)) {
+        int hiveBlocksAtTip = 0;
+        CBlockIndex* pindexTemp = pindexPrev;
+        while (pindexTemp->GetBlockHeader().IsHiveMined(consensusParams)) {
+            assert(pindexTemp->pprev);
+            pindexTemp = pindexTemp->pprev;
+            hiveBlocksAtTip++;
+        }
+        if (hiveBlocksAtTip >= consensusParams.maxConsecutiveHiveBlocks) {
+            LogPrintf("BusyBees: Skipping hive check (max Hive blocks without a POW block reached)\n");
+            return false;
+        }
+    } else {
+        // Check previous block wasn't hivemined
+        if (pindexPrev->GetBlockHeader().IsHiveMined(consensusParams)) {
+            LogPrintf("BusyBees: Skipping hive check (Hive block must follow a POW block)\n");
+            return false;
+        }
+    }
+
+    // Get wallet
+    JSONRPCRequest request;
+    CWallet * const pwallet = GetWalletForJSONRPCRequest(request);
+    if (!EnsureWalletIsAvailable(pwallet, true)) {
+        LogPrint(BCLog::HIVE, "BusyBees: Skipping hive check (wallet unavailable)\n");
+        return false;
+    }
+    if (pwallet->IsLocked()) {
+        LogPrint(BCLog::HIVE, "BusyBees: Skipping hive check, wallet is locked\n");
+        return false;
+    }
+
+    LogPrintf("********************* Hive: Bees at work *********************\n");
+
+    // Find deterministicRandString
+    std::string deterministicRandString = GetDeterministicRandString(pindexPrev);
+    if (verbose) LogPrintf("BusyBees: deterministicRandString   = %s\n", deterministicRandString);
+
+    // Find beeHashTarget
+    arith_uint256 beeHashTarget;
+    beeHashTarget.SetCompact(GetNextHiveWorkRequired(pindexPrev, consensusParams));
+    if (verbose) LogPrintf("BusyBees: beeHashTarget             = %s\n", beeHashTarget.ToString());
+
+    // Find bin size
+    std::vector<CBeeCreationTransactionInfo> potentialBcts = pwallet->GetBCTs(false, false, consensusParams);
+    std::vector<CBeeCreationTransactionInfo> bcts;
+    int totalBees = 0;
+    for (std::vector<CBeeCreationTransactionInfo>::const_iterator it = potentialBcts.begin(); it != potentialBcts.end(); it++) {
+        CBeeCreationTransactionInfo bct = *it;
+        if (bct.beeStatus != "mature")
+            continue;
+        bcts.push_back(bct);
+        totalBees += bct.beeCount;
+    }
+
+    if (totalBees == 0) {
+        LogPrint(BCLog::HIVE, "BusyBees: No mature bees found\n");
+        return false;
+    }
+
+    int coreCount = GetNumVirtualCores();
+    int threadCount = gArgs.GetArg("-hivecheckthreads", DEFAULT_HIVE_THREADS);
+    if (threadCount == -2)
+        threadCount = std::max(1, coreCount - 1);
+    else if (threadCount < 0 || threadCount > coreCount)
+        threadCount = coreCount;
+    else if (threadCount == 0)
+        threadCount = 1;
+
+    int beesPerBin = ceil(totalBees / (float)threadCount);  // We want to check this many bees per thread
+
+    // Bin the bees according to desired thead count
+    if (verbose) LogPrint(BCLog::HIVE, "BusyBees: Binning %i bees in %i bins (%i bees per bin)\n", totalBees, threadCount, beesPerBin);
+    std::vector<CBeeCreationTransactionInfo>::const_iterator bctIterator = bcts.begin();
+    CBeeCreationTransactionInfo bct = *bctIterator;
+    std::vector<std::vector<CBeeRange>> beeBins;
+    int beeOffset = 0;                                      // Track offset in current BCT
+    while(bctIterator != bcts.end()) {                      // Until we're out of BCTs
+        std::vector<CBeeRange> currentBin;                  // Create a new bin
+        int beesInBin = 0;
+        while (bctIterator != bcts.end()) {                 // Keep filling it until full
+            int spaceLeft = beesPerBin - beesInBin;
+            if (bct.beeCount - beeOffset <= spaceLeft) {    // If there's soom, add all the bees from this BCT...
+                CBeeRange range = {bct.txid, bct.honeyAddress, bct.communityContrib, beeOffset, bct.beeCount - beeOffset};
+                currentBin.push_back(range);
+
+                beesInBin += bct.beeCount - beeOffset;
+                beeOffset = 0;
+
+                do {                                        // ... and iterate to next BCT
+                    bctIterator++;
+                    if (bctIterator == bcts.end())
+                        break;
+                    bct = *bctIterator;
+                } while (bct.beeStatus != "mature");
+            } else {                                        // Can't fit the whole thing to current bin; add what we can fit and let the rest go in next bin
+                CBeeRange range = {bct.txid, bct.honeyAddress, bct.communityContrib, beeOffset, spaceLeft};
+                currentBin.push_back(range);
+                beeOffset += spaceLeft;
+                break;
+            }
+        }
+        beeBins.push_back(currentBin);
+    }
+
+    // Create a worker thread for each bin
+    if (verbose) LogPrintf("BusyBees: Running bins\n");
+    solutionFound.store(false);
+    earlyAbort.store(false);
+    std::vector<std::vector<CBeeRange>>::const_iterator beeBinIterator = beeBins.begin();
+    std::vector<boost::thread> binThreads;
+    int64_t checkTime = GetTimeMillis();
+    int binID = 0;
+    bool minotaurXEnabled = IsMinotaurXEnabled(pindexPrev, consensusParams);    // Maza: MinotaurX+Hive1.2: Check if minotaurX enabled
+    while (beeBinIterator != beeBins.end()) {
+        std::vector<CBeeRange> beeBin = *beeBinIterator;
+
+        if (verbose) {
+            LogPrintf("BusyBees: Bin #%i\n", binID);
+            std::vector<CBeeRange>::const_iterator beeRangeIterator = beeBin.begin();
+            while (beeRangeIterator != beeBin.end()) {
+                CBeeRange beeRange = *beeRangeIterator;
+                LogPrintf("offset = %i, count = %i, txid = %s\n", beeRange.offset, beeRange.count, beeRange.txid);
+                beeRangeIterator++;
+            }
+        }
+        // Maza: MinotaurX+Hive1.2: Use correct inner hash
+        if (!minotaurXEnabled)
+            binThreads.push_back(boost::thread(CheckBin, binID++, beeBin, deterministicRandString, beeHashTarget));
         else
-            nThreads = boost::thread::hardware_concurrency();
+            binThreads.push_back(boost::thread(CheckBinMinotaur, binID++, beeBin, deterministicRandString, beeHashTarget));
+
+        beeBinIterator++;
     }
 
-    if (minerThreads != NULL)
+    // Add an extra thread to watch external abort conditions (eg new incoming block)
+    bool useEarlyAbortThread = gArgs.GetBoolArg("-hiveearlyout", DEFAULT_HIVE_EARLY_OUT);
+    if (verbose && useEarlyAbortThread)
+        LogPrintf("BusyBees: Will use early-abort thread\n");
+
+    boost::thread earlyAbortThread;
+    if (useEarlyAbortThread)
+        earlyAbortThread = boost::thread(AbortWatchThread, height);
+
+    // Wait for bin worker threads to find a solution or abort (in which case the others will all stop), or to run out of bees
+    for(auto& t:binThreads)
+        t.join();
+
+    binThreads.clear();
+
+    checkTime = GetTimeMillis() - checkTime;
+
+    // Handle early aborts
+    if (useEarlyAbortThread) {
+        if (earlyAbort.load()) {
+            LogPrintf("BusyBees: Chain state changed (check aborted after %ims)\n", checkTime);
+            return false;
+        } else {
+            // We didn't abort; stop abort thread now
+            earlyAbort.store(true);
+            earlyAbortThread.join();
+        }
+    }
+
+    // Check if a solution was found
+    if (!solutionFound.load()) {
+        LogPrintf("BusyBees: No bee meets hash target (%i bees checked with %i threads in %ims)\n", totalBees, threadCount, checkTime);
+        return false;
+    }
+    LogPrintf("BusyBees: Bee meets hash target (check aborted after %ims). Solution with bee #%i from BCT %s. Honey address is %s.\n", checkTime, solvingBee, solvingRange.txid, solvingRange.honeyAddress);
+
+    // Assemble the Hive proof script
+    std::vector<unsigned char> messageProofVec;
+    std::vector<unsigned char> txidVec(solvingRange.txid.begin(), solvingRange.txid.end());
+    CScript hiveProofScript;
+    uint32_t bctHeight;
+    {   // Don't lock longer than needed
+        LOCK2(cs_main, pwallet->cs_wallet);
+
+        CTxDestination dest = DecodeDestination(solvingRange.honeyAddress);
+        if (!IsValidDestination(dest)) {
+            LogPrintf("BusyBees: Honey destination invalid\n");
+            return false;
+        }
+
+        const CKeyID *keyID = boost::get<CKeyID>(&dest);
+        if (!keyID) {
+            LogPrintf("BusyBees: Wallet doesn't have privkey for honey destination\n");
+            return false;
+        }
+
+        CKey key;
+        if (!pwallet->GetKey(*keyID, key)) {
+            LogPrintf("BusyBees: Privkey unavailable\n");
+            return false;
+        }
+
+        CHashWriter ss(SER_GETHASH, 0);
+        ss << deterministicRandString;
+        uint256 mhash = ss.GetHash();
+        if (!key.SignCompact(mhash, messageProofVec)) {
+            LogPrintf("BusyBees: Couldn't sign the bee proof!\n");
+            return false;
+        }
+        if (verbose) LogPrintf("BusyBees: messageSig                = %s\n", HexStr(&messageProofVec[0], &messageProofVec[messageProofVec.size()]));
+
+        COutPoint out(uint256S(solvingRange.txid), 0);
+        Coin coin;
+        if (!pcoinsTip || !pcoinsTip->GetCoin(out, coin)) {
+            LogPrintf("BusyBees: Couldn't get the bct utxo!\n");
+            return false;
+        }
+        bctHeight = coin.nHeight;
+    }
+
+    unsigned char beeNonceEncoded[4];
+    WriteLE32(beeNonceEncoded, solvingBee);
+    std::vector<unsigned char> beeNonceVec(beeNonceEncoded, beeNonceEncoded + 4);
+
+    unsigned char bctHeightEncoded[4];
+    WriteLE32(bctHeightEncoded, bctHeight);
+    std::vector<unsigned char> bctHeightVec(bctHeightEncoded, bctHeightEncoded + 4);
+
+    opcodetype communityContribFlag = solvingRange.communityContrib ? OP_TRUE : OP_FALSE;
+    hiveProofScript << OP_RETURN << OP_BEE << beeNonceVec << bctHeightVec << communityContribFlag << txidVec << messageProofVec;
+
+    // Create honey script from honey address
+    CScript honeyScript = GetScriptForDestination(DecodeDestination(solvingRange.honeyAddress));
+
+    // Create a Hive block
+    std::unique_ptr<CBlockTemplate> pblocktemplate(BlockAssembler(Params()).CreateNewBlock(honeyScript, true, &hiveProofScript));
+    if (!pblocktemplate.get()) {
+        LogPrintf("BusyBees: Couldn't create block\n");
+        return false;
+    }
+    CBlock *pblock = &pblocktemplate->block;
+    pblock->hashMerkleRoot = BlockMerkleRoot(*pblock);  // Calc the merkle root
+
+    // Make sure the new block's not stale
     {
-        minerThreads->interrupt_all();
-        delete minerThreads;
-        minerThreads = NULL;
+        LOCK(cs_main);
+        if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash()) {
+            LogPrintf("BusyBees: Generated block is stale.\n");
+            return false;
+        }
     }
 
-    if (nThreads == 0 || !fGenerate)
-        return;
+    if (verbose) {
+        LogPrintf("BusyBees: Block created:\n");
+        LogPrintf("%s",pblock->ToString());
+    }
 
-    minerThreads = new boost::thread_group();
-    for (int i = 0; i < nThreads; i++)
-        minerThreads->create_thread(boost::bind(&BitcoinMiner, pwallet));
+    // Commit and propagate the block
+    std::shared_ptr<const CBlock> shared_pblock = std::make_shared<const CBlock>(*pblock);
+    if (!ProcessNewBlock(Params(), shared_pblock, true, nullptr)) {
+        LogPrintf("BusyBees: Block wasn't accepted\n");
+        return false;
+    }
+
+    LogPrintf("BusyBees: ** Block mined\n");
+    return true;
 }
-
-#endif // ENABLE_WALLET

@@ -43,6 +43,12 @@ src/qt/forms/ui_*.h
 
 src/qt/test/moc*.cpp
 
+src/qt/bitcoin-qt.config
+src/qt/bitcoin-qt.creator
+src/qt/bitcoin-qt.creator.user
+src/qt/bitcoin-qt.files
+src/qt/bitcoin-qt.includes
+
 .deps
 .dirstamp
 .libs
@@ -84,16 +90,13 @@ src/test/buildenv.py
 
 # Resources cpp
 qrc_*.cpp
-
-# Qt creator
-*.pro.user
-
 # Mac specific
 .DS_Store
 build
 
 #lcov
 *.gcno
+*.gcda
 /*.info
 test_maza.coverage/
 total.coverage/
@@ -111,3 +114,9 @@ qa/pull-tester/test.*/*
 !src/leveldb*/Makefile
 
 /doc/doxygen/
+
+libbitcoinconsensus.pc
+contrib/devtools/split-debug.sh
+src/.vscode/
+.vscode/
+just*.sh

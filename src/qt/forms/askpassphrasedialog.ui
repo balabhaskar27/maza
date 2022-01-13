@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>598</width>
+    <width>640</width>
     <height>222</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>550</width>
+    <width>640</width>
     <height>0</height>
    </size>
   </property>
@@ -93,6 +93,26 @@
       </widget>
      </item>
      <item row="3" column="1">
+      <widget class="QCheckBox" name="toggleShowPasswordButton">
+       <property name="text">
+        <string>Show password</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLabel" name="hiveOnlyLabel">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Note: Wallet will be unlocked only for hive mining, not to send funds.</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
       <widget class="QLabel" name="capsLabel">
        <property name="font">
         <font>

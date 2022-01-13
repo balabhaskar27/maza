@@ -1,23 +1,29 @@
-// Copyright (c) 2011-2013 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2011-2017 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "askpassphrasedialog.h"
-#include "ui_askpassphrasedialog.h"
+#if defined(HAVE_CONFIG_H)
+#include <config/bitcoin-config.h>
+#endif
 
-#include "guiconstants.h"
-#include "walletmodel.h"
+#include <qt/askpassphrasedialog.h>
+#include <qt/forms/ui_askpassphrasedialog.h>
 
-#include "allocators.h"
+#include <qt/guiconstants.h>
+#include <qt/walletmodel.h>
+
+#include <support/allocators/secure.h>
 
 #include <QKeyEvent>
 #include <QMessageBox>
 #include <QPushButton>
 
-AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget *parent) :
+extern bool fWalletUnlockHiveMiningOnly;   // Maza: Hive: Encrypted wallet support
+
+AskPassphraseDialog::AskPassphraseDialog(Mode _mode, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AskPassphraseDialog),
-    mode(mode),
+    mode(_mode),
     model(0),
     fCapsLock(false)
 {
@@ -36,6 +42,10 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget *parent) :
     ui->passEdit2->installEventFilter(this);
     ui->passEdit3->installEventFilter(this);
 
+	// Maza: Hive: Support unlocking for hive only
+	ui->hiveOnlyLabel->hide();
+	fHiveOnly = fWalletUnlockHiveMiningOnly;
+
     switch(mode)
     {
         case Encrypt: // Ask passphrase x2
@@ -44,6 +54,10 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget *parent) :
             ui->passEdit1->hide();
             setWindowTitle(tr("Encrypt wallet"));
             break;
+        case UnlockHiveMining: // Maza: Hive: Support locked wallets
+            ui->hiveOnlyLabel->show();
+			fHiveOnly = true;
+            // fallthru
         case Unlock: // Ask passphrase
             ui->warningLabel->setText(tr("This operation needs your wallet passphrase to unlock the wallet."));
             ui->passLabel2->hide();
@@ -62,10 +76,11 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget *parent) :
             break;
         case ChangePass: // Ask old passphrase + new passphrase x2
             setWindowTitle(tr("Change passphrase"));
-            ui->warningLabel->setText(tr("Enter the old and new passphrase to the wallet."));
+            ui->warningLabel->setText(tr("Enter the old passphrase and new passphrase to the wallet."));
             break;
     }
     textChanged();
+    connect(ui->toggleShowPasswordButton, SIGNAL(toggled(bool)), this, SLOT(toggleShowPassword(bool)));
     connect(ui->passEdit1, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
     connect(ui->passEdit2, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
     connect(ui->passEdit3, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
@@ -73,16 +88,13 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget *parent) :
 
 AskPassphraseDialog::~AskPassphraseDialog()
 {
-    // Attempt to overwrite text so that they do not linger around in memory
-    ui->passEdit1->setText(QString(" ").repeated(ui->passEdit1->text().size()));
-    ui->passEdit2->setText(QString(" ").repeated(ui->passEdit2->text().size()));
-    ui->passEdit3->setText(QString(" ").repeated(ui->passEdit3->text().size()));
+    secureClearPassFields();
     delete ui;
 }
 
-void AskPassphraseDialog::setModel(WalletModel *model)
+void AskPassphraseDialog::setModel(WalletModel *_model)
 {
-    this->model = model;
+    this->model = _model;
 }
 
 void AskPassphraseDialog::accept()
@@ -98,6 +110,8 @@ void AskPassphraseDialog::accept()
     oldpass.assign(ui->passEdit1->text().toStdString().c_str());
     newpass1.assign(ui->passEdit2->text().toStdString().c_str());
     newpass2.assign(ui->passEdit3->text().toStdString().c_str());
+
+    secureClearPassFields();
 
     switch(mode)
     {
@@ -119,9 +133,9 @@ void AskPassphraseDialog::accept()
                 {
                     QMessageBox::warning(this, tr("Wallet encrypted"),
                                          "<qt>" +
-                                         tr("Maza will close now to finish the encryption process. "
+                                         tr("%1 will close now to finish the encryption process. "
                                          "Remember that encrypting your wallet cannot fully protect "
-                                         "your mazas from being stolen by malware infecting your computer.") +
+                                         "your mazas from being stolen by malware infecting your computer.").arg(tr(PACKAGE_NAME)) +
                                          "<br><br><b>" +
                                          tr("IMPORTANT: Any previous backups you have made of your wallet file "
                                          "should be replaced with the newly generated, encrypted wallet file. "
@@ -148,6 +162,7 @@ void AskPassphraseDialog::accept()
             QDialog::reject(); // Cancelled
         }
         } break;
+    case UnlockHiveMining:  // Maza: Hive: Support locked wallets
     case Unlock:
         if(!model->setWalletLocked(false, oldpass))
         {
@@ -156,6 +171,7 @@ void AskPassphraseDialog::accept()
         }
         else
         {
+            fWalletUnlockHiveMiningOnly = fHiveOnly;   // Maza: Hive: Support locked wallets
             QDialog::accept(); // Success
         }
         break;
@@ -203,6 +219,7 @@ void AskPassphraseDialog::textChanged()
     case Encrypt: // New passphrase x2
         acceptable = !ui->passEdit2->text().isEmpty() && !ui->passEdit3->text().isEmpty();
         break;
+    case UnlockHiveMining:  // Maza: Hive: Support locked wallets
     case Unlock: // Old passphrase x1
     case Decrypt:
         acceptable = !ui->passEdit1->text().isEmpty();
@@ -231,6 +248,15 @@ bool AskPassphraseDialog::event(QEvent *event)
     return QWidget::event(event);
 }
 
+void AskPassphraseDialog::toggleShowPassword(bool show)
+{
+    ui->toggleShowPasswordButton->setDown(show);
+    const auto mode = show ? QLineEdit::Normal : QLineEdit::Password;
+    ui->passEdit1->setEchoMode(mode);
+    ui->passEdit2->setEchoMode(mode);
+    ui->passEdit3->setEchoMode(mode);
+}
+
 bool AskPassphraseDialog::eventFilter(QObject *object, QEvent *event)
 {
     /* Detect Caps Lock.
@@ -255,4 +281,18 @@ bool AskPassphraseDialog::eventFilter(QObject *object, QEvent *event)
         }
     }
     return QDialog::eventFilter(object, event);
+}
+
+static void SecureClearQLineEdit(QLineEdit* edit)
+{
+    // Attempt to overwrite text so that they do not linger around in memory
+    edit->setText(QString(" ").repeated(edit->text().size()));
+    edit->clear();
+}
+
+void AskPassphraseDialog::secureClearPassFields()
+{
+    SecureClearQLineEdit(ui->passEdit1);
+    SecureClearQLineEdit(ui->passEdit2);
+    SecureClearQLineEdit(ui->passEdit3);
 }
