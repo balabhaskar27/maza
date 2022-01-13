@@ -5,7 +5,7 @@ Setup
 ---------------------
 Maza Core is the original Maza client and it builds the backbone of the network. It downloads and, by default, stores the entire history of Maza transactions (which is currently more than 7 GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
 
-To download Maza Core, visit [litecoinca.sh](https://litecoinca.sh).
+To download Maza Core, visit [mazacoin.org](https://mazacoin.org).
 
 Running
 ---------------------
@@ -28,10 +28,10 @@ Drag Maza-Core to your applications folder, and then run Maza-Core.
 
 ### Need Help?
 
-* See the documentation at the [Maza homepage](https://litecoinca.sh/)
+* See the documentation at the [Maza homepage](https://mazacoin.org/)
 for help and more information.
-* Ask for help on [#maza](http://webchat.freenode.net?channels=maza) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=maza).
-* Ask for help on the [MazaTalk](https://mazatalk.io/) forums.
+* Ask for help on [MAZAtribe](https://t.me/mazatribe) on Telegram. 
+
 
 Building
 ---------------------
@@ -60,9 +60,7 @@ The Maza repo's [root README](/README.md) contains relevant information on the d
 - [Dnsseed Policy](dnsseed-policy.md)
 - [Benchmarking](benchmarking.md)
 
-### Resources
-* Discuss on the [MazaTalk](https://mazatalk.io/) forums.
-* Discuss general Maza development on #maza-dev on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=maza-dev).
+
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

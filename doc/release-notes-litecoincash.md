@@ -1,6 +1,6 @@
 Maza Core version 0.16.0 is now available from:
 
-  <https://download.litecoinca.sh/maza-0.16.0/>
+  <https://download.mazacoin.org>
 
 This is a new major version release, including new features, various bugfixes
 and performance improvements, as well as updated translations.
