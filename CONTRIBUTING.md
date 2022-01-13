@@ -1,4 +1,4 @@
-Contributing to Litecoin Cash Core
+Contributing to MAZA Core
 ==================================
 
 The Maza Core project operates an open contributor model where anyone is

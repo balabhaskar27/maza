@@ -3,15 +3,8 @@ Maza Core integration/staging tree
 
 [![Build Status](https://travis-ci.org/mazacoin/maza.svg?branch=master)](https://travis-ci.org/mazacoin/maza)
 
-https://litecoinca.sh
+https://mazacoin.org
 
-What is Maza?
----------------------
-
-Litecoin Cash is a SHA256 fork of Litecoin. For full details, as well as prebuilt binaries for 
-Windows, Mac and Linux, please visit our website.
-
-Litecoin Cash Core is the full node software that makes up the backbone of the LCC network.
 
 License
 -------
